@@ -12,6 +12,9 @@ spec:
       variables:
         ASPNETCORE_URLS: "http://*:5005"
       authentication:
+        clientCertificate:
+          verification: "optional_no_ca"
+          passCertificateToUpstream: true
         oauth2:
           # clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84 #<required>
           # scope: "openid profile email" #<optional default: openid profile email offline_access>
