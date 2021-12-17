@@ -7,10 +7,6 @@ spec:
     - name: qa
       build:
         from: main
-  dnsExternalAlias:
-    - alias: some.alias.com
-      environment: qa
-      component: server
   components:
     - name: "server"
       variables:
