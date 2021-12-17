@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace aspnet_webapp
 {
@@ -40,6 +41,16 @@ namespace aspnet_webapp
             }
 
             app.UseStaticFiles();
+
+            app.Use(async (ctx, next) => {
+                var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
+                var logger=logfactory.CreateLogger("middleware");
+                foreach (var h in ctx.Request.Headers.AsEnumerable()) //.Where(h=>h.Key.StartsWith("X-Custom") || h.Key.ToLower().StartsWith("auth"))
+                {
+                    logger.LogInformation("{0}:{1}", h.Key, h.Value);
+                }
+                await next();
+            });
 
             app.UseRouting();
 
