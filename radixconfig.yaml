@@ -7,11 +7,21 @@ spec:
     - name: qa
       build:
         from: main
+  dnsExternalAlias:
+    - alias: some.alias.com
+      environment: qa
+      component: server
   components:
     - name: "server"
       variables:
         ASPNETCORE_URLS: "http://*:5005"
+      secrets:
+        - SECRET1
+        - SECRET2
       authentication:
+        clientCertificate:
+          verification: "optional_no_ca"
+          passCertificateToUpstream: true
         oauth2:
           # clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84 #<required>
           # scope: "openid profile email" #<optional default: openid profile email offline_access>
