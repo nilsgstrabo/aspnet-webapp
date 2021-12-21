@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
+using Microsoft.AspNetCore.Authentication;
 
 namespace aspnet_webapp
 {
@@ -24,6 +27,23 @@ namespace aspnet_webapp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(o=>{
+                    o.Audience="5687b237-eda3-4ec3-a2a1-023e85a2bd84";
+                    o.ClaimsIssuer="https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0";
+                    o.MetadataAddress="https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0/.well-known/openid-configuration";
+                    o.TokenValidationParameters=new Microsoft.IdentityModel.Tokens.TokenValidationParameters{
+                        NameClaimType="name"
+                    };
+                    o.Events=new JwtBearerEvents();
+                    o.Events.OnMessageReceived=(ctx)=>{
+                        return Task.CompletedTask;
+                    };
+                    o.Events.OnAuthenticationFailed=(ctx) => {
+                        return Task.CompletedTask;
+                    };
+                });
+            
             services.AddRazorPages();
         }
 
@@ -41,6 +61,7 @@ namespace aspnet_webapp
             }
 
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.Use(async (ctx, next) => {
                 var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
