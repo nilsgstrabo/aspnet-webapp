@@ -63,7 +63,7 @@ namespace aspnet_webapp
                 // {
                 //     logger.LogInformation("{0}:{1}", h.Key, h.Value);
                 // }
-                // await next();
+                await next();
             });
 
             app.UseRouting();
