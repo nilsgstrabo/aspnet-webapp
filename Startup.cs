@@ -35,13 +35,6 @@ namespace aspnet_webapp
                     o.TokenValidationParameters=new Microsoft.IdentityModel.Tokens.TokenValidationParameters{
                         NameClaimType="name"
                     };
-                    o.Events=new JwtBearerEvents();
-                    o.Events.OnMessageReceived=(ctx)=>{
-                        return Task.CompletedTask;
-                    };
-                    o.Events.OnAuthenticationFailed=(ctx) => {
-                        return Task.CompletedTask;
-                    };
                 });
             
             services.AddRazorPages();
@@ -64,13 +57,13 @@ namespace aspnet_webapp
             app.UseAuthentication();
 
             app.Use(async (ctx, next) => {
-                var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
-                var logger=logfactory.CreateLogger("middleware");
-                foreach (var h in ctx.Request.Headers.AsEnumerable()) //.Where(h=>h.Key.StartsWith("X-Custom") || h.Key.ToLower().StartsWith("auth"))
-                {
-                    logger.LogInformation("{0}:{1}", h.Key, h.Value);
-                }
-                await next();
+                // var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
+                // var logger=logfactory.CreateLogger("middleware");
+                // foreach (var h in ctx.Request.Headers.AsEnumerable()) //.Where(h=>h.Key.StartsWith("X-Custom") || h.Key.ToLower().StartsWith("auth"))
+                // {
+                //     logger.LogInformation("{0}:{1}", h.Key, h.Value);
+                // }
+                // await next();
             });
 
             app.UseRouting();
