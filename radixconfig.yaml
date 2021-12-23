@@ -45,7 +45,7 @@ spec:
               setXAuthRequestHeaders: true
               setAuthorizationHeader: true
               sessionStoreType: cookie
-              proxyPrefix: /oauth3/sub/
+              proxyPrefix: /oauth4/sub/
               # redisStore:
                 # connectionUrl: "rediss://auth-proxy-spike.redis.cache.windows.net:6380"
       ports:
