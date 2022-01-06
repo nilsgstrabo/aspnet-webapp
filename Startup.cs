@@ -58,7 +58,7 @@ namespace aspnet_webapp
 
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseAuthorization();
+            
 
             app.Use(async (ctx, next) => {
                 var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
@@ -71,7 +71,7 @@ namespace aspnet_webapp
             });
 
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages().RequireAuthorization();
