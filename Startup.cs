@@ -37,9 +37,10 @@ namespace aspnet_webapp
                     };
                 });
             
-
+            services.AddAuthorization();
             services.AddRazorPages(c=>{
                 c.Conventions.AllowAnonymousToPage("/Index");
+                c.Conventions.AllowAnonymousToPage("/Error");
             });
         }
 
