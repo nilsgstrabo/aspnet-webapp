@@ -37,6 +37,7 @@ namespace aspnet_webapp
                     };
                 });
             
+
             services.AddRazorPages(c=>{
                 c.Conventions.AllowAnonymousToPage("/Index");
             });
@@ -73,7 +74,7 @@ namespace aspnet_webapp
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapRazorPages().RequireAuthorization();
             });
         }
     }
