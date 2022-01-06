@@ -37,7 +37,9 @@ namespace aspnet_webapp
                     };
                 });
             
-            services.AddRazorPages();
+            services.AddRazorPages(c=>{
+                c.Conventions.AllowAnonymousToPage("/Index");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +57,7 @@ namespace aspnet_webapp
 
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.Use(async (ctx, next) => {
                 var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
