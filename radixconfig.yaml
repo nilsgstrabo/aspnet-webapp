@@ -10,11 +10,11 @@ spec:
         from: main
   components:
     - name: "server"
-      # authentication:
-      #   oauth2:
-      #     setXAuthRequestHeaders: true
-      #     setAuthorizationHeader: true
-      #     sessionStoreType: redis
+      authentication:
+        oauth2:
+          setXAuthRequestHeaders: true
+          setAuthorizationHeader: true
+          sessionStoreType: redis
       variables:
         ASPNETCORE_URLS: "http://*:5005"
       # environmentConfig:
