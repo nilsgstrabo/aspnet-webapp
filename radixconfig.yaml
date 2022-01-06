@@ -17,13 +17,13 @@ spec:
           sessionStoreType: redis
       variables:
         ASPNETCORE_URLS: "http://*:5005"
-      # environmentConfig:
-      #   - environment: qa
-      #     authentication:
-      #       oauth2:
-      #         clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
-      #         redisStore:
-      #           connectionUrl: "rediss://auth-proxy-spike.redis.cache.windows.net:6380"
+      environmentConfig:
+        - environment: qa
+          authentication:
+            oauth2:
+              clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
+              redisStore:
+                connectionUrl: "rediss://auth-proxy-spike.redis.cache.windows.net:6380"
       ports:
         - name: http
           port: 5005
