@@ -10,17 +10,18 @@ spec:
         from: main
   components:
     - name: "server"
-      # authentication:
-      #   oauth2:
-      #     setXAuthRequestHeaders: true
-      #     setAuthorizationHeader: true
+      authentication:
+        oauth2:
+          setXAuthRequestHeaders: true
+          setAuthorizationHeader: true
+          scope: openid profile email offline_access 6dae42f8-4368-4678-94ff-3960e28e3630/user.read
       variables:
         ASPNETCORE_URLS: "http://*:5005"
       environmentConfig:
         - environment: qa
           authentication:
-            # oauth2:
-            #   clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
+            oauth2:
+              clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
         - environment: prod
           authentication:
             # oauth2:
