@@ -28,7 +28,7 @@ using System.Collections.Generic;
         public async Task<UserInfo> GetUserInfo()
         {
             await Task.CompletedTask;
-            return new UserInfo();
+            return new UserInfo {Name="Nils"};
         }
     }
 }
