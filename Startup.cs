@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using Microsoft.AspNetCore.Authentication;
+using aspnet_webapp.Services;
 
 namespace aspnet_webapp
 {
@@ -42,6 +43,8 @@ namespace aspnet_webapp
                 c.Conventions.AllowAnonymousToPage("/Index");
                 c.Conventions.AllowAnonymousToPage("/Error");
             });
+
+            services.AddScoped<IUserInfoService, UserInfoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
