@@ -64,12 +64,22 @@ namespace aspnet_webapp
             app.UseAuthentication();
             
 
+            // app.Use(async (ctx, next) => {
+            //     var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
+            //     var logger=logfactory.CreateLogger("middleware");
+            //     foreach (var h in ctx.Request.Headers.Where(h=>h.Key.StartsWith("X-Auth") || h.Key.ToLower().StartsWith("auth")).AsEnumerable()) //.Where(h=>h.Key.StartsWith("X-Custom") || h.Key.ToLower().StartsWith("auth"))
+            //     {
+            //         logger.LogInformation("{0}:{1}", h.Key, h.Value);
+            //     }
+            //     await next();
+            // });
+
             app.Use(async (ctx, next) => {
                 var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
                 var logger=logfactory.CreateLogger("middleware");
-                foreach (var h in ctx.Request.Headers.Where(h=>h.Key.StartsWith("X-Auth") || h.Key.ToLower().StartsWith("auth")).AsEnumerable()) //.Where(h=>h.Key.StartsWith("X-Custom") || h.Key.ToLower().StartsWith("auth"))
+                foreach (var c in ctx.Request.Cookies)
                 {
-                    logger.LogInformation("{0}:{1}", h.Key, h.Value);
+                    logger.LogInformation("{0}:{1}",c.Key,c.Value.Length);
                 }
                 await next();
             });
