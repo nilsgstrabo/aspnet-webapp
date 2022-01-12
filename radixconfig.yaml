@@ -36,11 +36,10 @@ spec:
       resources:
         requests:
           memory: "150M"
-          cpu: "1"
+          cpu: "1000m"
         limits:
           memory: "500M"
-          cpu: "1"
-      replicas: 1
+          cpu: "1000m"
     - name: "server2"
       variables:
         ASPNETCORE_URLS: "http://*:5005"
@@ -68,8 +67,7 @@ spec:
       resources:
         requests:
           memory: "150M"
-          cpu: "1"
+          cpu: "1000m"
         limits:
           memory: "500M"
-          cpu: "1"
-      replicas: 1
+          cpu: "1000m"
