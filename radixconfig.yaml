@@ -36,10 +36,10 @@ spec:
       resources:
         requests:
           memory: "150M"
-          cpu: "50m"
+          cpu: "1"
         limits:
           memory: "500M"
-          cpu: "50m"
+          cpu: "1"
       replicas: 1
     - name: "server2"
       variables:
@@ -68,8 +68,8 @@ spec:
       resources:
         requests:
           memory: "150M"
-          cpu: "50m"
+          cpu: "1"
         limits:
           memory: "500M"
-          cpu: "50m"
+          cpu: "1"
       replicas: 1
