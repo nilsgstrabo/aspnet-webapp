@@ -60,6 +60,16 @@ namespace aspnet_webapp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             }
 
+            app.Use(async (ctx, next) => {
+                var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
+                var logger=logfactory.CreateLogger("middleware");
+                foreach (var c in ctx.Request.Cookies)
+                {
+                    logger.LogInformation("{0}:{1}",c.Key,c.Value.Length);
+                }
+                await next();
+            });
+
             app.UseStaticFiles();
             app.UseAuthentication();
             
@@ -74,15 +84,7 @@ namespace aspnet_webapp
             //     await next();
             // });
 
-            app.Use(async (ctx, next) => {
-                var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
-                var logger=logfactory.CreateLogger("middleware");
-                foreach (var c in ctx.Request.Cookies)
-                {
-                    logger.LogInformation("{0}:{1}",c.Key,c.Value.Length);
-                }
-                await next();
-            });
+
 
             app.UseRouting();
             app.UseAuthorization();
