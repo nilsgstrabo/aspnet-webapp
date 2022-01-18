@@ -22,6 +22,9 @@ spec:
           authentication:
             oauth2:
               clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
+            sessionStoreType: redis
+            redisStore:
+              connectionUrl: "redis://redis:6379"
         - environment: prod
           authentication:
             oauth2:
@@ -71,3 +74,10 @@ spec:
         limits:
           memory: "500M"
           cpu: "1000m"
+    - name: redis
+      image: bitnami/redis:latest
+      secrets:
+        - REDIS_PASSWORD
+      ports:
+        - name: redis
+          port: 6379
