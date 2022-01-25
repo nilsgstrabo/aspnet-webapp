@@ -60,29 +60,30 @@ namespace aspnet_webapp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             }
 
-            app.Use(async (ctx, next) => {
-                var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
-                var logger=logfactory.CreateLogger("middleware");
-                foreach (var c in ctx.Request.Cookies)
-                {
-                    logger.LogInformation("{0}:{1}",c.Key,c.Value.Length);
-                }
-                await next();
-            });
+            // app.Use(async (ctx, next) => {
+            //     var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
+            //     var logger=logfactory.CreateLogger("middleware");
+            //     foreach (var c in ctx.Request.Cookies)
+            //     {
+            //         logger.LogInformation("{0}:{1}",c.Key,c.Value.Length);
+            //     }
+            //     await next();
+            // });
 
             app.UseStaticFiles();
             app.UseAuthentication();
             
 
-            // app.Use(async (ctx, next) => {
-            //     var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
-            //     var logger=logfactory.CreateLogger("middleware");
-            //     foreach (var h in ctx.Request.Headers.Where(h=>h.Key.StartsWith("X-Auth") || h.Key.ToLower().StartsWith("auth")).AsEnumerable()) //.Where(h=>h.Key.StartsWith("X-Custom") || h.Key.ToLower().StartsWith("auth"))
-            //     {
-            //         logger.LogInformation("{0}:{1}", h.Key, h.Value);
-            //     }
-            //     await next();
-            // });
+            app.Use(async (ctx, next) => {
+                var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
+                var logger=logfactory.CreateLogger("middleware");
+                foreach (var h in ctx.Request.Headers.Where(h=>h.Key.StartsWith("X-Auth") || h.Key.ToLower().StartsWith("auth")).AsEnumerable()) //.Where(h=>h.Key.StartsWith("X-Custom") || h.Key.ToLower().StartsWith("auth"))
+                {
+                    var value = h.Value.FirstOrDefault() ?? "";
+                    logger.LogInformation("{0}:{1}", h.Key, value.Substring(0,value.Length>20 ? 20 : value.Length));
+                }
+                await next();
+            });
 
 
 
