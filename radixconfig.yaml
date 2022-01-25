@@ -17,6 +17,13 @@ spec:
           scope: openid profile email offline_access 6dae42f8-4368-4678-94ff-3960e28e3630/user.read
       variables:
         ASPNETCORE_URLS: "http://*:5005"
+      secretRefs:
+        azureKeyVaults:                    #Azure Key vault configuration, common for the component
+          - name: radix-app-secrets1
+            path: /mnt/secrets                   #overrides default "path", where secrets, keys and certificates are available as files
+            items:
+              - name: connection-string-prod     #example value "server:prod" in Azure Key vault "radix-app-secrets"
+                envVar: CONNECTION_STRING        #default environment variable CONNECTION_STRING
       environmentConfig:
         - environment: qa
           authentication:
@@ -51,6 +58,13 @@ spec:
         ASPNETCORE_URLS: "http://*:5005"
       secrets:
         - REDIS_PASSWORD
+      secretRefs:
+        azureKeyVaults:                    #Azure Key vault configuration, common for the component
+          - name: radix-app-secrets2
+            path: /mnt/secrets                   #overrides default "path", where secrets, keys and certificates are available as files
+            items:
+              - name: connection-string-prod     #example value "server:prod" in Azure Key vault "radix-app-secrets"
+                envVar: CONNECTION_STRING        #default environment variable CONNECTION_STRING
       environmentConfig:
         - environment: qa
           authentication:
