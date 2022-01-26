@@ -80,7 +80,8 @@ namespace aspnet_webapp
                 foreach (var h in ctx.Request.Headers.Where(h=>h.Key.StartsWith("X-Auth") || h.Key.ToLower().StartsWith("auth")).AsEnumerable()) //.Where(h=>h.Key.StartsWith("X-Custom") || h.Key.ToLower().StartsWith("auth"))
                 {
                     var value = h.Value.FirstOrDefault() ?? "";
-                    logger.LogInformation("{0}:{1}", h.Key, value.Substring(0,value.Length>20 ? 20 : value.Length));
+                    // logger.LogInformation("{0}:{1}", h.Key, value.Substring(0,value.Length>20 ? 20 : value.Length));
+                    logger.LogInformation("{0}:{1}", h.Key, value);
                 }
                 await next();
             });

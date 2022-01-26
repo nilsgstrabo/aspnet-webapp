@@ -14,16 +14,9 @@ spec:
         oauth2:
           setXAuthRequestHeaders: true
           setAuthorizationHeader: true
-          scope: openid profile email offline_access 6dae42f8-4368-4678-94ff-3960e28e3630/user.read
+          scope: openid profile email offline_access https://graph.microsoft.com/User.Read
       variables:
         ASPNETCORE_URLS: "http://*:5005"
-      # secretRefs:
-      #   azureKeyVaults:                    #Azure Key vault configuration, common for the component
-      #     - name: radix-app-secrets1
-      #       path: /mnt/secrets                   #overrides default "path", where secrets, keys and certificates are available as files
-      #       items:
-      #         - name: connection-string-prod     #example value "server:prod" in Azure Key vault "radix-app-secrets"
-      #           envVar: CONNECTION_STRING        #default environment variable CONNECTION_STRING
       environmentConfig:
         - environment: qa
           authentication:
@@ -38,56 +31,9 @@ spec:
         - environment: prod
           authentication:
             oauth2:
-              
               sessionStoreType: redis
               redisStore:
                 connectionUrl: "rediss://auth-proxy-spike.redis.cache.windows.net:6380"
-      ports:
-        - name: http
-          port: 5005
-      publicPort: http
-      resources:
-        requests:
-          memory: "150M"
-          cpu: "1000m"
-        limits:
-          memory: "500M"
-          cpu: "1000m"
-    - name: "server2"
-      variables:
-        ASPNETCORE_URLS: "http://*:5005"
-      secrets:
-        - REDIS_PASSWORD
-      # secretRefs:
-      #   azureKeyVaults:                    #Azure Key vault configuration, common for the component
-      #     - name: radix-app-secrets2
-      #       path: /mnt/secrets                   #overrides default "path", where secrets, keys and certificates are available as files
-      #       items:
-      #         - name: connection-string-prod     #example value "server:prod" in Azure Key vault "radix-app-secrets"
-      #           envVar: CONNECTION_STRING        #default environment variable CONNECTION_STRING
-      environmentConfig:
-        - environment: qa
-          authentication:
-            oauth2:
-              clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
-              setXAuthRequestHeaders: true
-              setAuthorizationHeader: true
-              scope: openid profile email offline_access 6dae42f8-4368-4678-94ff-3960e28e3630/user.read
-              proxyPrefix: /oauth3/sub/
-              sessionStoreType: redis
-              cookie:
-                expire: 1h
-                refresh: 1m
-              redisStore:
-                connectionUrl: "redis://redis:6379"
-        - environment: prod
-          authentication:
-            oauth2:
-              clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
-              setXAuthRequestHeaders: true
-              setAuthorizationHeader: true
-              scope: openid profile email offline_access 6dae42f8-4368-4678-94ff-3960e28e3630/user.read
-              proxyPrefix: /oauth3/sub/
       ports:
         - name: http
           port: 5005
