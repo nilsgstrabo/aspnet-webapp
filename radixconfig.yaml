@@ -14,7 +14,7 @@ spec:
         oauth2:
           setXAuthRequestHeaders: true
           setAuthorizationHeader: true
-          scope: openid profile email offline_access https://graph.microsoft.com/User.Read https://graph.microsoft.com/User.Read
+          scope: openid profile email offline_access https://graph.microsoft.com/User.Read
       variables:
         ASPNETCORE_URLS: "http://*:5005"
       environmentConfig:
@@ -24,7 +24,7 @@ spec:
               clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
               sessionStoreType: redis
               cookie:
-                expire: 1h
+                expire: 2m
                 refresh: 1m
               redisStore:
                 connectionUrl: "redis://redis:6379"
