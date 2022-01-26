@@ -24,7 +24,7 @@ spec:
               clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
               sessionStoreType: redis
               cookie:
-                expire: 2m
+                expire: 5m
                 refresh: 1m
               redisStore:
                 connectionUrl: "redis://redis:6379"
