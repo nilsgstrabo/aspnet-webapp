@@ -14,7 +14,7 @@ spec:
         oauth2:
           setXAuthRequestHeaders: true
           setAuthorizationHeader: true
-          scope: openid profile email offline_access User.Read https://graph.microsoft.com
+          scope: openid profile email offline_access User.Read https://graph.microsoft.com/.default
       variables:
         ASPNETCORE_URLS: "http://*:5005"
       environmentConfig:
