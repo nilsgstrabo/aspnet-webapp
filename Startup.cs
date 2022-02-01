@@ -30,7 +30,7 @@ namespace aspnet_webapp
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(o=>{
-                    o.Audience="5687b237-eda3-4ec3-a2a1-023e85a2bd84";
+                    o.Audience="5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6";
                     o.ClaimsIssuer="https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0";
                     o.MetadataAddress="https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0/.well-known/openid-configuration";
                     o.TokenValidationParameters=new Microsoft.IdentityModel.Tokens.TokenValidationParameters{
