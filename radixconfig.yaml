@@ -12,6 +12,7 @@ spec:
     - name: "server"
       authentication:
         oauth2:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
           setXAuthRequestHeaders: true
           setAuthorizationHeader: true
           scope: openid profile email offline_access
@@ -20,23 +21,21 @@ spec:
       environmentConfig:
         - environment: qa
           authentication:
-            oauth2:
-              clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-              # sessionStoreType: cookie
-              # cookie:
-              #   expire: 5m
-              #   refresh: 1m
-              # cookieStore:
-              #   minimal: false
-              # redisStore:
-              #   connectionUrl: "redis://redis:6379"
+            # oauth2:
+            #   sessionStoreType: cookie
+            #   cookie:
+            #     expire: 5m
+            #     refresh: 1m
+            #   cookieStore:
+            #     minimal: false
+            #   redisStore:
+            #     connectionUrl: "redis://redis:6379"
         - environment: prod
           authentication:
             oauth2:
-              clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
               sessionStoreType: redis
               redisStore:
-                connectionUrl: "rediss://auth-proxy-spike.redis.cache.windows.net:6380"
+                connectionUrl: "redis://redis:6379"
       ports:
         - name: http
           port: 5005
