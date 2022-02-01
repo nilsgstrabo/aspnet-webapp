@@ -25,7 +25,7 @@ spec:
               sessionStoreType: cookie
               cookie:
                 expire: 5m
-                refresh: 5m
+                refresh: 1m
               cookieStore:
                 minimal: false
               redisStore:
