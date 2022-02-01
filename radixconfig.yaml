@@ -12,8 +12,8 @@ spec:
     - name: "server"
       authentication:
         oauth2:
-          setXAuthRequestHeaders: false
-          setAuthorizationHeader: false
+          setXAuthRequestHeaders: true
+          setAuthorizationHeader: true
           scope: openid profile email offline_access
       variables:
         ASPNETCORE_URLS: "http://*:5005"
