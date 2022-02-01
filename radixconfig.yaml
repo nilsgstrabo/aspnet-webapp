@@ -56,7 +56,9 @@ spec:
       ports:
         - name: redis
           port: 6379
-
+  dnsAppAlias:
+    environment: qa
+    component: web1
 
       # authentication:
       #   oauth2:
