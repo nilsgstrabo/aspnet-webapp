@@ -33,8 +33,9 @@ spec:
           memory: "500M"
           cpu: "1000m"
     - name: web2
-      oauth2: 
-        clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+      authentication:
+        oauth2:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
         ASPNETCORE_URLS: http://*:5005
       ports:
