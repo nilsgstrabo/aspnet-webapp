@@ -22,7 +22,7 @@ spec:
         - environment: qa
           authentication:
             oauth2:
-              proxyPrefix: /
+              proxyPrefix: /oauth2/x/..
             #   sessionStoreType: cookie
             #   cookie:
             #     expire: 5m
