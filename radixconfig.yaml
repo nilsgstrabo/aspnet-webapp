@@ -21,7 +21,7 @@ spec:
         - environment: qa
           authentication:
             oauth2:
-              clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
+              clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
               # sessionStoreType: cookie
               # cookie:
               #   expire: 5m
@@ -33,7 +33,7 @@ spec:
         - environment: prod
           authentication:
             oauth2:
-              clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
+              clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
               sessionStoreType: redis
               redisStore:
                 connectionUrl: "rediss://auth-proxy-spike.redis.cache.windows.net:6380"
