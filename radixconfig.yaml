@@ -36,7 +36,8 @@ spec:
               clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
               sessionStoreType: redisx
               redisStore:
-                connectionUrl: "rediss://auth-proxy-spike.redis.cache.windows.net:6380"
+                xx: test
+                # connectionUrl: "rediss://auth-proxy-spike.redis.cache.windows.net:6380"
       ports:
         - name: http
           port: 5005
