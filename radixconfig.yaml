@@ -35,7 +35,7 @@ spec:
             oauth2:
               clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
               sessionStoreType: redis
-              redisStore:
+              # redisStore:
                 # connectionUrl: "rediss://auth-proxy-spike.redis.cache.windows.net:6380"
       ports:
         - name: http
