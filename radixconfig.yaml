@@ -23,16 +23,11 @@ spec:
             oauth2:
               clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84
               sessionStoreType: cookie
-              loginUrl: abc
-              # redeemUrl: bcd
-              oidc:
-                skipDiscovery: true
-                jwksUrl: abc
               cookie:
                 expire: 5m
-                refresh: 0m
+                refresh: 6m
               cookieStore:
-                minimal: true
+                minimal: false
               redisStore:
                 connectionUrl: "redis://redis:6379"
         - environment: prod
