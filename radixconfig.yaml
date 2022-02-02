@@ -32,7 +32,7 @@ spec:
           setAuthorizationHeader: true
           sessionStoreType: redis
           redisStore:
-            connectionUrl: "redis://redis:6379"
+            connectionUrl: redis://redis:6379
       variables:
         ASPNETCORE_URLS: http://*:5005
       ports:
