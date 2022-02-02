@@ -9,16 +9,7 @@ spec:
       build:
         from: main
   components:
-    - name: web1
-      # authentication:
-      #   oauth2: 
-      #     clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-      #     scope: openid profile email offline_access
-      #     setXAuthRequestHeaders: true
-      #     setAuthorizationHeader: true
-      #     sessionStoreType: redis
-      #     redisStore:
-      #       connectionUrl: "redis://redis:6379"
+    - name: web-noauth
       variables:
         ASPNETCORE_URLS: http://*:5005
       ports:
@@ -32,10 +23,40 @@ spec:
         limits:
           memory: "500M"
           cpu: "1000m"
-    - name: web2
-      # authentication:
-      #   oauth2:
-      #     clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+    - name: web-redis
+      authentication:
+        oauth2: 
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+          scope: openid profile email offline_access
+          setXAuthRequestHeaders: true
+          setAuthorizationHeader: true
+          sessionStoreType: redis
+          redisStore:
+            connectionUrl: "redis://redis:6379"
+          # cookie:
+          #   name: _oauth_proxy_
+          #   expire: 168h
+          #   refresh: 60m
+          #   sameSite: lax
+          # oidc:
+          #   issuerUrl: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0
+      variables:
+        ASPNETCORE_URLS: http://*:5005
+      ports:
+        - name: http
+          port: 5005
+      publicPort: http
+      resources:
+        requests:
+          memory: "150M"
+          cpu: "1000m"
+        limits:
+          memory: "500M"
+          cpu: "1000m"
+    - name: web-cookie
+      authentication:
+        oauth2:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
         ASPNETCORE_URLS: http://*:5005
       ports:
