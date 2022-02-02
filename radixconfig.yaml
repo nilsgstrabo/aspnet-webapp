@@ -79,11 +79,4 @@ spec:
           port: 6379
   dnsAppAlias:
     environment: qa
-    component: web1
-
-      # authentication:
-      #   oauth2:
-      #     clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-      #     setXAuthRequestHeaders: true
-      #     setAuthorizationHeader: true
-      #     scope: openid profile email offline_access          
+    component: web-redis
