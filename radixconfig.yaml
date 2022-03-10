@@ -8,6 +8,10 @@ spec:
     - name: qa
       build:
         from: main
+  dnsExternalAlias:
+    - alias: first.alias.com
+      environment: prod
+      component: web
   components:
     - name: web
       variables:
