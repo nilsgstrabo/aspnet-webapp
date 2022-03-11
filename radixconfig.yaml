@@ -9,7 +9,7 @@ spec:
       build:
         from: main
   dnsExternalAlias:
-    - alias: second.alias.com
+    - alias: third.alias.com
       environment: prod
       component: web
   components:
