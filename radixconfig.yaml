@@ -9,7 +9,7 @@ spec:
       build:
         from: main
   dnsExternalAlias:
-    - alias: third.alias.com
+    - alias: first.alias.com
       environment: prod
       component: web
   components:
@@ -23,10 +23,10 @@ spec:
       resources:
         requests:
           memory: "150M"
-          cpu: "1000m"
+          cpu: "100m"
         limits:
           memory: "500M"
-          cpu: "1000m"
+          cpu: "100m"
     # - name: web-redis
     #   authentication:
     #     oauth2: 
