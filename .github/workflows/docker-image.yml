@@ -71,20 +71,15 @@ jobs:
           SECRETENV: anothersecretvalue
       - name: echo
         run: |
-          echo start
-          echo ${{ matrix.client-id-secret }}
-          echo ${{ secrets[matrix.client-id-secret] }}
-          echo ${{ steps.prepare.outputs.db-password }}
-          echo ${{ steps.prepare.outputs.no-secret }}
-          echo ${{ steps.prepare.outputs.secret-env }}
-          echo end
-      - name: echo2
-        run: |
-          echo start
-          echo ${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}
-          echo ${{ env.THEKEY }}
-          echo ${{ env.THEVALUE }}
-          echo end
+          echo "start"
+          echo "client-id-secret name: ${{ matrix.client-id-secret }}"
+          echo "client-id-secret value: ${{ secrets[matrix.client-id-secret] }}"
+          echo "db-password: ${{ steps.prepare.outputs.db-password }}"
+          echo "no-secret: ${{ steps.prepare.outputs.no-secret }}"
+          echo "secret-env: ${{ steps.prepare.outputs.secret-env }}"
+          echo "THEKEY: ${{ env.THEKEY }}"
+          echo "THEVALUE: ${{ env.THEVALUE }}"
+          echo "end"
         env:
           THEVALUE: ${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}
           THEKEY: ${{ matrix.key-vault-secret }}
