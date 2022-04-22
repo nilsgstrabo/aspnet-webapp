@@ -32,34 +32,23 @@ jobs:
             key-vault-secret: testdev
             client-id-secret: AZURE_CLIENT_ID_DEV
             subscription-id-secret: AZURE_SUBSCRIPTION_ID_DEV
-          - registry: radixdev
-            key-vault: radix-vault-dev
-            key-vault-secret: testplayground
-            client-id-secret: AZURE_CLIENT_ID_DEV
-            subscription-id-secret: AZURE_SUBSCRIPTION_ID_DEV
-          - registry: radixprod
-            key-vault: radix-vault-prod
-            key-vault-secret: test
-            client-id-secret: AZURE_CLIENT_ID_PROD
-            subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
-          - registry: radixc2prod
-            key-vault: radix-vault-c2-prod
-            key-vault-secret: test
-            client-id-secret: AZURE_CLIENT_ID_PROD
-            subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
+          # - registry: radixdev
+          #   key-vault: radix-vault-dev
+          #   key-vault-secret: testplayground
+          #   client-id-secret: AZURE_CLIENT_ID_DEV
+          #   subscription-id-secret: AZURE_SUBSCRIPTION_ID_DEV
+          # - registry: radixprod
+          #   key-vault: radix-vault-prod
+          #   key-vault-secret: test
+          #   client-id-secret: AZURE_CLIENT_ID_PROD
+          #   subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
+          # - registry: radixc2prod
+          #   key-vault: radix-vault-c2-prod
+          #   key-vault-secret: test
+          #   client-id-secret: AZURE_CLIENT_ID_PROD
+          #   subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
 
     steps:
-      - name: Prepare
-        run: |
-          echo "::set-output name=prepareout::prepareoutval"
-        id: prepare
-      - name: echo
-        run: |
-          echo start
-          echo ${{ matrix.client-id-secret }}
-          echo ${{ secrets[matrix.client-id-secret] }}
-          echo ${{ steps.prepare.outputs.prepareout }}
-          echo end
       - name: Login to Azure
         uses: azure/login@v1
         with:
@@ -71,6 +60,19 @@ jobs:
           keyvault: ${{ matrix.key-vault }}
           secrets: ${{ matrix.key-vault-secret }}
         id: adminPassword
+      - name: Prepare
+        run: |
+          echo "::set-output name=password::${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}"
+          echo "::set-output name=nosecret::notsecretvalue"
+        id: prepare
+      - name: echo
+        run: |
+          echo start
+          echo ${{ matrix.client-id-secret }}
+          echo ${{ secrets[matrix.client-id-secret] }}
+          echo ${{ steps.prepare.outputs.password }}
+          echo ${{ steps.prepare.outputs.nosecret }}
+          echo end
       - name: echo2
         run: |
           echo start
