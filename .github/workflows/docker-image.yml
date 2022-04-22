@@ -22,6 +22,7 @@ permissions:
 jobs:
 
   deploy-db:
+    if: matrix.shouldRun
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 2
@@ -34,6 +35,7 @@ jobs:
             resource-group: cost-allocation
             client-id-secret: AZURE_CLIENT_ID_DEV
             subscription-id-secret: AZURE_SUBSCRIPTION_ID_DEV
+            shouldRun: ${{ contains(github.ref, 'main') }}
           - registry: radixdev
             key-vault: radix-vault-dev
             key-vault-secret: testplayground
@@ -41,6 +43,7 @@ jobs:
             resource-group: cost-allocation
             client-id-secret: AZURE_CLIENT_ID_DEV
             subscription-id-secret: AZURE_SUBSCRIPTION_ID_DEV
+            shouldRun: ${{ contains(github.ref, 'main') }}
           - registry: radixprod
             key-vault: radix-vault-prod
             key-vault-secret: test
@@ -48,6 +51,7 @@ jobs:
             resource-group: cost-allocation
             client-id-secret: AZURE_CLIENT_ID_PROD
             subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
+            shouldRun: ${{ contains(github.ref, 'release') }}
           - registry: radixc2prod
             key-vault: radix-vault-c2-prod
             key-vault-secret: test
@@ -55,6 +59,7 @@ jobs:
             resource-group: cost-allocation-westeurope
             client-id-secret: AZURE_CLIENT_ID_PROD
             subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
+            shouldRun: ${{ contains(github.ref, 'release') }}
 
     steps:
       - name: Login to Azure
