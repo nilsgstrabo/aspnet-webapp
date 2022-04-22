@@ -3,16 +3,27 @@ name: Docker Image CI
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+
 
 jobs:
 
-  build:
-
+  deploy-db:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - registry: radixdev
+            client-id: CLIENT_ID_DEV
+          - registry: radixprod
+            client-id: CLIENT_ID_PROD
+          - registry: radixc2prod
+            client-id: CLIENT_ID_PROD
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: echo
+        run: echo $CLIENT_ID
+        env:
+          CLIENT_ID: ${{ matrix.client-id }}
+    # - uses: actions/checkout@v3
+    # - name: Build the Docker image
+    #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
