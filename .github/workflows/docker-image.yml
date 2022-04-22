@@ -62,16 +62,20 @@ jobs:
         id: adminPassword
       - name: Prepare
         run: |
-          echo "::set-output name=password::${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}"
-          echo "::set-output name=nosecret::notsecretvalue"
+          echo "::set-output name=db-password::${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}"
+          echo "::set-output name=no-secret::notsecretvalue"
+          echo "::set-output name=secret-env::${{ env.SECRETENV }}"
         id: prepare
+        env:
+          SECRETENV: anothersecretvalue
       - name: echo
         run: |
           echo start
           echo ${{ matrix.client-id-secret }}
           echo ${{ secrets[matrix.client-id-secret] }}
-          echo ${{ steps.prepare.outputs.password }}
-          echo ${{ steps.prepare.outputs.nosecret }}
+          echo ${{ steps.prepare.outputs.db-password }}
+          echo ${{ steps.prepare.outputs.no-secret }}
+          echo ${{ steps.prepare.outputs.secret-env }}
           echo end
       - name: echo2
         run: |
