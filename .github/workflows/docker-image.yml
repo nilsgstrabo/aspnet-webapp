@@ -30,23 +30,31 @@ jobs:
           - registry: radixdev
             key-vault: radix-vault-dev
             key-vault-secret: testdev
+            sql-server-name: cost-dev
+            resource-group: cost-allocation
             client-id-secret: AZURE_CLIENT_ID_DEV
             subscription-id-secret: AZURE_SUBSCRIPTION_ID_DEV
-          # - registry: radixdev
-          #   key-vault: radix-vault-dev
-          #   key-vault-secret: testplayground
-          #   client-id-secret: AZURE_CLIENT_ID_DEV
-          #   subscription-id-secret: AZURE_SUBSCRIPTION_ID_DEV
-          # - registry: radixprod
-          #   key-vault: radix-vault-prod
-          #   key-vault-secret: test
-          #   client-id-secret: AZURE_CLIENT_ID_PROD
-          #   subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
-          # - registry: radixc2prod
-          #   key-vault: radix-vault-c2-prod
-          #   key-vault-secret: test
-          #   client-id-secret: AZURE_CLIENT_ID_PROD
-          #   subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
+          - registry: radixdev
+            key-vault: radix-vault-dev
+            key-vault-secret: testplayground
+            sql-server-name: cost-playground
+            resource-group: cost-allocation
+            client-id-secret: AZURE_CLIENT_ID_DEV
+            subscription-id-secret: AZURE_SUBSCRIPTION_ID_DEV
+          - registry: radixprod
+            key-vault: radix-vault-prod
+            key-vault-secret: test
+            sql-server-name: cost-prod
+            resource-group: cost-allocation
+            client-id-secret: AZURE_CLIENT_ID_PROD
+            subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
+          - registry: radixc2prod
+            key-vault: radix-vault-c2-prod
+            key-vault-secret: test
+            sql-server-name: cost-prod
+            resource-group: cost-allocation-westeurope
+            client-id-secret: AZURE_CLIENT_ID_PROD
+            subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
 
     steps:
       - name: Login to Azure
