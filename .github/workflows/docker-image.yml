@@ -24,7 +24,7 @@ jobs:
         run: |
           echo start
           echo ${{ env.CLIENT_ID }}
-          echo ${{ secrets.CLIENT_ID_DEV }}
+          echo ${{ secrets[env.CLIENT_ID] }}
           echo end
         env:
           CLIENT_ID: ${{ matrix.client-id }}
