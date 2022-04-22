@@ -24,6 +24,7 @@ jobs:
   deploy-db:
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 1
       matrix:
         include:
           - registry: radixdev
