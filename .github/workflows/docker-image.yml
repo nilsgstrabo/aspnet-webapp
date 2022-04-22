@@ -13,11 +13,25 @@ jobs:
       matrix:
         include:
           - registry: radixdev
-            client-id-secret: CLIENT_ID_DEV
+            key-vault: radix-vault-dev
+            key-vault-secret: testdev
+            client-id-secret: AZURE_CLIENT_ID_DEV
+            subscription-id-secret: AZURE_SUBSCRIPTION_ID_DEV
+          - registry: radixdev
+            key-vault: radix-vault-dev
+            key-vault-secret: testplayground
+            client-id-secret: AZURE_CLIENT_ID_DEV
+            subscription-id-secret: AZURE_SUBSCRIPTION_ID_DEV
           - registry: radixprod
-            client-id-secret: CLIENT_ID_PROD
+            key-vault: radix-vault-prod
+            key-vault-secret: test
+            client-id-secret: AZURE_CLIENT_ID_PROD
+            subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
           - registry: radixc2prod
-            client-id-secret: CLIENT_ID_PROD
+            key-vault: radix-vault-c2-prod
+            key-vault-secret: test
+            client-id-secret: AZURE_CLIENT_ID_PROD
+            subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
 
     steps:
       - name: echo
@@ -26,6 +40,12 @@ jobs:
           echo ${{ matrix.client-id-secret }}
           echo ${{ secrets[matrix.client-id-secret] }}
           echo end
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets[matrix.client-id-secret] }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets[matrix.subscription-id-secret] }}
     # - uses: actions/checkout@v3
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
