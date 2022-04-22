@@ -49,11 +49,16 @@ jobs:
             subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
 
     steps:
+      - name: Prepare
+        run: |
+          echo "::set-output name=prepareout::prepareoutval"
+        id: prepare
       - name: echo
         run: |
           echo start
           echo ${{ matrix.client-id-secret }}
           echo ${{ secrets[matrix.client-id-secret] }}
+          echo ${{ steps.prepare.outputs.prepareout }}
           echo end
       - name: Login to Azure
         uses: azure/login@v1
