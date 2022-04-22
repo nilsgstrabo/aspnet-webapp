@@ -23,7 +23,7 @@ jobs:
       - name: echo
         run: |
           echo start
-          echo ${{ CLIENT_ID }}
+          echo ${{ env.CLIENT_ID }}
           echo ${{ secrets.CLIENT_ID_DEV }}
           echo end
         env:
