@@ -24,7 +24,7 @@ jobs:
   deploy-db:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 1
+      max-parallel: 2
       matrix:
         include:
           - registry: radixdev
@@ -66,6 +66,17 @@ jobs:
           keyvault: ${{ matrix.key-vault }}
           secrets: ${{ matrix.key-vault-secret }}
         id: adminPassword
+      - name: echo2
+        run: |
+          echo start
+          echo ${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}
+          echo ${{ THEKEY }}
+          echo ${{ THEVALUE }}
+          echo end
+        env:
+          THEVALUE: ${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}
+          THEKEY: ${{ matrix.key-vault-secret }}
+
     # - uses: actions/checkout@v3
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
