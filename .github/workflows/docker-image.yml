@@ -13,21 +13,19 @@ jobs:
       matrix:
         include:
           - registry: radixdev
-            client-id: CLIENT_ID_DEV
+            client-id-secret: CLIENT_ID_DEV
           - registry: radixprod
-            client-id: CLIENT_ID_PROD
+            client-id-secret: CLIENT_ID_PROD
           - registry: radixc2prod
-            client-id: CLIENT_ID_PROD
+            client-id-secret: CLIENT_ID_PROD
 
     steps:
       - name: echo
         run: |
           echo start
-          echo ${{ env.CLIENT_ID }}
-          echo ${{ secrets[env.CLIENT_ID] }}
+          echo ${{ matrix.client-id-secret }}
+          echo ${{ secrets[matrix.client-id-secret] }}
           echo end
-        env:
-          CLIENT_ID: ${{ matrix.client-id }}
     # - uses: actions/checkout@v3
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
