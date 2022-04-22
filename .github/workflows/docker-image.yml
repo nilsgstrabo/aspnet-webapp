@@ -64,6 +64,7 @@ jobs:
         run: |
           echo "::set-output name=db-password::${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}"
           echo "::set-output name=no-secret::notsecretvalue"
+          echo "::set-output name=add-mask::$SECRETENV"
           echo "::set-output name=secret-env::${{ env.SECRETENV }}"
         id: prepare
         env:
