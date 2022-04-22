@@ -21,7 +21,11 @@ jobs:
 
     steps:
       - name: echo
-        run: echo $CLIENT_ID
+        run: |
+          echo start
+          echo ${{ secrets.${{ $CLIENT_ID }} }}
+          echo ${{ secrets.CLIENT_ID_PROD }}
+          echo end
         env:
           CLIENT_ID: ${{ matrix.client-id }}
     # - uses: actions/checkout@v3
