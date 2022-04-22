@@ -70,8 +70,8 @@ jobs:
         run: |
           echo start
           echo ${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}
-          echo ${{ THEKEY }}
-          echo ${{ THEVALUE }}
+          echo ${{ env.THEKEY }}
+          echo ${{ env.THEVALUE }}
           echo end
         env:
           THEVALUE: ${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}
