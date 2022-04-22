@@ -22,7 +22,7 @@ permissions:
 jobs:
 
   deploy-db:
-    if: matrix.shouldRun
+    if: ${{ matrix.shouldRun }}
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 2
