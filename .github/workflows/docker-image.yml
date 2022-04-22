@@ -61,6 +61,11 @@ jobs:
           client-id: ${{ secrets[matrix.client-id-secret] }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets[matrix.subscription-id-secret] }}
+      - uses: Azure/get-keyvault-secrets@v1
+        with:
+          keyvault: ${{ matrix.key-vault }}
+          secrets: ${{ matrix.key-vault-secret }}
+        id: adminPassword
     # - uses: actions/checkout@v3
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
