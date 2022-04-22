@@ -22,7 +22,6 @@ permissions:
 jobs:
 
   deploy-db:
-    if: ${{ matrix.shouldRun }}
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 2
@@ -92,6 +91,7 @@ jobs:
           echo "secret-env: ${{ steps.prepare.outputs.secret-env }}"
           echo "THEKEY: ${{ env.THEKEY }}"
           echo "THEVALUE: ${{ env.THEVALUE }}"
+          echo "shouldrun: ${{ matrix.shouldRun }}"
           echo "end"
         env:
           THEVALUE: ${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}
