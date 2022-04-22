@@ -13,18 +13,18 @@ jobs:
       matrix:
         include:
           - registry: radixdev
-            client-id: CLIENT_ID_DEV
+            client-id: ${{ secrets.CLIENT_ID_DEV }}
           - registry: radixprod
-            client-id: CLIENT_ID_PROD
+            client-id: ${{ secrets.CLIENT_ID_PROD }}
           - registry: radixc2prod
-            client-id: CLIENT_ID_PROD
+            client-id: ${{ secrets.CLIENT_ID_PROD }}
 
     steps:
       - name: echo
         run: |
           echo start
-          echo ${{ secrets.$CLIENT_ID }}
-          echo ${{ secrets.CLIENT_ID_PROD }}
+          echo $CLIENT_ID
+          echo ${{ $CLIENT_ID }}
           echo end
         env:
           CLIENT_ID: ${{ matrix.client-id }}
