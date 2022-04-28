@@ -21,7 +21,7 @@ spec:
           port: 5005
       publicPort: http
       environmentConfig:
-        - name: qa
+        - environment: qa
           replicas: 0
       resources:
         requests:
