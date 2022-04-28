@@ -20,9 +20,6 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      environmentConfig:
-        - environment: qa
-          replicas: 0
       resources:
         requests:
           memory: "150M"
