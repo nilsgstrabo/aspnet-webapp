@@ -16,6 +16,8 @@ spec:
     - name: web
       variables:
         ASPNETCORE_URLS: http://*:5005
+      secrets:
+        - TEST
       ports:
         - name: http
           port: 5005
