@@ -16,8 +16,6 @@ spec:
     - name: web
       variables:
         ASPNETCORE_URLS: http://*:5005
-      secrets:
-        - TEST
       ports:
         - name: http
           port: 5005
@@ -29,53 +27,53 @@ spec:
         limits:
           memory: "500M"
           cpu: "100m"
-    # - name: web-redis
-    #   authentication:
-    #     oauth2: 
-    #       clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-    #       scope: openid profile email offline_access
-    #       setXAuthRequestHeaders: true
-    #       setAuthorizationHeader: true
-    #       sessionStoreType: redis
-    #       redisStore:
-    #         connectionUrl: redis://redis:6379
-    #   variables:
-    #     ASPNETCORE_URLS: http://*:5005
-    #   ports:
-    #     - name: http
-    #       port: 5005
-    #   publicPort: http
-    #   resources:
-    #     requests:
-    #       memory: "150M"
-    #       cpu: "1000m"
-    #     limits:
-    #       memory: "500M"
-    #       cpu: "1000m"
-    # - name: web-cookie
-    #   authentication:
-    #     oauth2:
-    #       clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-    #   variables:
-    #     ASPNETCORE_URLS: http://*:5005
-    #   ports:
-    #     - name: http
-    #       port: 5005
-    #   publicPort: http
-    #   resources:
-    #     requests:
-    #       memory: "150M"
-    #       cpu: "1000m"
-    #     limits:
-    #       memory: "500M"
-    #       cpu: "1000m"
-    # - name: redis
-    #   image: bitnami/redis:latest
-    #   secrets:
-    #     - REDIS_PASSWORD
-    #   ports:
-    #     - name: redis
-    #       port: 6379
-  # dnsAppAlias:
-  #   environment: qa
-  #   component: web-redis
+    - name: web-redis
+      authentication:
+        oauth2: 
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+          scope: openid profile email offline_access
+          setXAuthRequestHeaders: true
+          setAuthorizationHeader: true
+          sessionStoreType: redis
+          redisStore:
+            connectionUrl: redis://redis:6379
+      variables:
+        ASPNETCORE_URLS: http://*:5005
+      ports:
+        - name: http
+          port: 5005
+      publicPort: http
+      resources:
+        requests:
+          memory: "150M"
+          cpu: "1000m"
+        limits:
+          memory: "500M"
+          cpu: "1000m"
+    - name: web-cookie
+      authentication:
+        oauth2:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+      variables:
+        ASPNETCORE_URLS: http://*:5005
+      ports:
+        - name: http
+          port: 5005
+      publicPort: http
+      resources:
+        requests:
+          memory: "150M"
+          cpu: "1000m"
+        limits:
+          memory: "500M"
+          cpu: "1000m"
+    - name: redis
+      image: bitnami/redis:latest
+      secrets:
+        - REDIS_PASSWORD
+      ports:
+        - name: redis
+          port: 6379
+  dnsAppAlias:
+    environment: qa
+    component: web-redis
