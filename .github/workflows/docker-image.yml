@@ -1,98 +1,109 @@
-# name: Docker Image CI
+name: Docker Image CI
 
-# on:
-#   push:
-#     branches: [ main ]
+on:
+  push:
+    branches: [ main ]
 
-# permissions:
-#   actions: read
-#   checks: read
-#   contents: read
-#   deployments: read
-#   id-token: write
-#   issues: read
-#   discussions: read
-#   packages: read
-#   pages: read
-#   pull-requests: read
-#   repository-projects: read
-#   security-events: read
-#   statuses: read
+permissions:
+  actions: read
+  checks: read
+  contents: read
+  deployments: read
+  id-token: write
+  issues: read
+  discussions: read
+  packages: read
+  pages: read
+  pull-requests: read
+  repository-projects: read
+  security-events: read
+  statuses: read
 
-# jobs:
+jobs:
 
-#   deploy-db:
-#     runs-on: ubuntu-latest
-#     strategy:
-#       max-parallel: 2
-#       matrix:
-#         include:
-#           - registry: radixdev
-#             key-vault: radix-vault-dev
-#             key-vault-secret: testdev
-#             sql-server-name: cost-dev
-#             resource-group: cost-allocation
-#             client-id: 1a292b18-2960-49a5-b429-c8a50349b5eb
-#             subscription-id-secret: AZURE_SUBSCRIPTION_ID_DEV
-#           - registry: radixdev
-#             key-vault: radix-vault-dev
-#             key-vault-secret: testplayground
-#             sql-server-name: cost-playground
-#             resource-group: cost-allocation
-#             client-id: 1a292b18-2960-49a5-b429-c8a50349b5eb
-#             subscription-id-secret: d1ee58e8-5896-48d9-a777-5418c3df9a58
-#           - registry: radixprod
-#             key-vault: radix-vault-prod
-#             key-vault-secret: test
-#             sql-server-name: cost-prod
-#             resource-group: cost-allocation
-#             client-id-secret: AZURE_CLIENT_ID_PROD
-#             subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
-#           - registry: radixc2prod
-#             key-vault: radix-vault-c2-prod
-#             key-vault-secret: test
-#             sql-server-name: cost-prod
-#             resource-group: cost-allocation-westeurope
-#             client-id-secret: AZURE_CLIENT_ID_PROD
-#             subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
+  deploy-db:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 2
+      matrix:
+        include:
+          - registry: radixdev
+            key-vault: radix-vault-dev
+            key-vault-secret: testdev
+            sql-server-name: cost-dev
+            resource-group: cost-allocation
+            tenant-id: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
+            subscription-id: 16ede44b-1f74-40a5-b428-46cca9a5741b
+            client-id: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+          # - registry: radixdev
+          #   key-vault: radix-vault-dev
+          #   key-vault-secret: testplayground
+          #   sql-server-name: cost-playground
+          #   resource-group: cost-allocation
+          #   client-id: 1a292b18-2960-49a5-b429-c8a50349b5eb
+          #   subscription-id-secret: d1ee58e8-5896-48d9-a777-5418c3df9a58
+          # - registry: radixprod
+          #   key-vault: radix-vault-prod
+          #   key-vault-secret: test
+          #   sql-server-name: cost-prod
+          #   resource-group: cost-allocation
+          #   client-id-secret: AZURE_CLIENT_ID_PROD
+          #   subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
+          # - registry: radixc2prod
+          #   key-vault: radix-vault-c2-prod
+          #   key-vault-secret: test
+          #   sql-server-name: cost-prod
+          #   resource-group: cost-allocation-westeurope
+          #   client-id-secret: AZURE_CLIENT_ID_PROD
+          #   subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
 
-#     steps:
-#       - name: Login to Azure
-#         uses: azure/login@v1
-#         with:
-#           client-id: ${{ secrets[matrix.client-id-secret] }}
-#           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-#           subscription-id: ${{ secrets[matrix.subscription-id-secret] }}
-#       - uses: Azure/get-keyvault-secrets@v1
-#         with:
-#           keyvault: ${{ matrix.key-vault }}
-#           secrets: ${{ matrix.key-vault-secret }}
-#         id: adminPassword
-#       - name: Prepare
-#         run: |
-#           echo "::set-output name=db-password::${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}"
-#           echo "::set-output name=no-secret::notsecretvalue"
-#           echo "::add-mask::$SECRETENV"
-#           echo "::set-output name=secret-env::${{ env.SECRETENV }}"
-#         id: prepare
-#         env:
-#           SECRETENV: anothersecretvalue
-#       - name: echo
-#         run: |
-#           echo "start"
-#           echo "client-id-secret name: ${{ matrix.client-id-secret }}"
-#           echo "client-id-secret value: ${{ secrets[matrix.client-id-secret] }}"
-#           echo "db-password: ${{ steps.prepare.outputs.db-password }}"
-#           echo "no-secret: ${{ steps.prepare.outputs.no-secret }}"
-#           echo "secret-env: ${{ steps.prepare.outputs.secret-env }}"
-#           echo "THEKEY: ${{ env.THEKEY }}"
-#           echo "THEVALUE: ${{ env.THEVALUE }}"
-#           echo "shouldrun: ${{ matrix.shouldRun }}"
-#           echo "end"
-#         env:
-#           THEVALUE: ${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}
-#           THEKEY: ${{ matrix.key-vault-secret }}
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ matrix.client-id }}
+          tenant-id: ${{ matrix.tenant-id }}
+          subscription-id: ${{ matrix.subscription-id }}
+          enable-AzPSSession: true
+      - name: Install SqlServer PS module
+        shell: pwsh
+        run: |
+          Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
+          Install-Module -Name SqlServer
+      - name: Creating DB schema and tables
+        shell: pwsh
+        run: |
+          ./.github/workflows/scripts/create-db.ps1
+      # - uses: Azure/get-keyvault-secrets@v1
+      #   with:
+      #     keyvault: ${{ matrix.key-vault }}
+      #     secrets: ${{ matrix.key-vault-secret }}
+      #   id: adminPassword
+      # - name: Prepare
+      #   run: |
+      #     echo "::set-output name=db-password::${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}"
+      #     echo "::set-output name=no-secret::notsecretvalue"
+      #     echo "::add-mask::$SECRETENV"
+      #     echo "::set-output name=secret-env::${{ env.SECRETENV }}"
+      #   id: prepare
+      #   env:
+      #     SECRETENV: anothersecretvalue
+      # - name: echo
+      #   run: |
+      #     echo "start"
+      #     echo "client-id-secret name: ${{ matrix.client-id-secret }}"
+      #     echo "client-id-secret value: ${{ secrets[matrix.client-id-secret] }}"
+      #     echo "db-password: ${{ steps.prepare.outputs.db-password }}"
+      #     echo "no-secret: ${{ steps.prepare.outputs.no-secret }}"
+      #     echo "secret-env: ${{ steps.prepare.outputs.secret-env }}"
+      #     echo "THEKEY: ${{ env.THEKEY }}"
+      #     echo "THEVALUE: ${{ env.THEVALUE }}"
+      #     echo "shouldrun: ${{ matrix.shouldRun }}"
+      #     echo "end"
+      #   env:
+      #     THEVALUE: ${{ steps.adminPassword.outputs[matrix.key-vault-secret] }}
+      #     THEKEY: ${{ matrix.key-vault-secret }}
 
-#     # - uses: actions/checkout@v3
-#     # - name: Build the Docker image
-#     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    # - uses: actions/checkout@v3
+    # - name: Build the Docker image
+    #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
