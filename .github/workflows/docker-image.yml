@@ -72,11 +72,11 @@ jobs:
           Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
           Install-Module -Name SqlServer
       - name: dir
-        run: ls ./.github/workflows/scripts/
+        run: ls $GITHUB_WORKSPACE/.github/workflows/scripts/
       - name: Creating DB schema and tables
         shell: pwsh
         run: |
-          ./.github/workflows/scripts/create-db.ps1
+          $GITHUB_WORKSPACE/.github/workflows/scripts/create-db.ps1
       # - uses: Azure/get-keyvault-secrets@v1
       #   with:
       #     keyvault: ${{ matrix.key-vault }}
