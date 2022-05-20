@@ -1,3 +1,6 @@
+Import-Module SQLServer
+Import-Module Az.Accounts -MinimumVersion 2.2.0
+
 $targetSqlServerFQDN = "$(az sql server show -n sql-radix-cost-allocation-dev -g cost-allocation | jq -r .fullyQualifiedDomainName)"
 
 $access_token = (Get-AzAccessToken -ResourceUrl https://database.windows.net).Token

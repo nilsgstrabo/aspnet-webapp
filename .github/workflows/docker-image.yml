@@ -64,14 +64,15 @@ jobs:
         with:
           client-id: ${{ matrix.client-id }}
           tenant-id: ${{ matrix.tenant-id }}
-          allow-no-subscriptions: true
-          # subscription-id: ${{ matrix.subscription-id }}
+          # allow-no-subscriptions: true
+          subscription-id: ${{ matrix.subscription-id }}
           enable-AzPSSession: true
       - name: Install SqlServer PS module
         shell: pwsh
         run: |
           Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
           Install-Module -Name SqlServer
+          Install-Module Az.Accounts
       - name: dir
         run: ls $GITHUB_WORKSPACE/.github/workflows/scripts/
       - name: Creating DB schema and tables
