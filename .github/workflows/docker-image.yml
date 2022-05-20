@@ -63,7 +63,8 @@ jobs:
         with:
           client-id: ${{ matrix.client-id }}
           tenant-id: ${{ matrix.tenant-id }}
-          subscription-id: ${{ matrix.subscription-id }}
+          allow-no-subscriptions: true
+          # subscription-id: ${{ matrix.subscription-id }}
           enable-AzPSSession: true
       - name: Install SqlServer PS module
         shell: pwsh
