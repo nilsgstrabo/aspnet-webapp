@@ -22,7 +22,7 @@ permissions:
 jobs:
 
   deploy-db:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       max-parallel: 2
       matrix:
@@ -71,6 +71,8 @@ jobs:
         run: |
           Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
           Install-Module -Name SqlServer
+      - name: dir
+        run: ls ./.github/workflows/scripts/
       - name: Creating DB schema and tables
         shell: pwsh
         run: |
