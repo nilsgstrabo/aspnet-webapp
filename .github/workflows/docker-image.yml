@@ -58,6 +58,7 @@ jobs:
           #   subscription-id-secret: AZURE_SUBSCRIPTION_ID_PROD
 
     steps:
+      - uses: actions/checkout@v2
       - name: Login to Azure
         uses: azure/login@v1
         with:
