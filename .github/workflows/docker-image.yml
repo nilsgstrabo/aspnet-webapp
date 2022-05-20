@@ -73,8 +73,6 @@ jobs:
           Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
           Install-Module -Name SqlServer
           Install-Module Az.Accounts
-      - name: dir
-        run: ls $GITHUB_WORKSPACE/.github/workflows/scripts/
       - name: Creating DB schema and tables
         shell: pwsh
         run: |
