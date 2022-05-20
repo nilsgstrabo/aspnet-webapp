@@ -77,7 +77,7 @@ jobs:
       - name: Creating DB schema and tables
         shell: pwsh
         run: |
-          $GITHUB_WORKSPACE/.github/workflows/scripts/create-db.ps1
+          ./.github/workflows/scripts/create-db.ps1
       # - uses: Azure/get-keyvault-secrets@v1
       #   with:
       #     keyvault: ${{ matrix.key-vault }}
