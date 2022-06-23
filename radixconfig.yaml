@@ -6,12 +6,9 @@ spec:
   environments:
     - name: prod
     - name: qa
+    - name: dev
       build:
         from: main
-  dnsExternalAlias:
-    - alias: first.alias.com
-      environment: prod
-      component: web
   components:
     - name: web
       variables:
@@ -31,29 +28,12 @@ spec:
       authentication:
         oauth2: 
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-          scope: openid profile email offline_access
+          scope: openid email offline_access
           setXAuthRequestHeaders: true
           setAuthorizationHeader: true
           sessionStoreType: redis
           redisStore:
             connectionUrl: redis://redis:6379
-      variables:
-        ASPNETCORE_URLS: http://*:5005
-      ports:
-        - name: http
-          port: 5005
-      publicPort: http
-      resources:
-        requests:
-          memory: "150M"
-          cpu: "1000m"
-        limits:
-          memory: "500M"
-          cpu: "1000m"
-    - name: web-cookie
-      authentication:
-        oauth2:
-          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
         ASPNETCORE_URLS: http://*:5005
       ports:
@@ -74,6 +54,23 @@ spec:
       ports:
         - name: redis
           port: 6379
+    # - name: web-cookie
+    #   authentication:
+    #     oauth2:
+    #       clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+    #   variables:
+    #     ASPNETCORE_URLS: http://*:5005
+    #   ports:
+    #     - name: http
+    #       port: 5005
+    #   publicPort: http
+    #   resources:
+    #     requests:
+    #       memory: "150M"
+    #       cpu: "1000m"
+    #     limits:
+    #       memory: "500M"
+    #       cpu: "1000m"
   dnsAppAlias:
     environment: qa
     component: web-redis

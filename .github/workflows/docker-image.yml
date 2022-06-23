@@ -72,7 +72,7 @@ jobs:
         run: |
           Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
           Install-Module -Name SqlServer
-          Install-Module Az.Accounts
+          Install-Module -Name Az.Accounts
       - name: Creating DB schema and tables
         shell: pwsh
         run: |
