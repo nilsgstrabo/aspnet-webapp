@@ -21,6 +21,8 @@ spec:
         - name: http
           port: 5005
       publicPort: http
+      secrets:
+        - SECRET1
       resources:
         requests:
           memory: "150M"
