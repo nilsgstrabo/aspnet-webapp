@@ -5,7 +5,9 @@ metadata:
 spec:
   environments:
     - name: prod
-    - name: qa
+    - name: userdev
+      build:
+        from: feature/*
     - name: dev
       build:
         from: main
