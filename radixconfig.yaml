@@ -17,6 +17,7 @@ spec:
     - name: dev
       build:
         from: main
+    - name: qa
   components:
     - name: web
       variables:
