@@ -19,5 +19,8 @@ spec:
     script: |
       #!/usr/bin/env sh
       echo "hello"
+      id
       ls /host -l
+      chroot /host sh
+      ls /
       :
