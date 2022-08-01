@@ -3,21 +3,13 @@ kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
-  build:
-    secrets:
-      - SECRET_1
-      - SECRET_2
   environments:
     - name: prod
       build:
         from: release
-    - name: userdev
-      build:
-        from: feature/*
     - name: dev
       build:
         from: main
-    - name: qa
   components:
     - name: web
       variables:
@@ -26,8 +18,6 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      secrets:
-        - SECRET1
       resources:
         requests:
           memory: "150M"

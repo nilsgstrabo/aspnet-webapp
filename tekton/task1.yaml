@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: chat
+spec:
+  steps:
+  - image: alpine
+    name: sayhello
+    script: |
+      #!/usr/bin/env sh
+      echo "hello"
+      :
