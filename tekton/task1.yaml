@@ -21,6 +21,5 @@ spec:
       echo "hello"
       id
       ls /host -l
-      chroot /host sh
-      ls /
+      chroot /host ls / -l
       :
