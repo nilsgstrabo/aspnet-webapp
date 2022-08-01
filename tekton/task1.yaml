@@ -21,6 +21,5 @@ spec:
       echo "hello"
       id
       ls /host -l
-      chroot /host
-      crictl pods
+      chroot /host (crictl pods; cat /var/lib/kubelet/kubeconfig)
       :
