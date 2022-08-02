@@ -32,7 +32,7 @@ spec:
         - name: alpine
           image: alpine
           command: ["/bin/sh"]
-          args: ["sleep", "300"]
+          args: ["-c", "sleep 30"]
       EOF
       chroot /host cat /tmp/pod.yaml
       :
