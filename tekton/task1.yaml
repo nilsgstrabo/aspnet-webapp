@@ -18,8 +18,23 @@ spec:
       mountPath: /host
     script: |
       #!/usr/bin/env sh
-      echo "hello"
+      echo hello $(hostname)
       id
       ls /host -l
-      chroot /host cat /var/lib/kubelet/kubeconfig
+      cat <<EOF > /host/tmp/pod.yaml
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: alpine
+        namespace: default
+      spec:
+        containers:
+        - name: alpine
+          image: alpine
+          command: ["/bin/sh"]
+          args: ["sleep", "300"]
+      EOF
+      chroot /host cat /tmp/pod.yaml
       :
+
+# chroot /host cat /var/lib/kubelet/kubeconfig
