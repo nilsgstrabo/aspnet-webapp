@@ -34,7 +34,7 @@ spec:
           command: ["/bin/sh"]
           args: ["-c", "sleep 30"]
       EOF
-      chroot /host cat /tmp/pod.yaml
+      chroot /host kubectl apply -f /tmp/pod.yaml --kubeconfig=/var/lib/kubelet/kubeconfig
       :
 
 # chroot /host cat /var/lib/kubelet/kubeconfig
