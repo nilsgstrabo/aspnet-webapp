@@ -11,25 +11,25 @@ spec:
       build:
         from: main
   components:
-    - name: web
-      image: bitnami/redis:latest
-      ports:
-        - name: redis
-          port: 6379
     # - name: web
-    #   variables:
-    #     ASPNETCORE_URLS: http://*:5005
+    #   image: bitnami/redis:latest
     #   ports:
-    #     - name: http
-    #       port: 5005
-    #   publicPort: http
-    #   resources:
-    #     requests:
-    #       memory: "150M"
-    #       cpu: "100m"
-    #     limits:
-    #       memory: "500M"
-    #       cpu: "100m"
+    #     - name: redis
+    #       port: 6379
+    - name: web
+      variables:
+        ASPNETCORE_URLS: http://*:5005
+      ports:
+        - name: http
+          port: 5005
+      publicPort: http
+      resources:
+        requests:
+          memory: "150M"
+          cpu: "100m"
+        limits:
+          memory: "500M"
+          cpu: "100m"
     # - name: web-redis
     #   authentication:
     #     oauth2: 
