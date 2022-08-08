@@ -7,13 +7,15 @@ spec:
     - name: prod
       build:
         from: release
-    - name: userdev
-      build:
-        from: feature/*
     - name: dev
       build:
         from: main
   components:
+    # - name: web
+    #   image: bitnami/redis:latest
+    #   ports:
+    #     - name: redis
+    #       port: 6379
     - name: web
       variables:
         ASPNETCORE_URLS: http://*:5005

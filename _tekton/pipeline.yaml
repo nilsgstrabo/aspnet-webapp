@@ -1,0 +1,9 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pipeline
+spec:
+  tasks:
+    - name: some-build-task
+      taskRef:
+        name: chat
