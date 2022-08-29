@@ -3,19 +3,19 @@ kind: Task
 metadata:
   name: chat
 spec:
-  volumes:
-    - name: host-fs
-      hostPath:
-        path: /
+  # volumes:
+  #   - name: host-fs
+  #     hostPath:
+  #       path: /
   steps:
   - image: alpine
     name: sayhello
     securityContext:
       privileged: true
       allowPrivilegeEscalation: true
-    volumeMounts:
-    - name: host-fs
-      mountPath: /host
+    # volumeMounts:
+    # - name: host-fs
+    #   mountPath: /host
     script: |
       #!/usr/bin/env sh
       echo hello $(hostname)
