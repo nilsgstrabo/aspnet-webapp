@@ -41,6 +41,31 @@ spec:
         limits:
           memory: "500M"
           cpu: "100m"
+    - name: web-component-with-very-long-name-causing-error
+      variables:
+        ASPNETCORE_URLS: http://*:5006
+      secretRefs:
+        azureKeyVaults:                    #Azure Key vault configuration, common for the component
+          - name: radix-app-secrets-2
+            path: /mnt/secrets                   #overrides default "path", where secrets, keys and certificates are available as files
+            items:
+              - name: connection-string-test     #example value "server:prod" in Azure Key vault "radix-app-secrets"
+                envVar: CONNECTION_STRING        #default environment variable CONNECTION_STRING
+              - name: db-qa-user                    #example value "readeruser" in Azure Key vault "radix-app-secrets"
+                envVar: DB_USER                  #default environment variable DB_USER
+              - name: db-password                #example value "Pa$$w0rd!" in Azure Key vault "radix-app-secrets"
+                envVar: DB_PASS 
+      ports:
+        - name: http
+          port: 5005
+      publicPort: http
+      resources:
+        requests:
+          memory: "150M"
+          cpu: "100m"
+        limits:
+          memory: "500M"
+          cpu: "100m"
     # - name: web-redis
     #   authentication:
     #     oauth2: 
