@@ -46,15 +46,15 @@ spec:
                 alias: "cert1.key"
               - name: nilscert
                 type: cert
-                alias: "nilscert.crt"
+                alias: "tls.crt" # Must be this name when k8sSecretType=tls 
                 k8sSecretType: tls
-              - name: nilscert
+              # k8sSecretType must not be set, or set to opaque
+              - name: nilscert 
                 type: key
                 alias: "nilscert.pem"
-                k8sSecretType: tls
               - name: nilscert
                 type: secret
-                alias: "nilscert.key"
+                alias: "tls.key" # Must be this name when k8sSecretType=tls 
                 k8sSecretType: tls
       ports:
         - name: http
