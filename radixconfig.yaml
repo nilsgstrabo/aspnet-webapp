@@ -71,31 +71,57 @@ spec:
         limits:
           memory: "500M"
           cpu: "100m"
-    # - name: web-component-with-very-long-name-causing-error
-    #   variables:
-    #     ASPNETCORE_URLS: http://*:5006
-    #   secretRefs:
-    #     azureKeyVaults:                    #Azure Key vault configuration, common for the component
-    #       - name: radix-app-secrets-2
-    #         path: /mnt/secrets                   #overrides default "path", where secrets, keys and certificates are available as files
-    #         items:
-    #           - name: connection-string-test     #example value "server:prod" in Azure Key vault "radix-app-secrets"
-    #             envVar: CONNECTION_STRING        #default environment variable CONNECTION_STRING
-    #           - name: db-qa-user                    #example value "readeruser" in Azure Key vault "radix-app-secrets"
-    #             envVar: DB_USER                  #default environment variable DB_USER
-    #           - name: db-password                #example value "Pa$$w0rd!" in Azure Key vault "radix-app-secrets"
-    #             envVar: DB_PASS 
-    #   ports:
-    #     - name: http
-    #       port: 5005
-    #   publicPort: http
-    #   resources:
-    #     requests:
-    #       memory: "150M"
-    #       cpu: "100m"
-    #     limits:
-    #       memory: "500M"
-    #       cpu: "100m"
+    - name: web-component-with-very-long-name-causing-error
+      variables:
+        ASPNETCORE_URLS: http://*:5006
+      secretRefs:
+        azureKeyVaults:
+          - name: radix-app-secrets-2
+            path: /mnt/secrets2
+            items:
+              - name: connection-string-test
+                envVar: CONNECTION_STRING
+              - name: db-qa-user
+                envVar: DB_USER
+              - name: db-password
+                envVar: DB_PASS
+          - name: radix-app-secrets
+            path: /mnt/secrets
+            items:
+              - name: connection-string-prod
+                envVar: CONNECTION_STRING_PROD
+              - name: cert1
+                type: cert
+                alias: "cert1.crt"
+              - name: cert1
+                type: key
+                alias: "cert1.pem"
+              - name: cert1
+                type: secret
+                alias: "cert1.key"
+              - name: nilscert
+                type: cert
+                alias: "tls.crt" # Must be this name when k8sSecretType=tls 
+                # k8sSecretType: tls
+              # k8sSecretType must not be set, or set to opaque
+              - name: nilscert 
+                type: key
+                alias: "nilscert.pem"
+              - name: nilscert
+                type: secret
+                alias: "tls.key" # Must be this name when k8sSecretType=tls 
+                # k8sSecretType: tls
+      ports:
+        - name: http
+          port: 5005
+      publicPort: http
+      resources:
+        requests:
+          memory: "150M"
+          cpu: "100m"
+        limits:
+          memory: "500M"
+          cpu: "100m"
     # - name: web-redis
     #   authentication:
     #     oauth2: 
