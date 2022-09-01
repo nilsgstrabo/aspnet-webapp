@@ -3,6 +3,10 @@ kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
+  build:
+    secrets:
+      - SECRET_1
+      - SECRET_2
   environments:
     - name: prod
       build:
