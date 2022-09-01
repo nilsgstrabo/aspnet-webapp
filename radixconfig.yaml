@@ -47,7 +47,7 @@ spec:
               - name: nilscert
                 type: cert
                 alias: "tls.crt" # Must be this name when k8sSecretType=tls 
-                k8sSecretType: tls
+                # k8sSecretType: tls
               # k8sSecretType must not be set, or set to opaque
               - name: nilscert 
                 type: key
@@ -55,7 +55,7 @@ spec:
               - name: nilscert
                 type: secret
                 alias: "tls.key" # Must be this name when k8sSecretType=tls 
-                k8sSecretType: tls
+                # k8sSecretType: tls
       ports:
         - name: http
           port: 5005
