@@ -113,7 +113,7 @@ spec:
                 # k8sSecretType: tls
       ports:
         - name: http
-          port: 5005
+          port: 5006
       publicPort: http
       resources:
         requests:
