@@ -122,6 +122,13 @@ spec:
         limits:
           memory: "500M"
           cpu: "100m"
+      environmentConfig:
+        - environment: dev
+          replicas: 2
+        - environment: prod
+          horizontalScaling:
+            minReplicas: 2
+            maxReplicas: 4
     - name: web-redis
       authentication:
         oauth2: 
