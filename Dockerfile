@@ -1,6 +1,16 @@
 # https://hub.docker.com/_/microsoft-dotnet
 FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
 
+ARG SECRET_1
+ARG SECRET_2
+ARG V
+ARG W
+
+RUN echo ${SECRET_1}
+RUN A=$(echo ${SECRET_1} | base64 -d) && echo ${A}
+RUN V=$(echo ${SECRET_1} | base64 -d) && echo ${V}
+RUN W=$(echo ${SECRET_1} | base64 -d | sha256sum) && echo ${W}
+
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
