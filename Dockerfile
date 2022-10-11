@@ -8,8 +8,11 @@ ARG W
 
 RUN echo ${SECRET_1}
 RUN A=$(echo ${SECRET_1} | base64 -d) && echo ${A}
+RUN echo ${A}
 RUN V=$(echo ${SECRET_1} | base64 -d) && echo ${V}
+RUN echo ${V}
 RUN W=$(echo ${SECRET_1} | base64 -d | sha256sum) && echo ${W}
+RUN echo ${W}
 
 WORKDIR /source
 
