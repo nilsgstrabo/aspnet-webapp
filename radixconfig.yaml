@@ -3,6 +3,13 @@ kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
+  dnsExternalAlias:
+    - alias: one.example.com
+      environment: dev
+      component: web
+    - alias: two.example.com
+      environment: dev
+      component: web
   build:
     secrets:
       - SECRET_1
