@@ -7,13 +7,6 @@ spec:
     - alias: one.example.com
       environment: dev
       component: web
-    - alias: two.example.com
-      environment: dev
-      component: web
-  build:
-    secrets:
-      - SECRET_1
-      - SECRET_2
   environments:
     - name: prod
       build:
@@ -22,154 +15,9 @@ spec:
       build:
         from: main
   components:
-    # - name: web
-    #   image: bitnami/redis:latest
-    #   ports:
-    #     - name: redis
-    #       port: 6379
     - name: web
       variables:
         ASPNETCORE_URLS: http://*:5005
-      # secretRefs:
-      #   azureKeyVaults:
-      #     - name: radix-app-secrets-2
-      #       path: /mnt/secrets2
-      #       items:
-      #         - name: connection-string-test
-      #           envVar: CONNECTION_STRING
-      #         - name: db-qa-user
-      #           envVar: DB_USER
-      #         - name: db-password
-      #           envVar: DB_PASS
-      #     - name: radix-app-secrets
-      #       path: /mnt/secrets
-      #       items:
-      #         - name: connection-string-prod
-      #           envVar: CONNECTION_STRING_PROD
-      #         - name: cert1
-      #           type: cert
-      #           alias: "cert1.crt"
-      #         - name: cert1
-      #           type: key
-      #           alias: "cert1.pem"
-      #         - name: cert1
-      #           type: secret
-      #           alias: "cert1.key"
-      #         - name: nilscert
-      #           type: cert
-      #           alias: "tls.crt" # Must be this name when k8sSecretType=tls 
-      #           # k8sSecretType: tls
-      #         # k8sSecretType must not be set, or set to opaque
-      #         - name: nilscert 
-      #           type: key
-      #           alias: "nilscert.pem"
-      #         - name: nilscert
-      #           type: secret
-      #           alias: "tls.key" # Must be this name when k8sSecretType=tls 
-      #           # k8sSecretType: tls
-      ports:
-        - name: http
-          port: 5005
-      publicPort: http
-      secrets:
-        - SECRET1
-        - DATABASE_PASSWORD
-      authentication:
-        clientCertificate:
-          verification: "optional_no_ca"
-        oauth2:
-          clientId: ceeabc6f-93f0-41d2-9fe1-ca671b365f6f
-      resources:
-        requests:
-          memory: "150M"
-          cpu: "100m"
-        limits:
-          memory: "500M"
-          cpu: "100m"
-      secretRefs:
-        azureKeyVaults:
-          - name: radix-app-secrets
-            path: /mnt/key-vault
-            items:
-              - name: connection-string-dev
-                type: secret
-                envVar: CONNECTION_STRING
-              - name: key1
-                type: key
-                envVar: KEY1
-              - name: cert1
-                type: cert
-                envVar: CERT1
-    - name: web-component-with-very-long-name-causing-error
-      variables:
-        ASPNETCORE_URLS: http://*:5006
-      # secretRefs:
-      #   azureKeyVaults:
-      #     - name: radix-app-secrets-2
-      #       path: /mnt/secrets2
-      #       items:
-      #         - name: connection-string-test
-      #           envVar: CONNECTION_STRING
-      #         - name: db-qa-user
-      #           envVar: DB_USER
-      #         - name: db-password
-      #           envVar: DB_PASS
-      #     - name: radix-app-secrets
-      #       path: /mnt/secrets
-      #       items:
-      #         - name: connection-string-prod
-      #           envVar: CONNECTION_STRING_PROD
-      #         - name: cert1
-      #           type: cert
-      #           alias: "cert1.crt"
-      #         - name: cert1
-      #           type: key
-      #           alias: "cert1.pem"
-      #         - name: cert1
-      #           type: secret
-      #           alias: "cert1.key"
-      #         - name: nilscert
-      #           type: cert
-      #           alias: "tls.crt" # Must be this name when k8sSecretType=tls 
-      #           # k8sSecretType: tls
-      #         # k8sSecretType must not be set, or set to opaque
-      #         - name: nilscert 
-      #           type: key
-      #           alias: "nilscert.pem"
-      #         - name: nilscert
-      #           type: secret
-      #           alias: "tls.key" # Must be this name when k8sSecretType=tls 
-      #           # k8sSecretType: tls
-      ports:
-        - name: http
-          port: 5006
-      publicPort: http
-      resources:
-        requests:
-          memory: "150M"
-          cpu: "100m"
-        limits:
-          memory: "500M"
-          cpu: "100m"
-      environmentConfig:
-        - environment: dev
-          replicas: 1
-        - environment: prod
-          horizontalScaling:
-            minReplicas: 1
-            maxReplicas: 2
-    - name: web-redis
-      authentication:
-        oauth2: 
-          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-          scope: openid email offline_access
-          setXAuthRequestHeaders: true
-          setAuthorizationHeader: true
-          sessionStoreType: redis
-          redisStore:
-            connectionUrl: redis://redis:6379
-      variables:
-        ASPNETCORE_URLS: http://*:5005
       ports:
         - name: http
           port: 5005
@@ -177,34 +25,7 @@ spec:
       resources:
         requests:
           memory: "150M"
-          cpu: "1000m"
+          cpu: "100m"
         limits:
           memory: "500M"
-          cpu: "1000m"
-    - name: redis
-      image: bitnami/redis:latest
-      secrets:
-        - REDIS_PASSWORD
-      ports:
-        - name: redis
-          port: 6379
-    # - name: web-cookie
-    #   authentication:
-    #     oauth2:
-    #       clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-    #   variables:
-    #     ASPNETCORE_URLS: http://*:5005
-    #   ports:
-    #     - name: http
-    #       port: 5005
-    #   publicPort: http
-    #   resources:
-    #     requests:
-    #       memory: "150M"
-    #       cpu: "1000m"
-    #     limits:
-    #       memory: "500M"
-    #       cpu: "1000m"
-  # dnsAppAlias:
-  #   environment: qa
-  #   component: web-redis
+          cpu: "100m"
