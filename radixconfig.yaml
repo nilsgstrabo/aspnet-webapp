@@ -1,48 +1,17 @@
-xx-anchor-resources: &resource-def
-  requests:
-    memory: "150M"
-    cpu: "100m"
-  limits:
-    memory: "500M"
-    cpu: "100m"
+x-resources: &resources
+  resources:
+    requests:
+      memory: "150M"
+      cpu: "100m"
+    limits:
+      memory: "500M"
+      cpu: "100m"
 
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
-  # dnsExternalAlias:
-  #   - alias: one.example.com
-  #     environment: dev
-  #     component: web
-  #   - alias: two.example.com
-  #     environment: dev
-  #     component: web
-  externalServices:
-    azure:
-      keyvaults:
-        - nameSuffix: "kv" # Eller definere navn pr env?
-          location: northeurope
-          properties:
-            accessPolicies:
-              - objectId: "f3ececf5-90e1-4564-8dc7-cc52b3db7316" # Elsa
-                tenantId: "3aa4a235-b6e2-48d5-9195-7fcf05b459b0"
-                permissions:
-                  certificates:
-                    - "get"
-                  keys:
-                    - "get"
-                  secrets:
-                    - "get"
-              - objectId: "ddf5dfa1-9488-4530-9b6e-16451e26f717" # ar-radix-oauth-demo - objectId from enterprise application
-                tenantId: "3aa4a235-b6e2-48d5-9195-7fcf05b459b0"
-                permissions:
-                  certificates:
-                    - "get"
-                  keys:
-                    - "get"
-                  secrets:
-                    - "get"
 
   environments:
     - name: prod
@@ -59,7 +28,7 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      resources: *resource-def
+      <<: *resources
     - name: web2
       variables:
         ASPNETCORE_URLS: http://*:5005
@@ -67,4 +36,4 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      resources: *resource-def
+      <<: *resources
