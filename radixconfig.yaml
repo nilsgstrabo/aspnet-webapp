@@ -1,11 +1,10 @@
 xx-resources: &resource-def
-  resources:
-    requests:
-      memory: "150M"
-      cpu: "100m"
-    limits:
-      memory: "500M"
-      cpu: "100m"
+  requests:
+    memory: "150M"
+    cpu: "100m"
+  limits:
+    memory: "500M"
+    cpu: "100m"
 
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
