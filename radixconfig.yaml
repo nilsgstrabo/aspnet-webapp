@@ -1,4 +1,4 @@
-xx-resources: &resource-def
+xx-anchor-resources: &resource-def
   requests:
     memory: "150M"
     cpu: "100m"
