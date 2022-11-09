@@ -1,30 +1,3 @@
-# x-resources: &resources
-#   requests:
-#     memory: "150M"
-#     cpu: "100m"
-#   limits:
-#     memory: "500M"
-#     cpu: "100m"
-
-# x-secret-refs: &secret-refs
-#   azureKeyVaults:
-#     - name: radix-app-secrets
-#       path: /mnt/key-vault
-#       items:
-#         - name: connection-string-dev
-#           type: secret
-#           envVar: CONNECTION_STRING
-#         - name: key1
-#           type: key
-#           envVar: KEY1
-#         - name: cert1
-#           type: cert
-#           envVar: CERT1
-
-# x-component: &component
-#   resources: *resources
-#   secretRefs: *secret-refs
-
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:

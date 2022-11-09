@@ -1,0 +1,62 @@
+x-resources: &resources
+  requests:
+    memory: "150M"
+    cpu: "100m"
+  limits:
+    memory: "500M"
+    cpu: "100m"
+
+x-secret-refs: &secret-refs
+  azureKeyVaults:
+    - name: radix-app-secrets
+      path: /mnt/key-vault
+      items:
+        - name: connection-string-dev
+          type: secret
+          envVar: CONNECTION_STRING
+        - name: key1
+          type: key
+          envVar: KEY1
+        - name: cert1
+          type: cert
+          envVar: CERT1
+
+x-common-vars: &common-vars
+  VAR1: foo
+  VAR2: bar
+
+apiVersion: radix.equinor.com/v1
+kind: RadixApplication
+metadata:
+  name: oauth-demo
+spec:
+  environments:
+    - name: prod
+      build:
+        from: release
+    - name: dev
+      build:
+        from: main
+  components:
+    - name: web
+      variables:
+        <<: *common-vars
+        ASPNETCORE_URLS: http://*:5005
+      ports:
+        - name: http
+          port: 5005
+      publicPort: http
+      secretRefs: *secret-refs
+      resources:
+        <<: *resources
+    - name: web2
+      variables:
+        <<: *common-vars
+        ASPNETCORE_URLS: http://*:5006
+      ports:
+        - name: http
+          port: 5006
+      publicPort: http
+      secretRefs: *secret-refs
+      resources:
+        <<: *resources
