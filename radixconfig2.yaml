@@ -25,16 +25,19 @@ x-common-vars: &common-vars
   VAR1: foo
   VAR2: bar
 
+x-prod: &prod prod
+x-dev: &dev dev
+
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
   name: oauth-demo2
 spec:
   environments:
-    - name: prod
+    - name: *prod
       build:
         from: release
-    - name: dev
+    - name: *dev
       build:
         from: main
   components:
@@ -49,6 +52,9 @@ spec:
       secretRefs: *secret-refs
       resources:
         <<: *resources
+      environmentConfig:
+        - environment: *prod
+        - environment: *dev
     - name: web2
       variables:
         <<: *common-vars
