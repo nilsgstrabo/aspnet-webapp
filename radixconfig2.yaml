@@ -28,7 +28,7 @@ x-common-vars: &common-vars
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
-  name: oauth-demo
+  name: oauth-demo2
 spec:
   environments:
     - name: prod
