@@ -48,7 +48,7 @@ spec:
       authentication:
         oauth2:
           setXAuthRequestHeaders: true
-          setAuthorizationHeader: true
+          # setAuthorizationHeader: true
           sessionStoreType: redis
       environmentConfig:
         - environment: dev
