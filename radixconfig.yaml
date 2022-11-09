@@ -1,3 +1,30 @@
+# x-resources: &resources
+#   requests:
+#     memory: "150M"
+#     cpu: "100m"
+#   limits:
+#     memory: "500M"
+#     cpu: "100m"
+
+# x-secret-refs: &secret-refs
+#   azureKeyVaults:
+#     - name: radix-app-secrets
+#       path: /mnt/key-vault
+#       items:
+#         - name: connection-string-dev
+#           type: secret
+#           envVar: CONNECTION_STRING
+#         - name: key1
+#           type: key
+#           envVar: KEY1
+#         - name: cert1
+#           type: cert
+#           envVar: CERT1
+
+# x-component: &component
+#   resources: *resources
+#   secretRefs: *secret-refs
+
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
@@ -11,11 +38,6 @@ spec:
       build:
         from: main
   components:
-    # - name: web
-    #   image: bitnami/redis:latest
-    #   ports:
-    #     - name: redis
-    #       port: 6379
     - name: web
       variables:
         ASPNETCORE_URLS: http://*:5005
@@ -23,60 +45,32 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      resources:
-        requests:
-          memory: "150M"
-          cpu: "100m"
-        limits:
-          memory: "500M"
-          cpu: "100m"
-    # - name: web-redis
-    #   authentication:
-    #     oauth2: 
-    #       clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-    #       scope: openid email offline_access
-    #       setXAuthRequestHeaders: true
-    #       setAuthorizationHeader: true
-    #       sessionStoreType: redis
-    #       redisStore:
-    #         connectionUrl: redis://redis:6379
-    #   variables:
-    #     ASPNETCORE_URLS: http://*:5005
-    #   ports:
-    #     - name: http
-    #       port: 5005
-    #   publicPort: http
-    #   resources:
-    #     requests:
-    #       memory: "150M"
-    #       cpu: "1000m"
-    #     limits:
-    #       memory: "500M"
-    #       cpu: "1000m"
-    # - name: redis
-    #   image: bitnami/redis:latest
-    #   secrets:
-    #     - REDIS_PASSWORD
-    #   ports:
-    #     - name: redis
-    #       port: 6379
-    # - name: web-cookie
-    #   authentication:
-    #     oauth2:
-    #       clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-    #   variables:
-    #     ASPNETCORE_URLS: http://*:5005
-    #   ports:
-    #     - name: http
-    #       port: 5005
-    #   publicPort: http
-    #   resources:
-    #     requests:
-    #       memory: "150M"
-    #       cpu: "1000m"
-    #     limits:
-    #       memory: "500M"
-    #       cpu: "1000m"
-  # dnsAppAlias:
-  #   environment: qa
-  #   component: web-redis
+      authentication:
+        oauth2:
+          setXAuthRequestHeaders: true
+          setAuthorizationHeader: true
+          sessionStoreType: redis
+      environmentConfig:
+        - environment: dev
+          authentication:
+            oauth2:
+              clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+              redisStore:
+                connectionUrl: redis://redis:6379
+        - environment: prod
+          authentication:
+            oauth2:
+              clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+              redisStore:
+                connectionUrl: rediss://rediss://foobarbaz.redis.cache.windows.net:6380
+    - name: redis
+      image: bitnami/redis:latest
+      secrets:
+        - REDIS_PASSWORD
+      ports:
+        - name: redis
+          port: 6379
+      enabled: false
+      environmentConfig:
+        - environment: dev
+          enabled: true

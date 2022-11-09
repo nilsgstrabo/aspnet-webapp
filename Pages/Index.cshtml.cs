@@ -19,7 +19,10 @@ namespace aspnet_webapp.Pages
 
         public void OnGet()
         {
-
+            foreach (var item in this.Request.Headers)
+            {
+                _logger.LogInformation($"{item.Key}: {item.Value.ToString()}");
+            }
         }
     }
 }
