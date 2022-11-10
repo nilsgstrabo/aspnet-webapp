@@ -56,9 +56,6 @@ x-keyvault2: &keyvault2
       type: cert
       envVar: CERT1
 
-x-secret-refs: &secret-refs
-  azureKeyVaults: [*keyvault1, *keyvault2]
-
 x-common-vars: &common-vars
   VAR1: foo
   VAR2: bar
@@ -93,7 +90,8 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      secretRefs: *secret-refs
+      secretRefs:
+        azureKeyVaults: [*keyvault1, *keyvault2]
       environmentConfig:
         - environment: *prod
           <<: [*prod-resources, *horizontal-scaling]
@@ -107,7 +105,8 @@ spec:
         - name: http
           port: 5006
       publicPort: http
-      secretRefs: *secret-refs
+      secretRefs:
+        azureKeyVaults: [*keyvault1]
       environmentConfig:
         - environment: *prod
           <<: [*prod-resources, *horizontal-scaling]
