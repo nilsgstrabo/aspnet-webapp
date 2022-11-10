@@ -19,20 +19,11 @@ x-prod-resources: &prod-resources
       memory: "500M"
       cpu: "100m"
 
-x-secret-refs: &secret-refs
-  azureKeyVaults:
-    - name: radix-app-secrets
-      path: /mnt/key-vault
-      items:
-        - name: connection-string-dev
-          type: secret
-          envVar: CONNECTION_STRING
-        - name: key1
-          type: key
-          envVar: KEY1
-        - name: cert1
-          type: cert
-          envVar: CERT1
+x-horizontal-scaling: &horizontal-scaling
+  horizontalScaling:
+    minReplicas: 1
+    maxReplicas: 3
+
 
 x-azure-blob1: &azure-blob1
   type: azure-blob
@@ -46,10 +37,27 @@ x-azure-blob2: &azure-blob2
   storage: container-name2
   path: /path/in/container/to/mount/to2
 
-x-horizontal-scaling: &horizontal-scaling
-  horizontalScaling:
-    minReplicas: 1
-    maxReplicas: 3
+x-keyvault1: &keyvault1
+  name: radix-app-secrets
+  path: /mnt/key-vault
+  items:
+    - name: connection-string-dev
+      type: secret
+      envVar: CONNECTION_STRING
+
+x-keyvault2: &keyvault2
+  name: radix-app-secrets2
+  path: /mnt/key-vault2
+  items:
+    - name: key1
+      type: key
+      envVar: KEY1
+    - name: cert1
+      type: cert
+      envVar: CERT1
+
+x-secret-refs: &secret-refs
+  azureKeyVaults: [*keyvault1, *keyvault2]
 
 x-common-vars: &common-vars
   VAR1: foo
