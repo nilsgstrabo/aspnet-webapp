@@ -1,5 +1,5 @@
 --- 
-# Anchor definitions
+# Anchor/extensions definitions - examples https://medium.com/@kinghuang/docker-compose-anchors-aliases-extensions-a1e4105d70bd
 
 x-default-resources: &default-resources
   resources:
