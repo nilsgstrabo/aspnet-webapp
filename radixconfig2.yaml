@@ -1,10 +1,20 @@
-x-resources: &resources
-  requests:
-    memory: "150M"
-    cpu: "100m"
-  limits:
-    memory: "500M"
-    cpu: "100m"
+x-default-resources: &default-resources
+  resources:
+    requests:
+      memory: "150M"
+      cpu: "100m"
+    limits:
+      memory: "500M"
+      cpu: "100m"
+
+x-prod-resources: &prod-resources
+  resources:
+    requests:
+      memory: "150M"
+      cpu: "100m"
+    limits:
+      memory: "500M"
+      cpu: "100m"
 
 x-secret-refs: &secret-refs
   azureKeyVaults:
@@ -21,9 +31,30 @@ x-secret-refs: &secret-refs
           type: cert
           envVar: CERT1
 
+x-azure-blob1: &azure-blob1
+  type: azure-blob
+  name: volume-name1
+  storage: container-name1
+  path: /path/in/container/to/mount/to1
+
+x-azure-blob2: &azure-blob2
+  type: azure-blob
+  name: volume-name2
+  storage: container-name2
+  path: /path/in/container/to/mount/to2
+
+x-horizontal-scaling: &horizontal-scaling
+  horizontalScaling:
+    minReplicas: 1
+    maxReplicas: 3
+
 x-common-vars: &common-vars
   VAR1: foo
   VAR2: bar
+
+x-aspnet-vars: &web-vars
+  web1: foo-web
+  web2: bar-web
 
 x-prod: &prod prod
 x-dev: &dev dev
@@ -42,20 +73,21 @@ spec:
         from: main
   components:
     - name: web
+      <<: *default-resources
       variables:
-        <<: *common-vars
+        <<: [*common-vars, *web-vars]
         ASPNETCORE_URLS: http://*:5005
       ports:
         - name: http
           port: 5005
       publicPort: http
       secretRefs: *secret-refs
-      resources:
-        <<: *resources
       environmentConfig:
         - environment: *prod
-        - environment: *dev
+          <<: [*prod-resources, *horizontal-scaling]
+          volumeMounts: [*azure-blob1, *azure-blob2]
     - name: web2
+      <<: *default-resources
       variables:
         <<: *common-vars
         ASPNETCORE_URLS: http://*:5006
@@ -64,5 +96,7 @@ spec:
           port: 5006
       publicPort: http
       secretRefs: *secret-refs
-      resources:
-        <<: *resources
+      environmentConfig:
+        - environment: *prod
+          <<: [*prod-resources, *horizontal-scaling]
+          volumeMounts: [*azure-blob1]
