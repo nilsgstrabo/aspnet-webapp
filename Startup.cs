@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using Microsoft.AspNetCore.Authentication;
 using aspnet_webapp.Services;
+using Microsoft.Extensions.Azure;
+using Azure.Identity;
 
 namespace aspnet_webapp
 {
@@ -45,9 +47,14 @@ namespace aspnet_webapp
             });
 
             services.AddScoped<IUserInfoService, UserInfoService>();
+            
+            services.AddAzureClients(builder=> {
+                builder.AddSecretClient(new Uri(Configuration["KEY_VAULT_URL"]));
+                builder.UseCredential(new DefaultAzureCredential());
+            });
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+           
+       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
