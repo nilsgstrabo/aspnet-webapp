@@ -20,4 +20,11 @@
     <div>
         <a href="https://server-nils-simple-webapp-qa.nils-dev.dev.radix.equinor.com/">Link to server</a>
     </div>
+
+    <div>
+        @foreach (var secret in this.Model.Secrets)
+        {
+            <div>@secret</div>
+        }
+    </div>
 </div>
