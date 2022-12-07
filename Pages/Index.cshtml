@@ -28,11 +28,11 @@
             <div>@secret</div>
         }
     </div>
-    <div>
+    @* <div>
         <h4>Secrets read by dotnet configuration manager</h4>
         @foreach (var config in this.Model.Configs)
         {
             <div>@config.Key : @config.Value</div>
         }
-    </div>
+    </div> *@
 </div>

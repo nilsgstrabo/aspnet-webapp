@@ -34,7 +34,7 @@ namespace aspnet_webapp.Pages
                 var secrets = _secretClient.GetPropertiesOfSecrets();
                 Secrets=secrets.Select(s=>s.Name).ToList();
 
-                Configs=_configRoot.AsEnumerable().ToList();
+                // Configs=_configRoot.AsEnumerable().ToList();
             }
             catch (System.Exception ex)
             {
