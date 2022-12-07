@@ -22,9 +22,17 @@
     </div>
 
     <div>
+        <h4>Secrets returned by Azure KeyVault Client SDK</h4>
         @foreach (var secret in this.Model.Secrets)
         {
             <div>@secret</div>
+        }
+    </div>
+    <div>
+        <h4>Secrets read by dotnet configuration manager</h4>
+        @foreach (var config in this.Model.Configs)
+        {
+            <div>@config.Key : @config.Value</div>
         }
     </div>
 </div>

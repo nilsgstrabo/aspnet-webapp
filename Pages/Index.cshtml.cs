@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace aspnet_webapp.Pages
@@ -13,14 +14,18 @@ namespace aspnet_webapp.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly SecretClient _secretClient;
+        private readonly IConfiguration _configRoot;
 
-        public IndexModel(SecretClient secretClient,ILogger<IndexModel> logger)
+        public IndexModel(SecretClient secretClient, IConfiguration configRoot, ILogger<IndexModel> logger)
         {
             _logger = logger;
-            _secretClient=secretClient;
+            _secretClient = secretClient;
+            _configRoot = configRoot;
+            
         }
 
         public IEnumerable<string> Secrets;
+        public IEnumerable<KeyValuePair<string,string>> Configs;
 
         public void OnGet()
         {
@@ -28,6 +33,8 @@ namespace aspnet_webapp.Pages
             {
                 var secrets = _secretClient.GetPropertiesOfSecrets();
                 Secrets=secrets.Select(s=>s.Name).ToList();
+
+                Configs=_configRoot.AsEnumerable().ToList();
             }
             catch (System.Exception ex)
             {
