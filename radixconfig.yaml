@@ -19,8 +19,6 @@ spec:
       variables:
         ASPNETCORE_URLS: http://*:5005
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
-      secrets:
-        - mysecret
       ports:
         - name: http
           port: 5005
