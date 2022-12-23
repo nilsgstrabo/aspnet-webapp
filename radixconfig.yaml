@@ -12,30 +12,25 @@ spec:
         from: main
   components:
     - name: web
+      identity:
+        azure:
+          # clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6 # app registration "ar-radix-oauth-demo"
+          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49 # user assigned managed identity "id-radix-fed-test"
       variables:
         ASPNETCORE_URLS: http://*:5005
+        KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
       ports:
         - name: http
           port: 5005
       publicPort: http
       authentication:
         oauth2:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
           setXAuthRequestHeaders: true
-          # setAuthorizationHeader: true
+          setAuthorizationHeader: true
           sessionStoreType: redis
-      environmentConfig:
-        - environment: dev
-          authentication:
-            oauth2:
-              clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-              redisStore:
-                connectionUrl: redis://redis:6379
-        - environment: prod
-          authentication:
-            oauth2:
-              clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-              redisStore:
-                connectionUrl: rediss://rediss://foobarbaz.redis.cache.windows.net:6380
+          redisStore:
+            connectionUrl: redis://redis:6379
     - name: redis
       image: bitnami/redis:latest
       secrets:

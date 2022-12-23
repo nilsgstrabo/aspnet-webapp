@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using Microsoft.AspNetCore.Authentication;
 using aspnet_webapp.Services;
+using Microsoft.Extensions.Azure;
+using Azure.Identity;
 
 namespace aspnet_webapp
 {
@@ -45,9 +47,14 @@ namespace aspnet_webapp
             });
 
             services.AddScoped<IUserInfoService, UserInfoService>();
+            
+            services.AddAzureClients(builder=> {
+                builder.AddSecretClient(new Uri(Configuration["KEY_VAULT_URL"]));
+                builder.UseCredential(new DefaultAzureCredential());
+            });
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+           
+       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -60,19 +67,8 @@ namespace aspnet_webapp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             }
 
-            // app.Use(async (ctx, next) => {
-            //     var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
-            //     var logger=logfactory.CreateLogger("middleware");
-            //     foreach (var c in ctx.Request.Cookies)
-            //     {
-            //         logger.LogInformation("{0}:{1}",c.Key,c.Value.Length);
-            //     }
-            //     await next();
-            // });
-
             app.UseStaticFiles();
             app.UseAuthentication();
-            
 
             app.Use(async (ctx, next) => {
                 var logfactory = app.ApplicationServices.GetService<ILoggerFactory>();
@@ -84,8 +80,6 @@ namespace aspnet_webapp
                 }
                 await next();
             });
-
-
 
             app.UseRouting();
             app.UseAuthorization();

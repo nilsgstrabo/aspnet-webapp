@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/bin/Debug/net5.0/aspnet-webapp.dll",
+            "program": "${workspaceFolder}/bin/Debug/net6.0/aspnet-webapp.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
@@ -20,7 +20,8 @@
                 "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "KEY_VAULT_URL": "https://radix-sci-az-kv-test.vault.azure.net/",
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"

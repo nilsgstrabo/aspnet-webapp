@@ -1,3 +1,4 @@
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
@@ -15,12 +16,12 @@ namespace aspnet_webapp.Services {
 
     public class UserInfoService : IUserInfoService
     {
-        private readonly ILogger _logger;
         
+        private readonly SecretClient _secretClient;
 
-        public UserInfoService(ILogger<UserInfoService> logger)
+        public UserInfoService(SecretClient secretClient)
         {
-            _logger = logger;
+            _secretClient=secretClient;
         }
 
         public async Task<UserInfo> GetUserInfo()
@@ -28,5 +29,9 @@ namespace aspnet_webapp.Services {
             await Task.CompletedTask;
             return new UserInfo {Name="Nils"};
         }
+
+
     }
+
+    
 }
