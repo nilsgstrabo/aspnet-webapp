@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/microsoft-dotnet
-FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 
 ARG SECRET_1
 ARG SECRET_2
@@ -25,7 +25,7 @@ COPY . .
 RUN dotnet publish -c release -o /app .
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
 WORKDIR /app
 COPY --from=build /app ./
 # Add a new user "radix-non-root-user" with user id 1001
