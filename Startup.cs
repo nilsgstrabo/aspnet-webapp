@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication;
 using aspnet_webapp.Services;
 using Microsoft.Extensions.Azure;
 using Azure.Identity;
+using Azure.Core;
 
 namespace aspnet_webapp
 {
