@@ -13,7 +13,6 @@ RUN dotnet publish -c release -o /app .
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
-RUN curl -L https://aka.ms/InstallAzureCli | bash
 WORKDIR /app
 COPY --from=build /app ./
 # Add a new user "radix-non-root-user" with user id 1001
