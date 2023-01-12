@@ -3,9 +3,6 @@ kind: RadixApplication
 metadata:
   name: my-radix-app
 spec:
-  build:
-    secrets:
-      - BUILDSECRET
   environments:
     - name: prod
       build:
@@ -17,7 +14,6 @@ spec:
     - name: web
       identity:
         azure:
-          # clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6 # app registration "ar-radix-oauth-demo"
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49 # user assigned managed identity "id-radix-fed-test"
       variables:
         ASPNETCORE_URLS: http://*:5005
@@ -41,7 +37,3 @@ spec:
       ports:
         - name: redis
           port: 6379
-      enabled: false
-      environmentConfig:
-        - environment: dev
-          enabled: true
