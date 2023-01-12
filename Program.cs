@@ -23,7 +23,7 @@ namespace aspnet_webapp
                 {
                     config.AddAzureKeyVault(
                         new Uri(Environment.GetEnvironmentVariable("KEY_VAULT_URL")), 
-                        new DefaultAzureCredential()
+                        new ManagedIdentityCredential()
                     );
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
