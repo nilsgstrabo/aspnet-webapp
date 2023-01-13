@@ -1,21 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
-using Microsoft.AspNetCore.Authentication;
 using aspnet_webapp.Services;
 using Microsoft.Extensions.Azure;
 using Azure.Identity;
-using Azure.Core;
 
 namespace aspnet_webapp
 {
@@ -51,7 +45,7 @@ namespace aspnet_webapp
             
             services.AddAzureClients(builder=> {
                 builder.AddSecretClient(new Uri(Configuration["KEY_VAULT_URL"]));
-                builder.UseCredential(new DefaultAzureCredential());
+                builder.UseCredential(new ManagedIdentityCredential());
             });
         }
            
