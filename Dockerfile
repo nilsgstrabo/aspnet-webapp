@@ -12,7 +12,7 @@ COPY . .
 RUN dotnet publish -c release -o /app .
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine3.17
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 
 RUN	apt-get update && apt-get -y install curl
