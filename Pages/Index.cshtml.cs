@@ -62,10 +62,10 @@ namespace aspnet_webapp.Pages
                 _logger.LogError(ex,ex.Message);
             }
 
-            foreach (var item in this.Request.Headers)
-            {
-                _logger.LogInformation($"{item.Key}: {item.Value.ToString()}");
-            }
+            // foreach (var item in this.Request.Headers)
+            // {
+            //     _logger.LogInformation($"{item.Key}: {item.Value.ToString()}");
+            // }
         }
     }
 }
