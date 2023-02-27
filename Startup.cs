@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using aspnet_webapp.Services;
 using Microsoft.Extensions.Azure;
 using Azure.Identity;
+using Azure.Core;
+using Microsoft.Identity.Web;
 
 namespace aspnet_webapp
 {
@@ -34,7 +36,7 @@ namespace aspnet_webapp
                         NameClaimType="name"
                     };
                 });
-            
+
             services.AddAuthorization();
             services.AddRazorPages(c=>{
                 c.Conventions.AllowAnonymousToPage("/Index");
@@ -45,10 +47,10 @@ namespace aspnet_webapp
             
             services.AddAzureClients(builder=> {
                 builder.AddSecretClient(new Uri(Configuration["KEY_VAULT_URL"]));
-                builder.UseCredential(new ManagedIdentityCredential());
+                builder.UseCredential(new DefaultAzureCredential());
             });
         }
-           
+        
        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

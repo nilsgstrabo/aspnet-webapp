@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nilsgstrabo/radix-job-demo/main/jsonschema/radixapplication.json
+
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
@@ -22,6 +24,8 @@ spec:
       variables:
         ASPNETCORE_URLS: http://*:5005
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
+        SQL_SERVER_NAME: "fed-test.database.windows.net"
+        SQL_DATABASE_NAME: "fed-test"
       ports:
         - name: http
           port: 5005
