@@ -19,7 +19,7 @@ namespace aspnet_webapp.Pages
         private readonly SecretClient _secretClient;
         private readonly IConfiguration _configRoot;
 
-        public IndexModel(SecretClient secretClient, IConfiguration configRoot,TokenCredential x, ILogger<IndexModel> logger)
+        public IndexModel(SecretClient secretClient, IConfiguration configRoot,ILogger<IndexModel> logger)
         {
 
             
