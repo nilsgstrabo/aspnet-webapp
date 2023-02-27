@@ -3,6 +3,10 @@ kind: RadixApplication
 metadata:
   name: my-radix-app
 spec:
+  build:
+    secrets:
+      - aaaa
+      - aaaa
   environments:
     - name: prod
       build:
@@ -11,6 +15,10 @@ spec:
       build:
         from: main
   components:
+    - name: web
+      ports:
+        - name: x
+          port: 1111
     - name: web
       identity:
         azure:
