@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/nilsgstrabo/radix-job-demo/main/jsonschema/radixapplication.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/master/json-schema/radixapplication.json
 
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
@@ -30,6 +30,20 @@ spec:
         - name: http
           port: 5005
       publicPort: http
+      secretRefs:
+        azureKeyVaults:
+          - items:
+              - name: backend
+                type: cert
+                alias: "backend.crt"
+              - name: backend
+                type: key
+                alias: "backend.pem"
+              - name: backend
+                type: secret
+                alias: "backend.key"
+            name: radix-sci-az-kv-test
+            path: /mnt/secrets
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
