@@ -15,6 +15,18 @@ RUN dotnet publish -c release -o /app .
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 
+
+# install ODBC 18
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+
+#Debian 11
+RUN curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list
+
+RUN apt-get update
+RUN ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
+
+
+
 RUN	apt-get update && apt-get -y install curl
 RUN	curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 RUN az --version
