@@ -16,6 +16,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 
 
+RUN apt-get update && apt-get install -y curl gnupg
+
+
 # install ODBC 18
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 
