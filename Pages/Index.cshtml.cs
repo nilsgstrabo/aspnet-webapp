@@ -44,6 +44,7 @@ namespace aspnet_webapp.Pages
                         _logger.LogInformation("Got {0}", v);
                     }
                 }
+                
             }
             catch (System.Exception ex)
             {
