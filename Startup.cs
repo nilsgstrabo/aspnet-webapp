@@ -77,7 +77,7 @@ namespace aspnet_webapp
                 {
                     var value = h.Value.FirstOrDefault() ?? "";
                     // logger.LogInformation("{0}:{1}", h.Key, value.Substring(0,value.Length>20 ? 20 : value.Length));
-                    logger.LogInformation("{0}:{1}", h.Key, value);
+                    // logger.LogInformation("{0}:{1}", h.Key, value);
                 }
                 await next();
             });
