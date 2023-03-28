@@ -44,10 +44,13 @@ namespace aspnet_webapp
             });
 
             services.AddScoped<IUserInfoService, UserInfoService>();
-            
             services.AddAzureClients(builder=> {
                 builder.AddSecretClient(new Uri(Configuration["KEY_VAULT_URL"]));
                 builder.UseCredential(new DefaultAzureCredential());
+            });
+            services.AddAuthorization(c=> {
+                c.AddPolicy("Restricted", p=>p.RequireRole("ProtectedContent1", "ProtectedContent2"));
+
             });
         }
         
