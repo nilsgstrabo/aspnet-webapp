@@ -13,6 +13,7 @@ spec:
     securityContext:
       privileged: false
       allowPrivilegeEscalation: false
+      runAsUser: 1000
     # volumeMounts:
     # - name: host-fs
     #   mountPath: /host
