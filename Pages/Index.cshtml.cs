@@ -26,7 +26,6 @@ namespace aspnet_webapp.Pages
             _logger = logger;
             _secretClient = secretClient;
             _configRoot = configRoot;
-            
         }
 
         public IEnumerable<string> Secrets;

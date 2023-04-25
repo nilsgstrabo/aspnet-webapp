@@ -12,6 +12,9 @@ using Microsoft.Extensions.Azure;
 using Azure.Identity;
 using Azure.Core;
 using Microsoft.Identity.Web;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
 
 namespace aspnet_webapp
 {
@@ -37,7 +40,6 @@ namespace aspnet_webapp
                     };
                 });
 
-            services.AddAuthorization();
             services.AddRazorPages(c=>{
                 c.Conventions.AllowAnonymousToPage("/Index");
                 c.Conventions.AllowAnonymousToPage("/Error");
@@ -50,7 +52,6 @@ namespace aspnet_webapp
             });
             services.AddAuthorization(c=> {
                 c.AddPolicy("Restricted", p=>p.RequireRole("ProtectedContent1", "ProtectedContent2"));
-
             });
         }
         
