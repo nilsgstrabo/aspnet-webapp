@@ -46,7 +46,7 @@ spec:
           setXAuthRequestHeaders: true
           setAuthorizationHeader: true
           sessionStoreType: redis
-          scope: openid profile email offline_access Mail.Read User.Read
+          scope: openid profile email offline_access User.Read
           redisStore:
             connectionUrl: redis://redis:6379
     - name: redis
