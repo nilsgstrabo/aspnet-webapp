@@ -1,7 +1,7 @@
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
-  name: demoapp
+  name: oauth-demo
 spec:
   environments:
     - name: prod
@@ -12,30 +12,42 @@ spec:
         from: main
   components:
     - name: web
-      ports:
-        - name: http
-          port: 5005
-      publicPort: http
       identity:
         azure:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49 # user assigned managed identity "id-radix-fed-test"
-      resources:
-        limits:
-          memory: 4G
-        requests:
-          memory: 500M
-          cpu: 500m
-      environmentConfig:
-        - environment: prod
-          replicas: 2
       variables:
         ASPNETCORE_URLS: http://*:5005
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
-      secrets:
-        - "SECRET1"
-        - "SECRET2"
+      ports:
+        - name: http
+          port: 5005
+      publicPort: http
+      secretRefs:
+        azureKeyVaults:
+          - items:
+              - name: backend
+                type: cert
+                alias: "backend.crt"
+              - name: backend
+                type: key
+                alias: "backend.pem"
+              - name: backend
+                type: secret
+                alias: "backend.key"
+            name: radix-sci-az-kv-test
+            path: /mnt/secrets
+            useAzureIdentity: true
+      authentication:
+        oauth2:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+          setXAuthRequestHeaders: true
+          setAuthorizationHeader: true
+          sessionStoreType: redis
+          scope: openid profile email offline_access User.Read
+          redisStore:
+            connectionUrl: redis://redis:6379
     - name: redis
       image: bitnami/redis:latest
       secrets:
@@ -43,4 +55,7 @@ spec:
       ports:
         - name: redis
           port: 6379
-
+      enabled: false
+      environmentConfig:
+        - environment: dev
+          enabled: true
