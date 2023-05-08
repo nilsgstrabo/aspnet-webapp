@@ -15,6 +15,10 @@ spec:
       identity:
         azure:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49 # user assigned managed identity "id-radix-fed-test"
+      # secrets:
+      #   - AZURE_TENANT_ID
+      #   - AZURE_CLIENT_ID
+      #   - AZURE_CLIENT_SECRET
       variables:
         ASPNETCORE_URLS: http://*:5005
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
@@ -26,7 +30,10 @@ spec:
       publicPort: http
       secretRefs:
         azureKeyVaults:
-          - items:
+          - name: radix-sci-az-kv-test
+            path: /mnt/secrets
+            useAzureIdentity: true
+            items:
               - name: backend
                 type: cert
                 alias: "backend.crt"
@@ -36,9 +43,6 @@ spec:
               - name: backend
                 type: secret
                 alias: "backend.key"
-            name: radix-sci-az-kv-test
-            path: /mnt/secrets
-            useAzureIdentity: true
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6

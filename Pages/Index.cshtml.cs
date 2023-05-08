@@ -21,8 +21,6 @@ namespace aspnet_webapp.Pages
 
         public IndexModel(SecretClient secretClient, IConfiguration configRoot,ILogger<IndexModel> logger)
         {
-
-            
             _logger = logger;
             _secretClient = secretClient;
             _configRoot = configRoot;
@@ -30,30 +28,14 @@ namespace aspnet_webapp.Pages
 
         public IEnumerable<string> Secrets;
         public IEnumerable<KeyValuePair<string,string>> Configs;
+        public int ProductCount;
+
 
         public void OnGet()
         {
             try
             {
-                var connStr = $"Server={_configRoot["SQL_SERVER_NAME"]}; Authentication=Active Directory Managed Identity; Encrypt=True; Database={_configRoot["SQL_DATABASE_NAME"]}";
-                using(SqlConnection conn = new SqlConnection(connStr)) {
-                    conn.Open();
-                    using(SqlCommand cmd=new SqlCommand("select count(1) as cnt from dbo.Products", conn)) {
-                        var v=cmd.ExecuteScalar();
-                        _logger.LogInformation("Got {0}", v);
-                    }
-                }
-                
-            }
-            catch (System.Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-            }
-
-            try
-            {
                 Secrets = _secretClient.GetPropertiesOfSecrets().Select(s=>s.Name).ToList();
-
                 Configs = _configRoot.AsEnumerable().ToList();
             }
             catch (System.Exception ex)
@@ -62,10 +44,21 @@ namespace aspnet_webapp.Pages
                 _logger.LogError(ex,ex.Message);
             }
 
-            // foreach (var item in this.Request.Headers)
-            // {
-            //     _logger.LogInformation($"{item.Key}: {item.Value.ToString()}");
-            // }
+            try
+            {
+                var connStr = $"Server={_configRoot["SQL_SERVER_NAME"]}; Authentication=Active Directory Managed Identity; Encrypt=True; Database={_configRoot["SQL_DATABASE_NAME"]}";
+                using(SqlConnection conn = new SqlConnection(connStr)) {
+                    conn.Open();
+                    using(SqlCommand cmd=new SqlCommand("select count(1) as cnt from dbo.Products", conn)) {
+                        ProductCount=(int)cmd.ExecuteScalar();
+                    }
+                }
+                
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
         }
     }
 }
