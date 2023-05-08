@@ -55,7 +55,3 @@ spec:
       ports:
         - name: redis
           port: 6379
-      enabled: false
-      environmentConfig:
-        - environment: dev
-          enabled: true
