@@ -1,20 +1,20 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
-using Microsoft.AspNetCore.Authentication;
 using aspnet_webapp.Services;
 using Microsoft.Extensions.Azure;
 using Azure.Identity;
+using Azure.Core;
+using Microsoft.Identity.Web;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
 
 namespace aspnet_webapp
 {
@@ -39,21 +39,28 @@ namespace aspnet_webapp
                         NameClaimType="name"
                     };
                 });
-            
-            services.AddAuthorization();
+
             services.AddRazorPages(c=>{
                 c.Conventions.AllowAnonymousToPage("/Index");
                 c.Conventions.AllowAnonymousToPage("/Error");
             });
 
-            services.AddScoped<IUserInfoService, UserInfoService>();
+            
+            
             
             services.AddAzureClients(builder=> {
                 builder.AddSecretClient(new Uri(Configuration["KEY_VAULT_URL"]));
                 builder.UseCredential(new DefaultAzureCredential());
             });
+
+
+
+            services.AddScoped<IUserInfoService, UserInfoService>();
+            services.AddAuthorization(c=> {
+                c.AddPolicy("Restricted", p=>p.RequireRole("ProtectedContent1", "ProtectedContent2"));
+            });
         }
-           
+        
        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -76,7 +83,8 @@ namespace aspnet_webapp
                 foreach (var h in ctx.Request.Headers.Where(h=>h.Key.StartsWith("X-Auth") || h.Key.ToLower().StartsWith("auth")).AsEnumerable()) //.Where(h=>h.Key.StartsWith("X-Custom") || h.Key.ToLower().StartsWith("auth"))
                 {
                     var value = h.Value.FirstOrDefault() ?? "";
-                    logger.LogInformation("{0}:{1}", h.Key, value.Substring(0,value.Length>20 ? 20 : value.Length));
+                    // logger.LogInformation("{0}:{1}", h.Key, value.Substring(0,value.Length>20 ? 20 : value.Length));
+                    // logger.LogInformation("{0}:{1}", h.Key, value);
                 }
                 await next();
             });

@@ -12,7 +12,7 @@
     </div> *@
     
     
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Welcome!!</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <div>
         <a href="https://server2-nils-simple-webapp-qa.nils-dev.dev.radix.equinor.com/">Link to server2</a>
@@ -20,7 +20,9 @@
     <div>
         <a href="https://server-nils-simple-webapp-qa.nils-dev.dev.radix.equinor.com/">Link to server</a>
     </div>
-
+    <div>
+        <h4>There are @this.Model.ProductCount rows in table dbo.Products</h4>
+    </div>
     <div>
         <h4>Secrets returned by Azure KeyVault Client SDK</h4>
         @foreach (var secret in this.Model.Secrets)

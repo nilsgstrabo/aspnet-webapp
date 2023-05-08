@@ -3,9 +3,6 @@ kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
-  build:
-    secrets:
-      - BUILDSECRET
   environments:
     - name: prod
       build:
@@ -15,23 +12,40 @@ spec:
         from: main
   components:
     - name: web
-      identity:
-        azure:
-          # clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6 # app registration "ar-radix-oauth-demo"
-          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49 # user assigned managed identity "id-radix-fed-test"
+      secrets:
+        - AZURE_CLIENT_SECRET
       variables:
+        AZURE_TENANT_ID: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
+        AZURE_CLIENT_ID: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
         ASPNETCORE_URLS: http://*:5005
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
+        SQL_SERVER_NAME: "fed-test.database.windows.net"
+        SQL_DATABASE_NAME: "fed-test"
       ports:
         - name: http
           port: 5005
       publicPort: http
+      secretRefs:
+        azureKeyVaults:
+          - name: radix-sci-az-kv-test
+            path: /mnt/secrets
+            items:
+              - name: backend
+                type: cert
+                alias: "backend.crt"
+              - name: backend
+                type: key
+                alias: "backend.pem"
+              - name: backend
+                type: secret
+                alias: "backend.key"
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
           setXAuthRequestHeaders: true
           setAuthorizationHeader: true
           sessionStoreType: redis
+          scope: openid profile email offline_access User.Read
           redisStore:
             connectionUrl: redis://redis:6379
     - name: redis

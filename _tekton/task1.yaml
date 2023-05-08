@@ -11,8 +11,10 @@ spec:
   - image: alpine
     name: sayhello
     securityContext:
-      privileged: true
-      allowPrivilegeEscalation: true
+      privileged: false
+      allowPrivilegeEscalation: false
+      runAsUser: 1000
+
     # volumeMounts:
     # - name: host-fs
     #   mountPath: /host
@@ -20,21 +22,21 @@ spec:
       #!/usr/bin/env sh
       echo hello $(hostname)
       id
-      ls /host -l
-      cat <<EOF > /host/tmp/pod.yaml
-      apiVersion: v1
-      kind: Pod
-      metadata:
-        name: alpine
-        namespace: default
-      spec:
-        containers:
-        - name: alpine
-          image: alpine
-          command: ["/bin/sh"]
-          args: ["-c", "sleep 30"]
-      EOF
-      chroot /host kubectl apply -f /tmp/pod.yaml --kubeconfig=/var/lib/kubelet/kubeconfig
+      # ls /host -l
+      # cat <<EOF > /host/tmp/pod.yaml
+      # apiVersion: v1
+      # kind: Pod
+      # metadata:
+      #   name: alpine
+      #   namespace: default
+      # spec:
+      #   containers:
+      #   - name: alpine
+      #     image: alpine
+      #     command: ["/bin/sh"]
+      #     args: ["-c", "sleep 30"]
+      # EOF
+      # chroot /host kubectl apply -f /tmp/pod.yaml --kubeconfig=/var/lib/kubelet/kubeconfig
       :
 
 
