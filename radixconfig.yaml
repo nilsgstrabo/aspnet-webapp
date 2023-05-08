@@ -14,7 +14,7 @@ spec:
     - name: web
       identity:
         azure:
-          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49 # user assigned managed identity "id-radix-fed-test"
+          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
       # secrets:
       #   - AZURE_CLIENT_SECRET
       variables:
@@ -32,7 +32,7 @@ spec:
       #   azureKeyVaults:
       #     - name: radix-sci-az-kv-test
       #       path: /mnt/secrets
-      #       # useAzureIdentity: true
+      #       useAzureIdentity: true
       #       items:
       #         - name: backend
       #           type: cert
