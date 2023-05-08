@@ -21,7 +21,7 @@ namespace aspnet_webapp
                 {
                     config.AddAzureKeyVault(
                         new Uri(Environment.GetEnvironmentVariable("KEY_VAULT_URL")), 
-                        new DefaultAzureCredential()
+                        new DefaultAzureCredential() // Try different strategies to acquire credentials
                     );
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
