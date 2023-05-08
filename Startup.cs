@@ -50,7 +50,7 @@ namespace aspnet_webapp
             
             services.AddAzureClients(builder=> {
                 builder.AddSecretClient(new Uri(Configuration["KEY_VAULT_URL"]));
-                builder.UseCredential(new ManagedIdentityCredential());
+                builder.UseCredential(new DefaultAzureCredential());
             });
 
 
