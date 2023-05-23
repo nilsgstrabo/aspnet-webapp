@@ -54,10 +54,8 @@ spec:
             maxReplicas: 4
             minReplicas: 1
             resources:
-              cpu:
-                averageUtilization: 50
               memory:
-                averageUtilization: 20
+                averageUtilization: 35
           resources:
             requests:
               memory: 200M
