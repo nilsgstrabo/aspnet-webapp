@@ -48,6 +48,20 @@ spec:
           scope: openid profile email offline_access User.Read
           redisStore:
             connectionUrl: redis://redis:6379
+      environmentConfig:
+        - environment: dev
+          horizontalScaling:
+            maxReplicas: 4
+            minReplicas: 1
+            resources:
+              cpu:
+                averageUtilization: 50
+              memory:
+                averageUtilization: 20
+          resources:
+            requests:
+              memory: 200M
+              cpu: 50m
     - name: redis
       image: bitnami/redis:latest
       secrets:
