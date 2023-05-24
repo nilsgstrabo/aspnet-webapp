@@ -55,10 +55,10 @@ spec:
             minReplicas: 1
             resources:
               memory:
-                averageUtilization: 35
+                averageUtilization: 75
           resources:
             requests:
-              memory: 200M
+              memory: 400M
               cpu: 50m
     - name: redis
       image: bitnami/redis:latest
