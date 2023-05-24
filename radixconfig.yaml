@@ -51,8 +51,8 @@ spec:
       environmentConfig:
         - environment: dev
           horizontalScaling:
-            maxReplicas: 4
             minReplicas: 1
+            maxReplicas: 4
             resources:
               memory:
                 averageUtilization: 75
