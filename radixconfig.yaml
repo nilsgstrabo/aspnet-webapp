@@ -18,6 +18,11 @@ spec:
     # - name: qa6
   components:
     - name: web
+      environmentConfig:
+        - environment: qa
+          horizontalScaling:
+            minReplicas: 1
+            maxReplicas: 3
       identity:
         azure:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
