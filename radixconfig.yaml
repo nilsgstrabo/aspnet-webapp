@@ -23,6 +23,9 @@ spec:
           horizontalScaling:
             minReplicas: 1
             maxReplicas: 3
+            resources:
+              memory:
+                averageUtilization: 70
       identity:
         azure:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
