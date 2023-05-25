@@ -19,7 +19,7 @@ spec:
   components:
     - name: web
       environmentConfig:
-        - environment: qa
+        - environment: dev
           horizontalScaling:
             minReplicas: 1
             maxReplicas: 3
