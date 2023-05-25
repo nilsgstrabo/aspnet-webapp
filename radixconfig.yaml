@@ -10,12 +10,12 @@ spec:
     - name: dev
       build:
         from: main
-    - name: qa1
-    - name: qa2
-    - name: qa3
-    - name: qa4
-    - name: qa5
-    - name: qa6
+    # - name: qa1
+    # - name: qa2
+    # - name: qa3
+    # - name: qa4
+    # - name: qa5
+    # - name: qa6
   components:
     - name: web
       identity:
@@ -69,25 +69,25 @@ spec:
         requests:
           memory: 50M
           cpu: 50m
-    - name: redis2
-      image: bitnami/redis:latest
-      secrets:
-        - REDIS_PASSWORD
-      ports:
-        - name: redis
-          port: 6379
-      resources:
-        requests:
-          memory: 50M
-          cpu: 50m     
-    - name: redis3
-      image: bitnami/redis:latest
-      secrets:
-        - REDIS_PASSWORD
-      ports:
-        - name: redis
-          port: 6379
-      resources:
-        requests:
-          memory: 50M
-          cpu: 50m                  
+    # - name: redis2
+    #   image: bitnami/redis:latest
+    #   secrets:
+    #     - REDIS_PASSWORD
+    #   ports:
+    #     - name: redis
+    #       port: 6379
+    #   resources:
+    #     requests:
+    #       memory: 50M
+    #       cpu: 50m     
+    # - name: redis3
+    #   image: bitnami/redis:latest
+    #   secrets:
+    #     - REDIS_PASSWORD
+    #   ports:
+    #     - name: redis
+    #       port: 6379
+    #   resources:
+    #     requests:
+    #       memory: 50M
+    #       cpu: 50m                  
