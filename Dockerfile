@@ -24,9 +24,9 @@ COPY --from=build /app ./
 # RUN adduser -D --uid 1001 radix-non-root-user
 
 
-# RUN useradd -m --uid 1001 radix-non-root-user
+RUN useradd -m --uid 1001 radix-non-root-user
 # RUN chown -R 1001 /opt/az
-# USER 1001
-USER 65534
+USER 1001
+
 
 ENTRYPOINT ["dotnet", "aspnet-webapp.dll"]
