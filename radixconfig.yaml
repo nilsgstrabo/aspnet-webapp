@@ -10,24 +10,14 @@ spec:
     - name: dev
       build:
         from: main
-    # - name: qa1
-    # - name: qa2
-    # - name: qa3
-    # - name: qa4
-    # - name: qa5
-    # - name: qa6
+    - name: qa1
+    - name: qa2
+    - name: qa3
+    - name: qa4
+    - name: qa5
+    - name: qa6
   components:
     - name: web
-      environmentConfig:
-        - environment: dev
-          horizontalScaling:
-            minReplicas: 1
-            maxReplicas: 3
-            resources:
-              cpu:
-                averageUtilization: 85
-              memory:
-                averageUtilization: 76
       identity:
         azure:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
@@ -79,25 +69,25 @@ spec:
         requests:
           memory: 50M
           cpu: 50m
-    # - name: redis2
-    #   image: bitnami/redis:latest
-    #   secrets:
-    #     - REDIS_PASSWORD
-    #   ports:
-    #     - name: redis
-    #       port: 6379
-    #   resources:
-    #     requests:
-    #       memory: 50M
-    #       cpu: 50m     
-    # - name: redis3
-    #   image: bitnami/redis:latest
-    #   secrets:
-    #     - REDIS_PASSWORD
-    #   ports:
-    #     - name: redis
-    #       port: 6379
-    #   resources:
-    #     requests:
-    #       memory: 50M
-    #       cpu: 50m                  
+    - name: redis2
+      image: bitnami/redis:latest
+      secrets:
+        - REDIS_PASSWORD
+      ports:
+        - name: redis
+          port: 6379
+      resources:
+        requests:
+          memory: 50M
+          cpu: 50m     
+    - name: redis3
+      image: bitnami/redis:latest
+      secrets:
+        - REDIS_PASSWORD
+      ports:
+        - name: redis
+          port: 6379
+      resources:
+        requests:
+          memory: 50M
+          cpu: 50m                  
