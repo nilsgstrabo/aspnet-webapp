@@ -16,6 +16,7 @@ spec:
     - name: qa4
     - name: qa5
     - name: qa6
+    - name: qa7
   components:
     - name: web
       identity:
