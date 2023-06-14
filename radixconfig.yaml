@@ -76,26 +76,4 @@ spec:
       resources:
         requests:
           memory: 50M
-          cpu: 50m
-    - name: redis2
-      image: bitnami/redis:latest
-      secrets:
-        - REDIS_PASSWORD
-      ports:
-        - name: redis
-          port: 6379
-      resources:
-        requests:
-          memory: 50M
           cpu: 50m     
-    - name: redis3
-      image: bitnami/redis:latest
-      secrets:
-        - REDIS_PASSWORD
-      ports:
-        - name: redis
-          port: 6379
-      resources:
-        requests:
-          memory: 50M
-          cpu: 50m                  
