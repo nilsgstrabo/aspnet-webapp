@@ -57,6 +57,13 @@ spec:
               accessMode: ReadOnlyMany
               bindingMode: Immediate
               storage: "videos"
+            - name: videos4
+              path: "/mnt/videos4"
+              type: azure-nfs
+              uid: "1001"
+              accessMode: ReadOnlyMany
+              bindingMode: Immediate
+              storage: "videos"
 
       resources:
         requests:
