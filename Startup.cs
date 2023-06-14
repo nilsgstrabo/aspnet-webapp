@@ -42,12 +42,13 @@ namespace aspnet_webapp
 
             services.AddRazorPages(c=>{
                 c.Conventions.AllowAnonymousToPage("/Index");
+                c.Conventions.AllowAnonymousToPage("/Video");
                 c.Conventions.AllowAnonymousToPage("/Error");
             });
 
             
             
-            
+            services.AddControllersWithViews();
             services.AddAzureClients(builder=> {
                 builder.AddSecretClient(new Uri(Configuration["KEY_VAULT_URL"]));
                 builder.UseCredential(new DefaultAzureCredential());
@@ -91,8 +92,10 @@ namespace aspnet_webapp
 
             app.UseRouting();
             app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(name:"default", pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages().RequireAuthorization();
             });
         }

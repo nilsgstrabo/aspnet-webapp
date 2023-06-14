@@ -1,0 +1,32 @@
+@page
+@model VideoModel
+@{
+    ViewData["Title"] = "Videos";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+@if(Model.Videos?.Length==0)
+{
+    <div>No videos available</div>
+} else {
+    <form method="post">
+    @foreach (var item in Model.Videos)
+    {
+        <div>
+            <input type="radio" name="SelectedVideo" id="@item" value="@item" />
+            <label for="@item">@item</label>
+        </div>
+    }
+    <input type="submit" value="Play" />  
+    </form>
+}
+
+@if(Model.SelectedVideo?.Length > 0) 
+{
+    <div>Selected video: @Model.SelectedVideo</div>
+    <div>
+        <video controls src="/api/video/@Model.SelectedVideo" width="800px">Your browser does not support the video tag.</video>
+    </div>
+}
+
