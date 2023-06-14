@@ -38,7 +38,7 @@ spec:
               storage: "videos"
               streaming:
                 enabled: true
-                streamCache: 256
+                # streamCache: 256
             - name: videos2
               path: "/mnt/videos2"
               type: azure-blob2
