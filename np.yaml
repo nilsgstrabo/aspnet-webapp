@@ -19,13 +19,15 @@ spec:
         - world
       toPorts:
         - ports:
-            - port: "443"
-              protocol: "TCP"
             - port: "6380"
               protocol: "TCP"
-        - rules:
+        - ports:
+            - port: "443"
+              protocol: "TCP"
+          rules:
             http:
-              - {}
+              - host: "server-radix-api-qa.ciliumbyocni.dev.radix.equinor.com"
+              - host: "ciliumbyocni-qa.redis.cache.windows.net"
     - toEntities:
         - cluster
     - toEndpoints:
@@ -39,3 +41,8 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
+              # - matchPattern: "*.microsoft.com"
+              # - matchPattern: "*.windows.net"
+              # - matchPattern: "*.equinor.com"
+              # - matchPattern: "*.microsoftonline.com"
+              # - matchPattern: "*.cloudapp.net"

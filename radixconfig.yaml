@@ -10,13 +10,6 @@ spec:
     - name: dev
       build:
         from: main
-    - name: qa1
-    - name: qa2
-    - name: qa3
-    - name: qa4
-    - name: qa5
-    - name: qa6
-    - name: qa7
   components:
     - name: web
       identity:
@@ -31,6 +24,20 @@ spec:
         - name: http
           port: 5005
       publicPort: http
+      environmentConfig:
+        - environment: dev
+          variables:
+            VIDEO_PATH: "/mnt/videos"
+          volumeMounts:
+            - name: videos
+              path: "/mnt/videos"
+              type: azure-blob2
+              uid: "1001"
+              accessMode: ReadOnlyMany
+              bindingMode: Immediate
+              storage: "videos"
+              streaming:
+                enabled: true
       resources:
         requests:
           memory: 200M
