@@ -42,21 +42,21 @@ spec:
         requests:
           memory: 200M
           cpu: 50m
-      secretRefs:
-        azureKeyVaults:
-          - name: radix-sci-az-kv-test
-            path: /mnt/secrets
-            useAzureIdentity: true
-            items:
-              - name: backend
-                type: cert
-                alias: "backend.crt"
-              - name: backend
-                type: key
-                alias: "backend.pem"
-              - name: backend
-                type: secret
-                alias: "backend.key"
+      # secretRefs:
+      #   azureKeyVaults:
+      #     - name: radix-sci-az-kv-test
+      #       path: /mnt/secrets
+      #       useAzureIdentity: true
+      #       items:
+      #         - name: backend
+      #           type: cert
+      #           alias: "backend.crt"
+      #         - name: backend
+      #           type: key
+      #           alias: "backend.pem"
+      #         - name: backend
+      #           type: secret
+      #           alias: "backend.key"
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
