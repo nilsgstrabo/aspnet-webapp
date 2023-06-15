@@ -17,16 +17,19 @@ namespace aspnet_webapp.Pages
     {
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
+        private readonly IVideoService _videoService;
 
 
-        public VideoModel(IConfiguration configuration,ILogger<VideoModel> logger)
+        public VideoModel(IVideoService videoService,IConfiguration configuration,ILogger<VideoModel> logger)
         {
             _logger = logger;
             _configuration=configuration;
-            var videoPath=_configuration["VIDEO_PATH"];
-            if(videoPath?.Length>0) {
-                Videos=System.IO.Directory.GetFiles(_configuration["VIDEO_PATH"]).Select(f=>new System.IO.FileInfo(f).Name).ToArray();
-            }
+            _videoService=videoService;
+            Videos=videoService.GetVideos().Select(v=>v.Id).ToArray();
+            // var videoPath=_configuration["VIDEO_PATH"];
+            // if(videoPath?.Length>0) {
+            //     Videos=System.IO.Directory.GetFiles(_configuration["VIDEO_PATH"]).Select(f=>new System.IO.FileInfo(f).Name).ToArray();
+            // }
         }
 
         public string[] Videos { get; set; }

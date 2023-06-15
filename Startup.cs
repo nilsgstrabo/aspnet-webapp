@@ -55,7 +55,7 @@ namespace aspnet_webapp
             });
 
 
-
+            services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<IUserInfoService, UserInfoService>();
             services.AddAuthorization(c=> {
                 c.AddPolicy("Restricted", p=>p.RequireRole("ProtectedContent1", "ProtectedContent2"));
