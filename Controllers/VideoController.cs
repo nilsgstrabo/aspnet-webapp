@@ -39,19 +39,13 @@ namespace aspnet_webapp.Controllers
         [HttpGet("{name}")]
         public IActionResult GetVideo(string name)
         {
+            _logger.LogInformation("Stream video {0}, range {1}", name, this.Request.GetTypedHeaders().Range?.ToString());
             var video=_videoService.GetVideos().FirstOrDefault(v=>v.Id==name);
 
             if(video==null) {
                 return this.NotFound();
             }
             return this.PhysicalFile(video.FileName, "video/mp4", true);
-            // var videoPath=_configuration["VIDEO_PATH"];
-            // if (videoPath?.Length==0) {
-            //     return this.StatusCode(500);
-            // }
-            // _logger.LogInformation("Stream video {0}, range {1}", name, this.Request.GetTypedHeaders().Range?.ToString());
-            // var filename=System.IO.Path.Combine(_configuration["VIDEO_PATH"], new System.IO.FileInfo(name).Name);
-            // return this.PhysicalFile(filename, "video/mp4", true);
         }
 
     }
