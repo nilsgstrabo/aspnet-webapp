@@ -15,7 +15,7 @@
     {
         <div>
             <input type="radio" name="SelectedVideoId" id="@item.Id" value="@item.Id" />
-            <label for="@item.Id">@item.FileName</label>
+            <label for="@item.Id">@item.FileName (@Model.ConvertToMB(item.SizeBytes))</label>
         </div>
     }
     <input type="submit" value="Play" />  

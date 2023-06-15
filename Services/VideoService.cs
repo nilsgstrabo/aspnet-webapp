@@ -9,6 +9,7 @@ namespace aspnet_webapp.Services {
     public class VideoInfo {
         public string Id { get; set; }
         public string FileName { get; set; }
+        public long SizeBytes { get; set; }
     }
 
     public interface IVideoService {
@@ -37,7 +38,7 @@ namespace aspnet_webapp.Services {
             {
                 var dir=q.Pop();
                 System.IO.Directory.GetDirectories(dir).ToList().ForEach(d=>q.Push(d));
-                System.IO.Directory.GetFiles(dir).Select(f=>new System.IO.FileInfo(f)).ToList().ForEach(f=>videos.Add(new VideoInfo{FileName=f.FullName, Id=f.FullName.Replace('/','-')}));
+                System.IO.Directory.GetFiles(dir).Select(f=>new System.IO.FileInfo(f)).ToList().ForEach(f=>videos.Add(new VideoInfo{Id=f.FullName.Replace('/','-'),FileName=f.FullName, SizeBytes=f.Length}));
             }
             return videos;
 

@@ -43,5 +43,9 @@ namespace aspnet_webapp.Pages
         public void OnPost() {
             SelectedVideo=Videos.FirstOrDefault(v=>v.Id==(SelectedVideoId ?? ""));
         }
+
+        public string ConvertToMB(long value) {
+            return string.Format("{0} MB", value/1024/1024);
+        }
     }
 }
