@@ -23,8 +23,13 @@ COPY --from=build /app ./
 # Add a new user "radix-non-root-user" with user id 1001
 # RUN adduser -D --uid 1001 radix-non-root-user
 
+RUN mkdir -p /mnt/videos/sample
+
+COPY /sample/embedded.mp4 /mnt/videos/sample
 
 RUN useradd -m --uid 1001 radix-non-root-user
+
+RUN chown 1001 /mnt/videos/sample
 # RUN chown -R 1001 /opt/az
 USER 1001
 
