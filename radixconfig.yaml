@@ -39,6 +39,8 @@ spec:
               streaming:
                 enabled: true
                 streamCache: 256
+                blockSize: 8
+                maxBlocksPerFile: 8
                 # streamCache: 256
             - name: videos2
               path: "/mnt/videos/blob2"
