@@ -25,20 +25,23 @@ namespace aspnet_webapp.Pages
             _logger = logger;
             _configuration=configuration;
             _videoService=videoService;
-            Videos=videoService.GetVideos().Select(v=>v.Id).ToArray();
+            Videos=videoService.GetVideos().ToArray();
             // var videoPath=_configuration["VIDEO_PATH"];
             // if(videoPath?.Length>0) {
             //     Videos=System.IO.Directory.GetFiles(_configuration["VIDEO_PATH"]).Select(f=>new System.IO.FileInfo(f).Name).ToArray();
             // }
         }
 
-        public string[] Videos { get; set; }
+        public VideoInfo[] Videos { get; set; }
         
         [BindProperty]
-        public string SelectedVideo { get; set; }
+        public VideoInfo SelectedVideo { get; set; }
+        
+        [BindProperty]
+        public string SelectedVideoId { get; set; } = "";
 
         public void OnPost() {
-
+            SelectedVideo=Videos.FirstOrDefault(v=>v.Id==(SelectedVideoId ?? ""));
         }
     }
 }

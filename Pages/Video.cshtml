@@ -14,19 +14,19 @@
     @foreach (var item in Model.Videos)
     {
         <div>
-            <input type="radio" name="SelectedVideo" id="@item" value="@item" />
-            <label for="@item">@item</label>
+            <input type="radio" name="SelectedVideoId" id="@item.Id" value="@item.Id" />
+            <label for="@item.Id">@item.FileName</label>
         </div>
     }
     <input type="submit" value="Play" />  
     </form>
 }
 
-@if(Model.SelectedVideo?.Length > 0) 
+@if(Model.SelectedVideo != null) 
 {
-    <div>Selected video: @Model.SelectedVideo</div>
+    <div>Selected video: @Model.SelectedVideo.FileName</div>
     <div>
-        <video controls src="/api/video/@Model.SelectedVideo" width="800px">Your browser does not support the video tag.</video>
+        <video controls src="/api/video/@Model.SelectedVideo.Id" width="800px">Your browser does not support the video tag.</video>
     </div>
 }
 
