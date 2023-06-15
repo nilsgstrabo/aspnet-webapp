@@ -30,7 +30,7 @@ spec:
             VIDEO_PATH: "/mnt/videos"
           volumeMounts:
             - name: videos
-              path: "/mnt/videos"
+              path: "/mnt/videos/blob2stream"
               type: azure-blob2
               uid: "1001"
               accessMode: ReadOnlyMany
@@ -40,14 +40,14 @@ spec:
                 enabled: true
                 # streamCache: 256
             - name: videos2
-              path: "/mnt/videos2"
+              path: "/mnt/videos/blob2"
               type: azure-blob2
               uid: "1001"
               accessMode: ReadOnlyMany
               bindingMode: Immediate
               storage: "videos"
             - name: videos3
-              path: "/mnt/videos3"
+              path: "/mnt/videos/blob1"
               type: azure-blob
               uid: "1001"
               accessMode: ReadOnlyMany

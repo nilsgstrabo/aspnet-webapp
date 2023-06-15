@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
+using aspnet_webapp.Services;
+using System.Linq;
 
 namespace aspnet_webapp.Controllers
 {
@@ -18,11 +20,13 @@ namespace aspnet_webapp.Controllers
     {
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
+        private readonly IVideoService _videoService;
 
-        public VideoController(IConfiguration configuration,ILogger<VideoController> logger)
+        public VideoController(IVideoService videoService, IConfiguration configuration,ILogger<VideoController> logger)
         {
             _logger = logger;
             _configuration = configuration;
+            _videoService=videoService;
         }
 
         [HttpGet()]
@@ -35,13 +39,19 @@ namespace aspnet_webapp.Controllers
         [HttpGet("{name}")]
         public IActionResult GetVideo(string name)
         {
-            var videoPath=_configuration["VIDEO_PATH"];
-            if (videoPath?.Length==0) {
-                return this.StatusCode(500);
+            var video=_videoService.GetVideos().FirstOrDefault(v=>v.Id==name);
+
+            if(video==null) {
+                return this.NotFound();
             }
-            _logger.LogInformation("Stream video {0}, range {1}", name, this.Request.GetTypedHeaders().Range?.ToString());
-            var filename=System.IO.Path.Combine(_configuration["VIDEO_PATH"], new System.IO.FileInfo(name).Name);
-            return this.PhysicalFile(filename, "video/mp4", true);
+            return this.PhysicalFile(video.FileName, "video/mp4", true);
+            // var videoPath=_configuration["VIDEO_PATH"];
+            // if (videoPath?.Length==0) {
+            //     return this.StatusCode(500);
+            // }
+            // _logger.LogInformation("Stream video {0}, range {1}", name, this.Request.GetTypedHeaders().Range?.ToString());
+            // var filename=System.IO.Path.Combine(_configuration["VIDEO_PATH"], new System.IO.FileInfo(name).Name);
+            // return this.PhysicalFile(filename, "video/mp4", true);
         }
 
     }
