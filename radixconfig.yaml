@@ -40,7 +40,7 @@ spec:
                 enabled: true
                 # streamCache: 64
                 # blockSize: 8
-                maxBlocksPerFile: 8
+                maxBlocksPerFile: 4
                 bufferSize: 8
                 streamCache: 128
             - name: videos2
