@@ -38,11 +38,10 @@ spec:
               storage: "videos"
               streaming:
                 enabled: true
-                # streamCache: 64
+                # streamCache: 128
                 # blockSize: 8
-                maxBlocksPerFile: 4
-                bufferSize: 8
-                streamCache: 128
+                # maxBlocksPerFile: 4
+                # bufferSize: 128
             - name: videos2
               path: "/mnt/videos/blob2"
               type: azure-blob2
