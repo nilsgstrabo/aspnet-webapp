@@ -1,0 +1,48 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allownp
+  namespace: radix-web-console-qa
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+        - world
+    - fromEndpoints:
+        - {}
+    - fromEntities:
+        - cluster
+  egress:
+    - toEndpoints:
+        - {}
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "6380"
+              protocol: "TCP"
+        - ports:
+            - port: "443"
+              protocol: "TCP"
+          rules:
+            http:
+              - host: "server-radix-api-qa.ciliumbyocni.dev.radix.equinor.com"
+              - host: "ciliumbyocni-qa.redis.cache.windows.net"
+    - toEntities:
+        - cluster
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+          rules:
+            dns:
+              - matchPattern: "*"
+              # - matchPattern: "*.microsoft.com"
+              # - matchPattern: "*.windows.net"
+              # - matchPattern: "*.equinor.com"
+              # - matchPattern: "*.microsoftonline.com"
+              # - matchPattern: "*.cloudapp.net"

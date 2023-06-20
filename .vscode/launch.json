@@ -22,6 +22,7 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
                 "KEY_VAULT_URL": "https://radix-sci-az-kv-test.vault.azure.net/",
+                "VIDEO_PATH": "/home/nst/go/src/github.com/nilsgstrabo/aspnet-webapp/videos"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"

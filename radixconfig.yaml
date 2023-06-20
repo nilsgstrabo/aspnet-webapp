@@ -12,11 +12,10 @@ spec:
         from: main
   components:
     - name: web
-      secrets:
-        - AZURE_CLIENT_SECRET
+      identity:
+        azure:
+          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
       variables:
-        AZURE_TENANT_ID: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
-        AZURE_CLIENT_ID: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
         ASPNETCORE_URLS: http://*:5005
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
         SQL_SERVER_NAME: "fed-test.database.windows.net"
@@ -25,20 +24,69 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      secretRefs:
-        azureKeyVaults:
-          - name: radix-sci-az-kv-test
-            path: /mnt/secrets
-            items:
-              - name: backend
-                type: cert
-                alias: "backend.crt"
-              - name: backend
-                type: key
-                alias: "backend.pem"
-              - name: backend
-                type: secret
-                alias: "backend.key"
+      environmentConfig:
+        - environment: dev
+          variables:
+            VIDEO_PATH: "/mnt/videos"
+          volumeMounts:
+            - name: videos
+              path: "/mnt/videos/blob2stream"
+              type: azure-blob2
+              uid: "1001"
+              accessMode: ReadOnlyMany
+              bindingMode: Immediate
+              storage: "videos"
+              streaming:
+                enabled: true
+                # maxBuffers: 128
+                # streamCache: 128
+                # blockSize: 8
+                # maxBlocksPerFile: 4
+                # bufferSize: 128
+            - name: videos2
+              path: "/mnt/videos/blob2"
+              type: azure-blob2
+              uid: "1001"
+              accessMode: ReadWriteMany
+              bindingMode: Immediate
+              storage: "videos"
+            - name: videos3
+              path: "/mnt/videos/blob1"
+              type: azure-blob
+              uid: "1001"
+              accessMode: ReadOnlyMany
+              bindingMode: Immediate
+              storage: "videos"
+            # - name: videos4
+            #   path: "/mnt/videos4"
+            #   type: azure-nfs
+            #   uid: "1001"
+            #   accessMode: ReadOnlyMany
+            #   bindingMode: Immediate
+            #   storage: "videos"
+
+      resources:
+        requests:
+          memory: 200M
+          cpu: 1000m
+        limits:
+          memory: 2G
+          cpu: 2000m
+      # secretRefs:
+      #   azureKeyVaults:
+      #     - name: radix-sci-az-kv-test
+      #       path: /mnt/secrets
+      #       useAzureIdentity: true
+      #       items:
+      #         - name: backend
+      #           type: cert
+      #           alias: "backend.crt"
+      #         - name: backend
+      #           type: key
+      #           alias: "backend.pem"
+      #         - name: backend
+      #           type: secret
+      #           alias: "backend.key"
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
@@ -55,3 +103,7 @@ spec:
       ports:
         - name: redis
           port: 6379
+      resources:
+        requests:
+          memory: 50M
+          cpu: 50m     

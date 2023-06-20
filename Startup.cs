@@ -42,19 +42,20 @@ namespace aspnet_webapp
 
             services.AddRazorPages(c=>{
                 c.Conventions.AllowAnonymousToPage("/Index");
+                c.Conventions.AllowAnonymousToPage("/Video");
                 c.Conventions.AllowAnonymousToPage("/Error");
             });
 
             
             
-            
+            services.AddControllersWithViews();
             services.AddAzureClients(builder=> {
                 builder.AddSecretClient(new Uri(Configuration["KEY_VAULT_URL"]));
                 builder.UseCredential(new DefaultAzureCredential());
             });
 
 
-
+            services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<IUserInfoService, UserInfoService>();
             services.AddAuthorization(c=> {
                 c.AddPolicy("Restricted", p=>p.RequireRole("ProtectedContent1", "ProtectedContent2"));
@@ -91,8 +92,10 @@ namespace aspnet_webapp
 
             app.UseRouting();
             app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(name:"default", pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages().RequireAuthorization();
             });
         }

@@ -22,7 +22,9 @@ RUN az --version
 COPY --from=build /app ./
 # Add a new user "radix-non-root-user" with user id 1001
 # RUN adduser -D --uid 1001 radix-non-root-user
+
 RUN useradd -m --uid 1001 radix-non-root-user
+
 # RUN chown -R 1001 /opt/az
 USER 1001
 
