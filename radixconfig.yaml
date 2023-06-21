@@ -91,14 +91,14 @@ spec:
         clientCertificate:
           passCertificateToUpstream: true
           verification: optional_no_ca
-        oauth2:
-          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-          setXAuthRequestHeaders: true
-          setAuthorizationHeader: true
-          sessionStoreType: redis
-          scope: openid profile email offline_access User.Read
-          redisStore:
-            connectionUrl: redis://redis:6379
+        # oauth2:
+        #   clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+        #   setXAuthRequestHeaders: true
+        #   setAuthorizationHeader: true
+        #   sessionStoreType: redis
+        #   scope: openid profile email offline_access User.Read
+        #   redisStore:
+        #     connectionUrl: redis://redis:6379
     - name: redis
       image: bitnami/redis:latest
       secrets:
