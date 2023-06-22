@@ -46,7 +46,6 @@ spec:
                   # bufferSize: 128
             - name: videos2
               path: "/mnt/videos/blob2"
-              type: azure-blob2
               blobfuse2:
                 protocol: fuse2
                 uid: "1001"
