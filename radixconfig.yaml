@@ -31,39 +31,44 @@ spec:
           volumeMounts:
             - name: videos
               path: "/mnt/videos/blob2stream"
-              type: azure-blob2
-              uid: "1001"
-              accessMode: ReadOnlyMany
-              bindingMode: Immediate
-              storage: "videos"
-              streaming:
-                enabled: true
-                # maxBuffers: 128
-                # streamCache: 128
-                # blockSize: 8
-                # maxBlocksPerFile: 4
-                # bufferSize: 128
+              blobfuse2:
+                protocol: fuse2
+                uid: "1001"
+                accessMode: ReadOnlyMany
+                bindingMode: Immediate
+                container: "videos"
+                streaming:
+                  enabled: true
+                  # maxBuffers: 128
+                  # streamCache: 128
+                  # blockSize: 8
+                  # maxBlocksPerFile: 4
+                  # bufferSize: 128
             - name: videos2
               path: "/mnt/videos/blob2"
               type: azure-blob2
-              uid: "1001"
-              accessMode: ReadWriteMany
-              bindingMode: Immediate
-              storage: "videos"
+              blobfuse2:
+                protocol: fuse2
+                uid: "1001"
+                accessMode: ReadWriteMany
+                bindingMode: Immediate
+                container: "videos"
             - name: videos3
               path: "/mnt/videos/blob1"
-              type: azure-blob
-              uid: "1001"
-              accessMode: ReadOnlyMany
-              bindingMode: Immediate
-              storage: "videos"
+              blobfuse2:
+                protocol: fuse
+                uid: "1001"
+                accessMode: ReadOnlyMany
+                bindingMode: Immediate
+                container: "videos"
             # - name: videos4
             #   path: "/mnt/videos4"
-            #   type: azure-nfs
-            #   uid: "1001"
-            #   accessMode: ReadOnlyMany
-            #   bindingMode: Immediate
-            #   storage: "videos"
+            #   blobfuse2:
+            #     protocol: nfs
+            #     uid: "1001"
+            #     accessMode: ReadOnlyMany
+            #     bindingMode: Immediate
+            #     container: "videos"
 
       resources:
         requests:
