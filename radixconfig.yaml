@@ -90,7 +90,7 @@ spec:
       authentication:
         clientCertificate:
           passCertificateToUpstream: true
-          verification: "on"
+          verification: optional_no_ca
         # oauth2:
         #   clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
         #   setXAuthRequestHeaders: true
