@@ -37,6 +37,7 @@ spec:
                 accessMode: ReadOnlyMany
                 bindingMode: Immediate
                 container: "videos"
+                useAdls: false
                 streaming:
                   enabled: true
                   # maxBuffers: 128
