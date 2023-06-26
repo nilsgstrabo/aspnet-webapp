@@ -36,7 +36,8 @@ spec:
                 uid: "1001"
                 accessMode: ReadOnlyMany
                 bindingMode: Immediate
-                container: "videos"
+                container: "testdata"
+                #container: "videos"
                 useAdls: false
                 streaming:
                   enabled: true
