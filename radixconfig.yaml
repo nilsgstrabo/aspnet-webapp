@@ -38,7 +38,7 @@ spec:
                 bindingMode: Immediate
                 #container: "testdata"
                 container: "videos"
-                useAdls: false
+                useAdls: true
                 streaming:
                   enabled: true
                   # maxBuffers: 128
@@ -54,6 +54,7 @@ spec:
                 accessMode: ReadWriteMany
                 bindingMode: Immediate
                 container: "videos"
+                useAdls: true
             - name: videos3
               path: "/mnt/videos/blob1"
               blobfuse2:
@@ -62,6 +63,7 @@ spec:
                 accessMode: ReadOnlyMany
                 bindingMode: Immediate
                 container: "videos"
+                useAdls: true
             # - name: videos4
             #   path: "/mnt/videos4"
             #   blobfuse2:
