@@ -3,6 +3,10 @@ kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
+  dnsExternalAlias:
+    - alias: sergeyapp.dev.radix.equinor.com
+      component: web
+      environment: dev
   environments:
     - name: prod
       build:
