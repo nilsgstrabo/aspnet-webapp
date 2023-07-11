@@ -65,7 +65,7 @@ spec:
             - name: videos3
               path: "/mnt/videos/blob1"
               blobfuse2:
-                protocol: fuse
+                protocol: fuse2
                 uid: "1001"
                 accessMode: ReadOnlyMany
                 bindingMode: Immediate
