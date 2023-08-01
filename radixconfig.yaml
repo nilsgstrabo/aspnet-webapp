@@ -29,7 +29,7 @@ spec:
       publicPort: http
       environmentConfig:
         - environment: dev
-          replicas: 1
+          # replicas: 1
           horizontalScaling:
             minReplicas: 2
             maxReplicas: 5
