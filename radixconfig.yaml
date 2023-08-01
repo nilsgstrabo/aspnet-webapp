@@ -5,10 +5,6 @@ kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
-  dnsExternalAlias:
-    - alias: sergeyapp.dev.radix.equinor.com
-      component: web
-      environment: dev
   environments:
     - name: prod
       build:
@@ -33,60 +29,67 @@ spec:
       publicPort: http
       environmentConfig:
         - environment: dev
+          horizontalScaling:
+            minReplicas: 2
+            maxReplicas: 2
+            resources:
+              memory:
+                averageUtilization: 85
+              cpu:
+                averageUtilization: 75
           variables:
             VIDEO_PATH: "/mnt/videos"
-          volumeMounts:
-            - name: videos
-              path: "/mnt/videos/blob2stream"
-              blobfuse2:
-                protocol: fuse2
-                uid: "1001"
-                accessMode: ReadOnlyMany
-                bindingMode: Immediate
-                #container: "testdata"
-                container: "videos"
-                useAdls: true
-                streaming:
-                  enabled: true
-                  # maxBuffers: 128
-                  # streamCache: 128
-                  # blockSize: 8
-                  # maxBlocksPerFile: 4
-                  # bufferSize: 128
-            - name: videos2
-              path: "/mnt/videos/blob2"
-              blobfuse2:
-                protocol: fuse2
-                uid: "1001"
-                accessMode: ReadWriteMany
-                bindingMode: Immediate
-                container: "videos"
-                useAdls: true
-            - name: videos3
-              path: "/mnt/videos/blob1"
-              blobfuse2:
-                protocol: fuse2
-                uid: "1001"
-                accessMode: ReadOnlyMany
-                bindingMode: Immediate
-                container: "videos"
-                useAdls: true
-            # - name: videos4
-            #   path: "/mnt/videos4"
-            #   blobfuse2:
-            #     protocol: nfs
-            #     uid: "1001"
-            #     accessMode: ReadOnlyMany
-            #     bindingMode: Immediate
-            #     container: "videos"
-
+          # volumeMounts:
+          #   - name: videos
+          #     path: "/mnt/videos/blob2stream"
+          #     blobfuse2:
+          #       protocol: fuse2
+          #       uid: "1001"
+          #       accessMode: ReadOnlyMany
+          #       bindingMode: Immediate
+          #       #container: "testdata"
+          #       container: "videos"
+          #       useAdls: true
+          #       streaming:
+          #         enabled: true
+          #         # maxBuffers: 128
+          #         # streamCache: 128
+          #         # blockSize: 8
+          #         # maxBlocksPerFile: 4
+          #         # bufferSize: 128
+          #   - name: videos2
+          #     path: "/mnt/videos/blob2"
+          #     blobfuse2:
+          #       protocol: fuse2
+          #       uid: "1001"
+          #       accessMode: ReadWriteMany
+          #       bindingMode: Immediate
+          #       container: "videos"
+          #       useAdls: true
+          #   - name: videos3
+          #     path: "/mnt/videos/blob1"
+          #     blobfuse2:
+          #       protocol: fuse2
+          #       uid: "1001"
+          #       accessMode: ReadOnlyMany
+          #       bindingMode: Immediate
+          #       container: "videos"
+          #       useAdls: true
+          #   # - name: videos4
+          #   #   path: "/mnt/videos4"
+          #   #   blobfuse2:
+          #   #     protocol: nfs
+          #   #     uid: "1001"
+          #   #     accessMode: ReadOnlyMany
+          #   #     bindingMode: Immediate
+          #   #     container: "videos"
       resources:
         requests:
           memory: 200M
-          cpu: 1000m
+          cpu: 100m
         limits:
           memory: 2G
-          cpu: 2000m
+          cpu: 400m
       # secretRefs:
       #   azureKeyVaults:
       #     - name: radix-sci-az-kv-test
