@@ -37,7 +37,7 @@ spec:
               memory:
                 averageUtilization: 85
               cpu:
-                averageUtilization: 75
+                averageUtilization: 30
           variables:
             VIDEO_PATH: "/mnt/videos"
           # volumeMounts:
@@ -90,7 +90,7 @@ spec:
           cpu: 100m
         limits:
           memory: 2G
-          cpu: 300m
+          cpu: 100m
       # secretRefs:
       #   azureKeyVaults:
       #     - name: radix-sci-az-kv-test
