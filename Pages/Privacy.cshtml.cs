@@ -20,7 +20,7 @@ namespace aspnet_webapp.Pages
         public PrivacyModel(ILogger<PrivacyModel> logger, IUserInfoService userService)
         {
             _logger = logger;
-                        _userService = userService;
+            _userService = userService;
         }
 
         public UserInfo UserInfo { get; set; }

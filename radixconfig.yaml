@@ -37,7 +37,7 @@ spec:
               memory:
                 averageUtilization: 85
               cpu:
-                averageUtilization: 30
+                averageUtilization: 20
           variables:
             VIDEO_PATH: "/mnt/videos"
           # volumeMounts:
