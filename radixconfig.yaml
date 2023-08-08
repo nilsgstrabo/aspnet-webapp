@@ -87,10 +87,10 @@ spec:
       resources:
         requests:
           memory: 200M
-          cpu: 50m
+          cpu: 51m
         limits:
           memory: 2G
-          cpu: 50m
+          cpu: 51m
       # secretRefs:
       #   azureKeyVaults:
       #     - name: radix-sci-az-kv-test
