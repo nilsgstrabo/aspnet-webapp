@@ -18,11 +18,14 @@ spec:
       identity:
         azure:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
+      secrets:
+        - ApplicationInsights__ConnectionString
       variables:
         ASPNETCORE_URLS: http://*:5005
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
+        ApplicationInsights__ConnectionString: ""
       ports:
         - name: http
           port: 5005
