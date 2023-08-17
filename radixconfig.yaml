@@ -18,37 +18,11 @@ spec:
       identity:
         azure:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
-      secrets:
-        - ConnectionStrings__ServiceBus
-        - ConnectionStrings__CompletionContext
-        - Authenticator__CompletionApiSecret
-        - ApplicationInsights__ConnectionString
-        - BlobStorage__ConnectionString
-      # variables:
-      #   ASPNETCORE_URLS: http://*:5005
-      #   KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
-      #   SQL_SERVER_NAME: "fed-test.database.windows.net"
-      #   SQL_DATABASE_NAME: "fed-test"
       variables:
-        UseAzureAppConfiguration: false
-        ASPNETCORE_URLS: "http://*:5000"
-        Swagger__ClientId: ""
-        Swagger__AuthorizationUrl: ""  
-        ApplicationInsights__ConnectionString: ""
-        ConnectionStrings__AppConfig: ""
-        SeedDummyData: ""
-        MigrateDatabase: ""
-        MainApi__BaseAddress: ""
-        MainApi__ApiVersion: ""
-        DebugEntityFrameworkInDevelopment: ""
-        Authenticator__MainApiScope: ""
-        Authenticator__Instance: ""
-        Authenticator__DisableProjectUserDataClaims: true
-        Authenticator__DisableRestrictionRoleUserDataClaims: false
-        Authenticator__CompletionApiClientId: ""
-        Authenticator__CompletionApiObjectId: ""
-        API__Authority:  "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/"
-        API__Audience: ""
+        ASPNETCORE_URLS: http://*:5005
+        KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
+        SQL_SERVER_NAME: "fed-test.database.windows.net"
+        SQL_DATABASE_NAME: "fed-test"
       ports:
         - name: http
           port: 5005
