@@ -29,7 +29,7 @@ spec:
         - environment: dev
           # replicas: 1
           horizontalScaling:
-            minReplicas: 1
+            minReplicas: 2
             maxReplicas: 5
             resources:
               memory:
