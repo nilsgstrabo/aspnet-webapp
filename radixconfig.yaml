@@ -11,15 +11,6 @@ spec:
       build:
         from: main
   components:
-    - name: redis
-      image: redis:latest
-      ports:
-        - name: redis
-          port: 6379
-      secrets:
-        - REDIS_PASSWORD
-      variables:
-        REDIS_PASSWORD: ""
     - name: web
       dockerfilename: Dockerfile
       identity:
@@ -126,6 +117,8 @@ spec:
       image: bitnami/redis:latest
       secrets:
         - REDIS_PASSWORD
+      variables:
+        REDIS_PASSWORD: ""
       ports:
         - name: redis
           port: 6379
