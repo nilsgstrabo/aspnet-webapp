@@ -23,7 +23,7 @@ spec:
         SQL_DATABASE_NAME: "fed-test"
       ports:
         - name: http
-          port: 1024
+          port: 5005
       publicPort: http
       environmentConfig:
         - environment: dev
