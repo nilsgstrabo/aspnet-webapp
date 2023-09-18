@@ -3,6 +3,10 @@ kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
+  dnsExternalAlias:
+    - alias: myapp.equinor.com
+      component: web
+      environment: prod
   environments:
     - name: prod
       build:
@@ -29,13 +33,13 @@ spec:
         - environment: dev
           # replicas: 1
           horizontalScaling:
-            minReplicas: 2
-            maxReplicas: 5
+            minReplicas: 1
+            maxReplicas: 3
             resources:
               memory:
-                averageUtilization: 85
+                averageUtilization: 80
               cpu:
-                averageUtilization: 20
+                averageUtilization: 80
           variables:
             VIDEO_PATH: "/mnt/videos"
           # volumeMounts:
