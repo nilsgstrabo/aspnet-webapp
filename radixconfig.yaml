@@ -7,6 +7,9 @@ spec:
     - alias: myapp.equinor.com
       component: web
       environment: prod
+  dnsAppAlias:
+    component: web
+    environment: prod
   build:
     useBuildKit: true
   environments:
