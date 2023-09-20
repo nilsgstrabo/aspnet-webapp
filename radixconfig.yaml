@@ -13,8 +13,8 @@ spec:
     - name: dev
       build:
         from: main
-      egress:
-        allowRadix: true
+      # egress:
+      #   allowRadix: true
   components:
     - name: web
       dockerfilename: Dockerfile
