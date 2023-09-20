@@ -3,22 +3,21 @@ kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
-  # dnsExternalAlias:
-  #   - alias: myapp.equinor.com
-  #     component: web
-  #     environment: prod
+  dnsExternalAlias:
+    - alias: www.vg.no
+      component: web
+      environment: dev
   dnsAppAlias:
     component: web
     environment: prod
   build:
     useBuildKit: true
   environments:
-    - name: prod
-      build:
-        from: release
     - name: dev
       build:
         from: main
+      egress:
+        allowRadix: true
   components:
     - name: web
       dockerfilename: Dockerfile
