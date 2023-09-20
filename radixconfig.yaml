@@ -7,9 +7,6 @@ spec:
     - alias: www.vg.no
       component: web
       environment: dev
-  dnsAppAlias:
-    component: web
-    environment: prod
   build:
     useBuildKit: true
   environments:
