@@ -64,24 +64,24 @@ spec:
                   # blockSize: 8
                   # maxBlocksPerFile: 4
                   # bufferSize: 128
-            - name: videos2
-              path: "/mnt/videos/blob2"
-              blobfuse2:
-                protocol: fuse2
-                uid: "1001"
-                accessMode: ReadWriteMany
-                bindingMode: Immediate
-                container: "videos"
-                useAdls: true
-            - name: videos3
-              path: "/mnt/videos/blob1"
-              blobfuse2:
-                protocol: fuse2
-                uid: "1001"
-                accessMode: ReadOnlyMany
-                bindingMode: Immediate
-                container: "videos"
-                useAdls: true
+            # - name: videos2
+            #   path: "/mnt/videos/blob2"
+            #   blobfuse2:
+            #     protocol: fuse2
+            #     uid: "1001"
+            #     accessMode: ReadWriteMany
+            #     bindingMode: Immediate
+            #     container: "videos"
+            #     useAdls: true
+            # - name: videos3
+            #   path: "/mnt/videos/blob1"
+            #   blobfuse2:
+            #     protocol: fuse2
+            #     uid: "1001"
+            #     accessMode: ReadOnlyMany
+            #     bindingMode: Immediate
+            #     container: "videos"
+            #     useAdls: true
             # - name: videos4
             #   path: "/mnt/videos4"
             #   blobfuse2:
