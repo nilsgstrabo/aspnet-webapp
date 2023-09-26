@@ -4,7 +4,7 @@ metadata:
   name: oauth-demo
 spec:
   dnsExternalAlias:
-    - alias: mysite.equoinor.com
+    - alias: mysite.equinor.com
       component: web
       environment: dev
   build:
