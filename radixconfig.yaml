@@ -1,3 +1,5 @@
+
+# Prod environment     #TODO FIKS N�R VI G�R I PROD
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
