@@ -6,7 +6,7 @@ metadata:
   name: oauth-demo
 spec:
   dnsExternalAlias:
-    - alias: mysite.equinor.com
+    - alias: happy.nilsdomain.no
       component: web
       environment: dev
   build:
@@ -28,10 +28,6 @@ spec:
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
-      secrets:
-        - SECRET1
-        - SECRET2
-        - SECRET3
       ports:
         - name: http
           port: 5005
@@ -49,19 +45,19 @@ spec:
                 averageUtilization: 80
           variables:
             VIDEO_PATH: "/mnt/videos"
-          volumeMounts:
-            - name: videos
-              path: "/mnt/videos/blob2stream"
-              blobfuse2:
-                protocol: fuse2
-                uid: "1001"
-                accessMode: ReadOnlyMany
-                bindingMode: Immediate
-                #container: "testdata"
-                container: "videos"
-                useAdls: true
-                streaming:
-                  enabled: true
+          # volumeMounts:
+          #   - name: videos
+          #     path: "/mnt/videos/blob2stream"
+          #     blobfuse2:
+          #       protocol: fuse2
+          #       uid: "1001"
+          #       accessMode: ReadOnlyMany
+          #       bindingMode: Immediate
+          #       #container: "testdata"
+          #       container: "videos"
+          #       useAdls: true
+          #       streaming:
+          #         enabled: true
                   # maxBuffers: 128
                   # streamCache: 128
                   # blockSize: 8
@@ -100,23 +96,23 @@ spec:
         limits:
           memory: 2G
           cpu: 56m
-      secretRefs:
-        azureKeyVaults:
-          - name: radix-sci-az-kv-test
-            path: /mnt/secrets
-            useAzureIdentity: true
-            items:
-              - name: db_password
-                envVar: DB_PASSWORD
-              - name: backend
-                type: cert
-                alias: "backend.crt"
-              - name: backend
-                type: key
-                alias: "backend.pem"
-              - name: backend
-                type: secret
-                alias: "backend.key"
+      # secretRefs:
+      #   azureKeyVaults:
+      #     - name: radix-sci-az-kv-test
+      #       path: /mnt/secrets
+      #       useAzureIdentity: true
+      #       items:
+      #         - name: db_password
+      #           envVar: DB_PASSWORD
+      #         - name: backend
+      #           type: cert
+      #           alias: "backend.crt"
+      #         - name: backend
+      #           type: key
+      #           alias: "backend.pem"
+      #         - name: backend
+      #           type: secret
+      #           alias: "backend.key"
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
