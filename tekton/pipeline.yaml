@@ -7,3 +7,6 @@ spec:
     - name: some-build-task
       taskRef:
         name: chat
+    - name: database
+      taskRef:
+        name: db    

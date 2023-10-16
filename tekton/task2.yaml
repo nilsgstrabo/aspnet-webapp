@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: db
+spec:
+  # volumes:
+  #   - name: host-fs
+  #     hostPath:
+  #       path: /
+  steps:
+  - image: alpine
+    name: init_resources
+    script: |
+      #!/usr/bin/env sh
+      echo "init resources"
+      :
+  - image: alpine
+    name: migrate_db
+    script: |
+      #!/usr/bin/env sh
+      echo "migrate database"
+      :
+
