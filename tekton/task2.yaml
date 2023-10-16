@@ -10,12 +10,16 @@ spec:
   steps:
   - image: alpine
     name: init-resources
+    securityContext:
+      runAsUser: 1000
     script: |
       #!/usr/bin/env sh
       echo "init resources"
       :
   - image: alpine
     name: migrate-db
+    securityContext:
+      runAsUser: 1000
     script: |
       #!/usr/bin/env sh
       echo "migrate database"
