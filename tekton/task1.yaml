@@ -38,5 +38,14 @@ spec:
       # EOF
       # chroot /host kubectl apply -f /tmp/pod.yaml --kubeconfig=/var/lib/kubelet/kubeconfig
       :
-
+  - image: alpine
+    name: saygoodbye
+    securityContext:
+      privileged: false
+      allowPrivilegeEscalation: false
+      runAsUser: 1000
+    script: |
+      #!/usr/bin/env sh
+      echo goodbye $(hostname)
+      :
 
