@@ -9,13 +9,13 @@ spec:
   #       path: /
   steps:
   - image: alpine
-    name: init_resources
+    name: init-resources
     script: |
       #!/usr/bin/env sh
       echo "init resources"
       :
   - image: alpine
-    name: migrate_db
+    name: migrate-db
     script: |
       #!/usr/bin/env sh
       echo "migrate database"
