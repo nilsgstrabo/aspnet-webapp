@@ -17,7 +17,7 @@ spec:
       # egress:
       #   allowRadix: true
   components:
-    - name: web
+    - name: web.test
       dockerfilename: Dockerfile
       identity:
         azure:
@@ -120,8 +120,8 @@ spec:
           sessionStoreType: redis
           scope: openid email profile offline_access https://graph.microsoft.com/User.Read
           redisStore:
-            connectionUrl: redis://redis:6379
-    - name: redis
+            connectionUrl: redis://redis.test:6379
+    - name: redis.test
       image: bitnami/redis:latest
       secrets:
         - REDIS_PASSWORD
