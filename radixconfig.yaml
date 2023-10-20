@@ -5,13 +5,12 @@ kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
-  dnsExternalAlias:
-    - alias: happy.nilsdomain.no
-      component: web
-      environment: dev
   build:
     useBuildKit: true
   environments:
+    - name: prod
+      build:
+        from: release
     - name: dev
       build:
         from: main
