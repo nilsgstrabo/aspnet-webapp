@@ -1,5 +1,4 @@
 
-# Prod environment     #TODO FIKS N�R VI G�R I PROD
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
@@ -14,8 +13,6 @@ spec:
     - name: dev
       build:
         from: main
-      # egress:
-      #   allowRadix: true
   components:
     - name: web
       dockerfilename: Dockerfile
@@ -33,7 +30,6 @@ spec:
       publicPort: http
       environmentConfig:
         - environment: dev
-          # replicas: 1
           horizontalScaling:
             minReplicas: 1
             maxReplicas: 3
@@ -44,50 +40,6 @@ spec:
                 averageUtilization: 80
           variables:
             VIDEO_PATH: "/mnt/videos"
-          # volumeMounts:
-          #   - name: videos
-          #     path: "/mnt/videos/blob2stream"
-          #     blobfuse2:
-          #       protocol: fuse2
-          #       uid: "1001"
-          #       accessMode: ReadOnlyMany
-          #       bindingMode: Immediate
-          #       #container: "testdata"
-          #       container: "videos"
-          #       useAdls: true
-          #       streaming:
-          #         enabled: true
-                  # maxBuffers: 128
-                  # streamCache: 128
-                  # blockSize: 8
-                  # maxBlocksPerFile: 4
-                  # bufferSize: 128
-            # - name: videos2
-            #   path: "/mnt/videos/blob2"
-            #   blobfuse2:
-            #     protocol: fuse2
-            #     uid: "1001"
-            #     accessMode: ReadWriteMany
-            #     bindingMode: Immediate
-            #     container: "videos"
-            #     useAdls: true
-            # - name: videos3
-            #   path: "/mnt/videos/blob1"
-            #   blobfuse2:
-            #     protocol: fuse2
-            #     uid: "1001"
-            #     accessMode: ReadOnlyMany
-            #     bindingMode: Immediate
-            #     container: "videos"
-            #     useAdls: true
-            # - name: videos4
-            #   path: "/mnt/videos4"
-            #   blobfuse2:
-            #     protocol: nfs
-            #     uid: "1001"
-            #     accessMode: ReadOnlyMany
-            #     bindingMode: Immediate
-            #     container: "videos"
       resources:
         requests:
           memory: 200M
@@ -95,23 +47,6 @@ spec:
         limits:
           memory: 2G
           cpu: 56m
-      # secretRefs:
-      #   azureKeyVaults:
-      #     - name: radix-sci-az-kv-test
-      #       path: /mnt/secrets
-      #       useAzureIdentity: true
-      #       items:
-      #         - name: db_password
-      #           envVar: DB_PASSWORD
-      #         - name: backend
-      #           type: cert
-      #           alias: "backend.crt"
-      #         - name: backend
-      #           type: key
-      #           alias: "backend.pem"
-      #         - name: backend
-      #           type: secret
-      #           alias: "backend.key"
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
