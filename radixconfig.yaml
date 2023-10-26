@@ -42,7 +42,7 @@ spec:
             VIDEO_PATH: "/mnt/videos"
       resources:
         requests:
-          memory: 200M
+          memory: 201M
           cpu: 56m
         limits:
           memory: 2G
