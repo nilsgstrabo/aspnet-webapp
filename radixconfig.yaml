@@ -9,6 +9,9 @@ spec:
       username: nils
       email: nilsg@gmail.com
   build:
+    secrets:
+      - SECRET1
+      - SECRET2
     useBuildKit: true
   environments:
     - name: prod
