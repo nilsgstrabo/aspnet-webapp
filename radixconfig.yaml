@@ -13,6 +13,7 @@ spec:
       - SECRET1
       - SECRET2
     useBuildKit: true
+    useBuildCache: false
   environments:
     - name: prod
       build:
