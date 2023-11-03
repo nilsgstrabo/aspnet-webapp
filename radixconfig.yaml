@@ -21,9 +21,6 @@ spec:
     - name: dev
       build:
         from: main
-    - name: dev2
-      build:
-        from: main        
   components:
     - name: web
       dockerfilename: Dockerfile
@@ -41,6 +38,16 @@ spec:
       publicPort: http
       environmentConfig:
         - environment: dev
+          volumeMounts:
+            - name: storage
+              path: /usr/share/aasx
+              blobFuse2:
+                protocol: fuse2
+                container: manyfiles
+                uid: "1001"
+                accessMode: ReadWriteMany
+                streaming: 
+                  enabled: true
           horizontalScaling:
             minReplicas: 1
             maxReplicas: 3
