@@ -4,10 +4,6 @@ kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
-  privateImageHubs:
-    docker.io:
-      username: nils
-      email: nilsg@gmail.com
   dnsAppAlias:
     component: web
     environment: dev
