@@ -8,6 +8,16 @@ spec:
     docker.io:
       username: nils
       email: nilsg@gmail.com
+  dnsAppAlias:
+    component: web
+    environment: dev
+  dnsExternalAlias:
+    - alias: foodev.equinor.com
+      component: web
+      environment: dev
+    - alias: fooprod.equinor.com
+      component: web
+      environment: prod
   build:
     secrets:
       - SECRET1
