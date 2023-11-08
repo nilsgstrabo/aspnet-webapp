@@ -1,8 +1,29 @@
+
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
+  privateImageHubs:
+    docker.io:
+      username: nils
+      email: nilsg@gmail.com
+  dnsAppAlias:
+    component: web
+    environment: dev
+  dnsExternalAlias:
+    - alias: foodev.equinor.com
+      component: web
+      environment: dev
+    - alias: fooprod.equinor.com
+      component: web
+      environment: prod
+  build:
+    secrets:
+      - SECRET1
+      - SECRET2
+    useBuildKit: true
+    useBuildCache: true
   environments:
     - name: prod
       build:
@@ -12,6 +33,7 @@ spec:
         from: main
   components:
     - name: web
+      dockerfilename: Dockerfile
       identity:
         azure:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
@@ -26,74 +48,40 @@ spec:
       publicPort: http
       environmentConfig:
         - environment: dev
+          volumeMounts:
+            - name: storage
+              path: /usr/share/aasx
+              blobFuse2:
+                protocol: fuse2
+                container: manyfiles
+                uid: "1001"
+                accessMode: ReadWriteMany
+                streaming: 
+                  enabled: true
+          horizontalScaling:
+            minReplicas: 1
+            maxReplicas: 3
+            resources:
+              memory:
+                averageUtilization: 80
+              cpu:
+                averageUtilization: 80
           variables:
             VIDEO_PATH: "/mnt/videos"
-          volumeMounts:
-            - name: videos
-              path: "/mnt/videos/blob2stream"
-              type: azure-blob2
-              uid: "1001"
-              accessMode: ReadOnlyMany
-              bindingMode: Immediate
-              storage: "videos"
-              streaming:
-                enabled: true
-                # maxBuffers: 128
-                # streamCache: 128
-                # blockSize: 8
-                # maxBlocksPerFile: 4
-                # bufferSize: 128
-            - name: videos2
-              path: "/mnt/videos/blob2"
-              type: azure-blob2
-              uid: "1001"
-              accessMode: ReadWriteMany
-              bindingMode: Immediate
-              storage: "videos"
-            - name: videos3
-              path: "/mnt/videos/blob1"
-              type: azure-blob
-              uid: "1001"
-              accessMode: ReadOnlyMany
-              bindingMode: Immediate
-              storage: "videos"
-            # - name: videos4
-            #   path: "/mnt/videos4"
-            #   type: azure-nfs
-            #   uid: "1001"
-            #   accessMode: ReadOnlyMany
-            #   bindingMode: Immediate
-            #   storage: "videos"
-
       resources:
         requests:
-          memory: 200M
-          cpu: 1000m
+          memory: 201M
+          cpu: 56m
         limits:
           memory: 2G
-          cpu: 2000m
-      # secretRefs:
-      #   azureKeyVaults:
-      #     - name: radix-sci-az-kv-test
-      #       path: /mnt/secrets
-      #       useAzureIdentity: true
-      #       items:
-      #         - name: backend
-      #           type: cert
-      #           alias: "backend.crt"
-      #         - name: backend
-      #           type: key
-      #           alias: "backend.pem"
-      #         - name: backend
-      #           type: secret
-      #           alias: "backend.key"
+          cpu: 56m
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
           setXAuthRequestHeaders: true
           setAuthorizationHeader: true
           sessionStoreType: redis
-          scope: openid profile email offline_access User.Read
+          scope: openid email profile offline_access https://graph.microsoft.com/User.Read
           redisStore:
             connectionUrl: redis://redis:6379
     - name: redis
