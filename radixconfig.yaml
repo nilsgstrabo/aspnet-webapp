@@ -1,3 +1,13 @@
+x-redis: &redis bitnami/redis:latest
+x-default-requests: &request
+  memory: 201M
+  cpu: 56m
+x-default-limit: &limit
+  memory: 201M
+  cpu: 56m    
+x-resources: &resources
+  requests: *request
+  limits: *limit
 
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
@@ -64,13 +74,7 @@ spec:
                 averageUtilization: 80
           variables:
             VIDEO_PATH: "/mnt/videos"
-      resources:
-        requests:
-          memory: 201M
-          cpu: 56m
-        limits:
-          memory: 2G
-          cpu: 56m
+      resources: *resources
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
@@ -81,7 +85,7 @@ spec:
           redisStore:
             connectionUrl: redis://redis:6379
     - name: redis
-      image: bitnami/redis:latest
+      image: *redis
       secrets:
         - REDIS_PASSWORD
       ports:
