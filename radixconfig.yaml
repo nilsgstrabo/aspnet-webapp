@@ -43,7 +43,7 @@ spec:
         from: main
   components:
     - name: otherweb
-      image: docker.io/nilsgustavstrabo/privatefrontend
+      dockerfileName: other.Dockerfile
       ports:
         - name: http
           port: 5005
