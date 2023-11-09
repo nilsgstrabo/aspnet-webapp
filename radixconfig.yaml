@@ -20,6 +20,7 @@ spec:
   privateImageHubs:
     docker.io:
       username: nilsgstrabo
+      email: nilsgustav.straabo@gmail.com
   dnsExternalAlias:
     - alias: foodev.equinor.com
       component: web
