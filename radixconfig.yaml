@@ -17,6 +17,9 @@ spec:
   dnsAppAlias:
     component: web
     environment: dev
+  privateImageHubs:
+    docker.io:
+      username: nilsgstrabo
   dnsExternalAlias:
     - alias: foodev.equinor.com
       component: web
