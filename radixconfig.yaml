@@ -17,10 +17,6 @@ spec:
   dnsAppAlias:
     component: web
     environment: dev
-  privateImageHubs:
-    docker.io:
-      username: nilsgstrabo
-      email: nilsgustav.straabo@gmail.com
   dnsExternalAlias:
     - alias: foodev.equinor.com
       component: web
@@ -42,13 +38,6 @@ spec:
       build:
         from: main
   components:
-    - name: otherweb
-      dockerfileName: other.Dockerfile
-      ports:
-        - name: http
-          port: 5005
-      variables:
-        ASPNETCORE_URLS: http://*:5005
     - name: web
       dockerfilename: Dockerfile
       identity:
