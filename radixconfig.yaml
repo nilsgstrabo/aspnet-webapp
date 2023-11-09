@@ -38,6 +38,13 @@ spec:
       build:
         from: main
   components:
+    - name: otherweb
+      image: docker.io/nilsgustavstrabo/privatefrontend
+      ports:
+        - name: http
+          port: 5005
+      variables:
+        ASPNETCORE_URLS: http://*:5005
     - name: web
       dockerfilename: Dockerfile
       identity:
