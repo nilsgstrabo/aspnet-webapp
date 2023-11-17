@@ -29,7 +29,7 @@ spec:
       - SECRET1
       - SECRET2
     useBuildKit: true
-    useBuildCache: true
+    useBuildCache: false
   environments:
     - name: prod
       build:
@@ -38,6 +38,12 @@ spec:
       build:
         from: main
   components:
+    - name: proxy
+      src: proxy
+      ports:
+        - name: http
+          port: 8080
+      publicPort: http
     - name: web
       dockerfilename: Dockerfile
       identity:
