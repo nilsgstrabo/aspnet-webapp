@@ -73,7 +73,7 @@ spec:
       ports:
         - name: http
           port: 5005
-      publicPort: http
+      # publicPort: http
       environmentConfig:
         - environment: dev
           volumeMounts:
