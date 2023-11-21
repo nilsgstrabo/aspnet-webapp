@@ -113,10 +113,8 @@ spec:
       environmentConfig:
         - environment: dev
           imageTagName: "6.2"
-          enabled: false
         - environment: prod
           imageTagName: "7.2"
-          enabled: true
       secrets:
         - REDIS_PASSWORD
       ports:
