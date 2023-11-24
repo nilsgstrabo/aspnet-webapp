@@ -39,5 +39,5 @@ spec:
           port: 6379
       resources:
         requests:
-          memory: 50M
+          memory: 51M
           cpu: 50m     
