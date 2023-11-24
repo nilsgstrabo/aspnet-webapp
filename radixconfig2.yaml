@@ -21,12 +21,9 @@ spec:
     useBuildKit: true
     useBuildCache: false
   environments:
+    - name: prod2
     - name: prod
-      build:
-        from: release
     - name: dev
-      build:
-        from: main
   components:
     - name: redis2
       image: bitnami/redis:{imageTagName}
@@ -34,6 +31,7 @@ spec:
         - environment: dev
           imageTagName: "6.2"
         - environment: prod
+          imageTagName: "7.2"
       secrets:
         - REDIS_PASSWORD
       ports:
