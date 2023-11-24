@@ -1,0 +1,45 @@
+x-redis: &redis bitnami/redis:latest
+x-default-requests: &request
+  memory: 201M
+  cpu: 56m
+x-default-limit: &limit
+  memory: 201M
+  cpu: 56m    
+x-resources: &resources
+  requests: *request
+  limits: *limit
+
+apiVersion: radix.equinor.com/v1
+kind: RadixApplication
+metadata:
+  name: oauth-demo
+spec:
+  build:
+    secrets:
+      - SECRET1
+      - SECRET2
+    useBuildKit: true
+    useBuildCache: false
+  environments:
+    - name: prod
+      build:
+        from: release
+    - name: dev
+      build:
+        from: main
+  components:
+    - name: redis2
+      image: bitnami/redis:{imageTagName}
+      environmentConfig:
+        - environment: dev
+          imageTagName: "6.2"
+        - environment: prod
+      secrets:
+        - REDIS_PASSWORD
+      ports:
+        - name: redis
+          port: 6379
+      resources:
+        requests:
+          memory: 50M
+          cpu: 50m     
