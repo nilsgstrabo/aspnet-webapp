@@ -67,6 +67,7 @@ spec:
       publicPort: http
       environmentConfig:
         - environment: dev
+          
           volumeMounts:
             - name: storage
               path: /usr/share/aasx
@@ -77,14 +78,16 @@ spec:
                 accessMode: ReadWriteMany
                 streaming: 
                   enabled: true
-          horizontalScaling:
-            minReplicas: 1
-            maxReplicas: 3
-            resources:
-              memory:
-                averageUtilization: 80
-              cpu:
-                averageUtilization: 80
+          kedaScaling:
+            
+          # horizontalScaling:
+          #   minReplicas: 1
+          #   maxReplicas: 3
+          #   resources:
+          #     memory:
+          #       averageUtilization: 80
+          #     cpu:
+          #       averageUtilization: 80
           variables:
             VIDEO_PATH: "/mnt/videos"
       resources: *resources
@@ -112,9 +115,7 @@ spec:
       image: bitnami/redis:{imageTagName}
       environmentConfig:
         - environment: dev
-          imageTagName: "6.2"
         - environment: prod
-          imageTagName: "7.2"
       secrets:
         - REDIS_PASSWORD
       ports:
