@@ -115,7 +115,6 @@ spec:
         - environment: dev
           imageTagName: "6.2"
         - environment: prod
-          imageTagName: "7.2"
       secrets:
         - REDIS_PASSWORD
       ports:
