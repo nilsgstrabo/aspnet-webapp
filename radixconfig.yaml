@@ -109,18 +109,4 @@ spec:
         requests:
           memory: 50M
           cpu: 50m     
-    - name: redis2
-      image: bitnami/redis:{imageTagName}
-      environmentConfig:
-        - environment: dev
-          imageTagName: "6.2"
-        - environment: prod
-      secrets:
-        - REDIS_PASSWORD
-      ports:
-        - name: redis
-          port: 6379
-      resources:
-        requests:
-          memory: 50M
-          cpu: 50m     
+ 
