@@ -29,8 +29,8 @@ spec:
   components:
     - name: web
       ports:
-        name: http
-        port: 8000
+        - name: http
+          port: 8000
       variables:
         ASPNETCORE_URLS: http://*:5005
     - name: redis2
