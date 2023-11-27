@@ -27,6 +27,12 @@ spec:
       build:
         from: main
   components:
+    - name: web
+      ports:
+        name: http
+        port: 8000
+      variables:
+        ASPNETCORE_URLS: http://*:5005
     - name: redis2
       image: bitnami/redis:{imageTagName}
       environmentConfig:
