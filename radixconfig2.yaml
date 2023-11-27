@@ -21,7 +21,6 @@ spec:
     useBuildKit: true
     useBuildCache: false
   environments:
-    - name: prod2
     - name: prod
     - name: dev
       build:
