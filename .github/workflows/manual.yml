@@ -2,9 +2,10 @@ name: deploy
 
 on:
   workflow_dispatch:
-    environment:
-      description: "Environment name"
-      required: true
+    inputs:
+      environment:
+        description: "Environment name"
+        required: true
 
 permissions:
   id-token: write
