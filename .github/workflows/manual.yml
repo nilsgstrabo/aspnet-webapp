@@ -34,7 +34,7 @@ jobs:
             application
             --context development
       - name: Run deploy
-        uses: equinor/radix-github-actions@update-rx-version-1-13-1
+        uses: equinor/radix-github-actions@v1
         with:
           args: >
             create
