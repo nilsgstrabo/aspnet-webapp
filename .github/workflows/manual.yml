@@ -33,7 +33,7 @@ jobs:
             application
             --context development
       - name: Run deploy
-        uses: equinor/radix-github-actions@1.13.0
+        uses: equinor/radix-github-actions@v1.13.0
         with:
           args: >
             create
