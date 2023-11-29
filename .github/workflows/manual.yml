@@ -44,4 +44,4 @@ jobs:
             --follow
             --context development
         env:
-          ENVIRONMENT: ${{ input.environment }}
+          ENVIRONMENT: ${{ inputs.environment }}
