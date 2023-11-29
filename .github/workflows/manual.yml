@@ -2,9 +2,9 @@ name: deploy
 
 on:
   workflow_dispatch:
-      environment:
-        description: "Environment name"
-        required: true
+    environment:
+      description: "Environment name"
+      required: true
 
 permissions:
   id-token: write
@@ -40,4 +40,5 @@ jobs:
             deploy
             --application oauth-demo
             --environment dev
-            --context development                 
+            --follow
+            --context development
