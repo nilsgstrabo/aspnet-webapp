@@ -74,6 +74,12 @@ spec:
         - name: http
           port: 5005
       publicPort: http
+      secretRefs:
+        azureKeyVaults:
+          - items:
+              - name: secret1
+                envVar: SECRET1
+            name: radix-sci-az-kv-test
       environmentConfig:
         - environment: dev
           
