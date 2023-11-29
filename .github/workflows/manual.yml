@@ -33,13 +33,15 @@ jobs:
             application
             --context development
       - name: Run deploy
-        uses: equinor/radix-github-actions@master
+        uses: equinor/radix-github-actions@v1
         with:
           args: >
             create
             job
             deploy
             --application oauth-demo
-            --environment dev
+            --environment $ENVIRONMENT
             --follow
             --context development
+        env:
+          ENVIRONMENT: ${{ input.environment }}
