@@ -31,12 +31,15 @@ spec:
     useBuildKit: true
     useBuildCache: false
   environments:
-    - name: prod
-      build:
-        from: release
     - name: dev
       build:
         from: main
+    - name: prod
+      build:
+        from: release
+    - name: prod2
+      build:
+        from: release        
   components:
     - name: proxy
       src: proxy
