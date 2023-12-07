@@ -21,10 +21,10 @@ spec:
     component: web
     environment: dev
   dnsExternalAlias:
-    # - alias: foodev.equinor.com
-    #   component: web
-    #   environment: dev
-    #   useAutomation: true
+    - alias: foodev.equinor.com
+      component: web
+      environment: dev
+      useAutomation: true
     - alias: fooprod.equinor.com
       component: web
       environment: prod
