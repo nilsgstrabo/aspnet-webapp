@@ -22,7 +22,7 @@ spec:
     environment: dev
   dnsExternalAlias:
     - alias: foodev.equinor.com
-      component: web
+      component: proxy
       environment: dev
       useAutomation: true
     - alias: fooprod.equinor.com
