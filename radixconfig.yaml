@@ -21,7 +21,7 @@ spec:
     component: web
     environment: dev
   dnsExternalAlias:
-    - alias: foodev.equinor.com
+    - alias: custom.dev.radix.equinor.com
       component: web
       environment: dev
       useAutomation: true
