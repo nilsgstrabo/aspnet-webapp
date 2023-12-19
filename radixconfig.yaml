@@ -24,15 +24,15 @@ spec:
     - alias: custom.dev.radix.equinor.com
       component: web
       environment: dev
-      useAutomation: false
+      useCertificateAutomation: false
     - alias: myapp2.dev.radix.equinor.com
       component: web
       environment: dev
-      useAutomation: true
+      useCertificateAutomation: true
     - alias: demo.dev.radix.equinor.com
       component: web
       environment: dev
-      useAutomation: false
+      useCertificateAutomation: false
     - alias: fooprod.equinor.com
       component: web
       environment: prod
