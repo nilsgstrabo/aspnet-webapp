@@ -28,11 +28,11 @@ spec:
     - alias: myapp2.dev.radix.equinor.com
       component: web
       environment: dev
-      useAutomation: true
+      useAutomation: false
     - alias: demo.dev.radix.equinor.com
       component: web
       environment: dev
-      useAutomation: true
+      useAutomation: false
     - alias: fooprod.equinor.com
       component: web
       environment: prod
