@@ -24,6 +24,14 @@ spec:
     - alias: custom.dev.radix.equinor.com
       component: web
       environment: dev
+      useAutomation: false
+    - alias: myapp2.dev.radix.equinor.com
+      component: web
+      environment: dev
+      useAutomation: true
+    - alias: demo.dev.radix.equinor.com
+      component: web
+      environment: dev
       useAutomation: true
     - alias: fooprod.equinor.com
       component: web
@@ -130,8 +138,6 @@ spec:
           cpu: 50m     
     - name: redis2
       image: bitnami/redis:{imageTagName}
-      secrets:
-        - REDIS_PASSWORD
       ports:
         - name: redis
           port: 6379
