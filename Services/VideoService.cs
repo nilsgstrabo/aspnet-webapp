@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System.IO;
 namespace aspnet_webapp.Services {
 
     public class VideoInfo {
@@ -14,6 +15,7 @@ namespace aspnet_webapp.Services {
 
     public interface IVideoService {
         public IEnumerable<VideoInfo> GetVideos();
+        public Task UploadVideoAsync(Stream fileStream, string fileName);
     }
 
     public class VideoService : IVideoService {
@@ -21,6 +23,14 @@ namespace aspnet_webapp.Services {
         public VideoService(IConfiguration config)
         {
             _config=config;
+        }
+
+        public async Task UploadVideoAsync(Stream fileStream, string fileName) {
+            var file= Path.Combine(_config["VIDEO_PATH"], fileName);
+            using (var targetStream = new FileStream(file, FileMode.Create))
+            {
+                await fileStream.CopyToAsync(targetStream);
+            }
         }
 
         public IEnumerable<VideoInfo> GetVideos()
