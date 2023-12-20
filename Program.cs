@@ -27,7 +27,7 @@ namespace aspnet_webapp
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.ConfigureKestrel(k=>k.Limits.MaxRequestBodySize=104_857_600); // 100MB
+                    webBuilder.ConfigureKestrel(k=>k.Limits.MaxRequestBodySize=1_000_000_000); // 1Gi
                     webBuilder.UseStartup<Startup>();
                 });
     }
