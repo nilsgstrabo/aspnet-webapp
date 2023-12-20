@@ -98,17 +98,16 @@ spec:
             name: radix-sci-az-kv-test
       environmentConfig:
         - environment: dev
-          
-          # volumeMounts:
-          #   - name: storage
-          #     path: /usr/share/aasx
-          #     blobFuse2:
-          #       protocol: fuse2
-          #       container: manyfiles
-          #       uid: "1001"
-          #       accessMode: ReadWriteMany
-          #       streaming: 
-          #         enabled: true
+          volumeMounts:
+            - name: upload
+              path: /app/upload
+              blobFuse2:
+                protocol: fuse2
+                container: upload
+                uid: "1001"
+                accessMode: ReadWriteMany
+                streaming: 
+                  enabled: true
           # horizontalScaling:
           #   minReplicas: 1
           #   maxReplicas: 3
