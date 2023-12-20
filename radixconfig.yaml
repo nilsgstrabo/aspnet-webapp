@@ -103,7 +103,7 @@ spec:
               path: /mnt/videos
               blobFuse2:
                 protocol: fuse2
-                container: upload
+                container: videos
                 uid: "1001"
                 accessMode: ReadWriteMany
                 streaming: 
