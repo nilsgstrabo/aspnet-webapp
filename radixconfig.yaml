@@ -99,8 +99,8 @@ spec:
       environmentConfig:
         - environment: dev
           volumeMounts:
-            - name: upload
-              path: /app/upload
+            - name: videos
+              path: /mnt/videos
               blobFuse2:
                 protocol: fuse2
                 container: upload
