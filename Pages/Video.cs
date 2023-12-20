@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace aspnet_webapp.Pages
 {
@@ -28,10 +29,6 @@ namespace aspnet_webapp.Pages
             _configuration=configuration;
             _videoService=videoService;
             Videos=videoService.GetVideos().ToArray();
-            // var videoPath=_configuration["VIDEO_PATH"];
-            // if(videoPath?.Length>0) {
-            //     Videos=System.IO.Directory.GetFiles(_configuration["VIDEO_PATH"]).Select(f=>new System.IO.FileInfo(f).Name).ToArray();
-            // }
         }
 
         public VideoInfo[] Videos { get; set; }
