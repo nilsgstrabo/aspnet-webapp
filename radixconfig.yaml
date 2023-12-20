@@ -21,9 +21,9 @@ spec:
     component: web
     environment: dev
   dnsAlias:
-    alias: nils
-    environment: dev
-    component: web
+    - alias: nils
+      environment: dev
+      component: web
   dnsExternalAlias:
     - alias: custom.dev.radix.equinor.com
       component: web
