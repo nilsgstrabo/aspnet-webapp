@@ -17,6 +17,7 @@ namespace aspnet_webapp
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                
                 .ConfigureAppConfiguration(config => 
                 {
                     config.AddAzureKeyVault(
@@ -26,6 +27,7 @@ namespace aspnet_webapp
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel(k=>k.Limits.MaxRequestBodySize=104_857_600); // 100MB
                     webBuilder.UseStartup<Startup>();
                 });
     }
