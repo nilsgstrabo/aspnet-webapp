@@ -120,15 +120,15 @@ spec:
           variables:
             VIDEO_PATH: "/mnt/videos"
       resources: *resources
-      # authentication:
-      #   oauth2:
-      #     clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-      #     setXAuthRequestHeaders: true
-      #     setAuthorizationHeader: true
-      #     sessionStoreType: redis
-      #     scope: openid email profile offline_access # https://graph.microsoft.com/User.Read
-      #     redisStore:
-      #       connectionUrl: redis://redis:6379
+      authentication:
+        oauth2:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+          setXAuthRequestHeaders: true
+          setAuthorizationHeader: true
+          sessionStoreType: redis
+          scope: openid email profile offline_access # https://graph.microsoft.com/User.Read
+          redisStore:
+            connectionUrl: redis://redis:6379
     - name: redis
       image: *redis
       secrets:
