@@ -87,6 +87,7 @@ spec:
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
+        MEGA_FILE_SIZE: "1000"
       ports:
         - name: http
           port: 5005
