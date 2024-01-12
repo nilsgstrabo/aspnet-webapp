@@ -29,7 +29,8 @@ namespace aspnet_webapp.Controllers
 
         public MegaStream(long size)
         {
-            data=new MemoryStream(Encoding.ASCII.GetBytes("this_is_the_content_of_the_megafile"));
+            var s=System.Linq.Enumerable.Repeat("this_is_the_content_of_the_megafile", 1000).Aggregate((a, s)=>a+s);
+            data=new MemoryStream(Encoding.ASCII.GetBytes(s));
             this.size=size;
         }
 
