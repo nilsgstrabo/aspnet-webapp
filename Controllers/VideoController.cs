@@ -26,12 +26,14 @@ namespace aspnet_webapp.Controllers
         private readonly long size;
         private long pos;
         private readonly Stream data;
+        private readonly ILogger _logger;
 
-        public MegaStream(long size)
+        public MegaStream(long size, ILogger logger)
         {
             var s=System.Linq.Enumerable.Repeat("this_is_the_content_of_the_megafile", 1000).Aggregate((a, s)=>a+s);
             data=new MemoryStream(Encoding.ASCII.GetBytes(s));
             this.size=size;
+            _logger=logger;
         }
 
         public override bool CanRead => true;
@@ -50,6 +52,7 @@ namespace aspnet_webapp.Controllers
 
         public override int Read(byte[] buffer, int offset, int count)
         {
+            _logger?.LogInformation("Read data count: "+count.ToString());
             if (pos>=size) {
                 return 0;
             }
@@ -136,7 +139,7 @@ namespace aspnet_webapp.Controllers
                 _logger.LogError(ex, "failed to get mega file size, using default 1GB");
             }
             _logger.LogInformation("Stream megafile");
-            return this.File(new MegaStream(filesize),"text/plain");
+            return this.File(new MegaStream(filesize, _logger),"text/plain");
            
         }
 
