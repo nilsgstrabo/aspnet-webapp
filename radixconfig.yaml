@@ -26,21 +26,12 @@ spec:
       component: web
    
   dnsExternalAlias:
-    - alias: custom.dev.radix.equinor.com
+    - alias: myapp.equinor.com
       component: web
       environment: dev
-      useCertificateAutomation: false
-    - alias: myapp2.dev.radix.equinor.com
+    - alias: myapp.example.com
       component: web
       environment: dev
-      useCertificateAutomation: true
-    - alias: demo.dev.radix.equinor.com
-      component: web
-      environment: dev
-      useCertificateAutomation: false
-    - alias: fooprod.equinor.com
-      component: web
-      environment: prod
   build:
     secrets:
       - SECRET1
