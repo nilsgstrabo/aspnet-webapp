@@ -26,11 +26,10 @@ spec:
       component: web
    
   dnsExternalAlias:
-    - alias: myapp.equinor.com
+    - alias: one.example.com
       component: web
       environment: dev
-      useCertificateAutomation: false
-    - alias: myapp.example.com
+    - alias: two.example.com
       component: web
       environment: dev
   build:
