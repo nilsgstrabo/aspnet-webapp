@@ -29,6 +29,7 @@ spec:
     - alias: myapp.equinor.com
       component: web
       environment: dev
+      useCertificateAutomation: true
     - alias: myapp.example.com
       component: web
       environment: dev
