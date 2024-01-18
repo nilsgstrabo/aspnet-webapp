@@ -26,10 +26,7 @@ spec:
       component: web
    
   dnsExternalAlias:
-    - alias: one.example.com
-      component: web
-      environment: dev
-    - alias: two.example.com
+    - alias: myapp.equinor.com
       component: web
       environment: dev
     # - alias: myapp2.dev.radix.equinor.com
