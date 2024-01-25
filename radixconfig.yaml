@@ -29,9 +29,9 @@ spec:
     - alias: myapp.equinor.com
       component: web
       environment: dev
-    # - alias: myapp2.dev.radix.equinor.com
-    #   component: web
-    #   environment: dev
+    - alias: myapp2.dev.radix.equinor.com
+      component: web
+      environment: dev
   build:
     secrets:
       - SECRET1
