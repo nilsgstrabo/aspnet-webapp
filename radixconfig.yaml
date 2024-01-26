@@ -33,10 +33,6 @@ spec:
       component: web
       environment: dev
       useCertificateAutomation: true
-    - alias: myradixapp.equinor.com
-      component: web
-      environment: dev
-      useCertificateAutomation: true
   build:
     secrets:
       - SECRET1
