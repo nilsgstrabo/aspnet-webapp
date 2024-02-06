@@ -123,8 +123,11 @@ namespace aspnet_webapp.Controllers
             }
             _logger.LogInformation("Stream megafile");
             
-            Response.Headers.Add("X-Accel-Buffering", "no");
-            Response.Headers.Add("yolo", "this");
+            if (Convert.ToBoolean(Environment.GetEnvironmentVariable("ENABLE_PROXY_BUFFERING"))) {
+                Response.Headers.Add("X-Accel-Buffering", "no");
+                Response.Headers.Add("yolo", "this");
+            }
+            
             return this.File(new MegaStream(filesize, _logger),"application/octet-stream", "megafile.txt");
            
         }

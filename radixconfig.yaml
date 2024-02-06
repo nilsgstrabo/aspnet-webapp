@@ -80,6 +80,7 @@ spec:
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
         MEGA_FILE_SIZE: "1000"
+        ENABLE_PROXY_BUFFERING: "true"
       ports:
         - name: http
           port: 5005
