@@ -38,7 +38,7 @@ namespace aspnet_webapp.Controllers
 
         public override bool CanRead => true;
 
-        public override bool CanSeek => false;
+        public override bool CanSeek => true;
 
         public override bool CanWrite => false;
 
@@ -67,23 +67,6 @@ namespace aspnet_webapp.Controllers
             pos+=bytesRead;
 
             return bytesRead;
-            // if (pos>=size) {
-            //     return 0;
-            // }
-
-            // int cnt = count>65_000 ? 65_000 : count;
-            // int bytesRead = 0;
-            // for (int i = 0; i < cnt; i++)
-            // {
-            //     if (pos+i>=size) {
-            //         break;
-            //     }
-            //     buffer[i+offset]=Convert.ToByte((pos+i) % 26 +65);
-            //     bytesRead++;
-            // }
-
-            // this.pos+=bytesRead;
-            // return bytesRead;
         }
 
         public override long Seek(long offset, SeekOrigin origin)
@@ -139,6 +122,7 @@ namespace aspnet_webapp.Controllers
                 _logger.LogError(ex, "failed to get mega file size, using default 1GB");
             }
             _logger.LogInformation("Stream megafile");
+            
             return this.File(new MegaStream(filesize, _logger),"application/octet-stream", "megafile.txt");
            
         }
