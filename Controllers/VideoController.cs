@@ -42,7 +42,7 @@ namespace aspnet_webapp.Controllers
 
         public override bool CanWrite => false;
 
-        public override long Length => size; // Make incorrect size
+        public override long Length => size+10000; // Make incorrect size
 
         public override long Position { get => pos; set => pos=value; }
 
