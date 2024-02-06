@@ -139,7 +139,7 @@ namespace aspnet_webapp.Controllers
                 _logger.LogError(ex, "failed to get mega file size, using default 1GB");
             }
             _logger.LogInformation("Stream megafile");
-            return this.File(new MegaStream(filesize, _logger),"text/plain");
+            return this.File(new MegaStream(filesize, _logger),"application/octet-stream", "megafile.txt");
            
         }
 
