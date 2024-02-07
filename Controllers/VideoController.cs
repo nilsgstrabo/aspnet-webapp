@@ -126,7 +126,7 @@ namespace aspnet_webapp.Controllers
             var accelBuffering = Convert.ToBoolean(Environment.GetEnvironmentVariable("ENABLE_PROXY_BUFFERING")) ? "yes" : "no";
             
             Response.Headers.Add("X-Accel-Buffering", accelBuffering);
-            Response.Headers.Add("yolo-buffering", accelBuffering);
+            Response.Headers.Add("Yolo-Buffering", accelBuffering);
         
             
             return this.File(new MegaStream(filesize, _logger),"application/octet-stream", "megafile.txt");
