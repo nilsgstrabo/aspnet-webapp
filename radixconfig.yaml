@@ -97,6 +97,8 @@ spec:
         - environment: dev
           useReadOnlyFileSystem: true
           volumeMounts:
+            - name: upload
+              path: /upload
             - name: tmp
               path: /tmp
               emptyDir:
