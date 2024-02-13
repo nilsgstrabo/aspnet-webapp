@@ -96,12 +96,7 @@ spec:
             name: radix-sci-az-kv-test
       environmentConfig:
         - environment: dev
-          useReadOnlyFileSystem: true
           volumeMounts:
-            - name: dotnettmp
-              path: /tmp
-              emptyDir:
-                sizeLimit: "50M"
             - name: videos
               path: /mnt/videos
               blobFuse2:
