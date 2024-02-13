@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/1120-readOnlyFileSystem/json-schema/radixapplication.json
+
 x-redis: &redis bitnami/redis:latest
 x-default-requests: &request
   memory: 201M
@@ -93,7 +95,12 @@ spec:
             name: radix-sci-az-kv-test
       environmentConfig:
         - environment: dev
+          useReadOnlyFileSystem: true
           volumeMounts:
+            - name: tmp
+              path: /tempfiles
+              emptyDir:
+                sizeLimit: "50M"
             - name: videos
               path: /mnt/videos
               blobFuse2:
