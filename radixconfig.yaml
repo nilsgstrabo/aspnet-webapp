@@ -98,7 +98,7 @@ spec:
           useReadOnlyFileSystem: true
           volumeMounts:
             - name: tmp
-              path: /tempfiles
+              path: /tmp
               emptyDir:
                 sizeLimit: "50M"
             - name: videos
