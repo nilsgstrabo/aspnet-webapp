@@ -110,14 +110,6 @@ spec:
                 accessMode: ReadWriteMany
                 streaming: 
                   enabled: true
-          # horizontalScaling:
-          #   minReplicas: 1
-          #   maxReplicas: 3
-          #   resources:
-          #     memory:
-          #       averageUtilization: 80
-          #     cpu:
-          #       averageUtilization: 80
           variables:
             VIDEO_PATH: "/mnt/videos"
       resources: *resources
