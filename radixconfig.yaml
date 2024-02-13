@@ -99,7 +99,7 @@ spec:
           volumeMounts:
             - name: upload
               path: /upload
-            - name: tmp
+            - name: dotnettmp
               path: /tmp
               emptyDir:
                 sizeLimit: "50M"

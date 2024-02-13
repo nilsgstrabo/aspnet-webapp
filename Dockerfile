@@ -14,6 +14,7 @@ RUN dotnet publish -c release -o /app .
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
+ENV DOTNET_EnableDiagnostics=0
 WORKDIR /app
 
 RUN	apt-get update && apt-get -y install curl
