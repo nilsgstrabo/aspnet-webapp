@@ -97,8 +97,6 @@ spec:
         - environment: dev
           useReadOnlyFileSystem: true
           volumeMounts:
-            - name: upload
-              path: /upload
             - name: dotnettmp
               path: /tmp
               emptyDir:
