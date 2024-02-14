@@ -77,10 +77,12 @@ spec:
         - environment: dev
           readOnlyFileSystem: true
           volumeMounts:
-            # - name: temp
-            #   path: /tmp
-            #   emptyDir:
-            #     sizeLimit: 10M
+            - name: temp
+              path: /tmp
+              blobFuse2:
+                container: dfsd
+              emptyDir:
+                sizeLimit: 10M
             - name: videos
               path: /mnt/videos
               blobFuse2:
