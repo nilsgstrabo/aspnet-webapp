@@ -75,7 +75,12 @@ spec:
             name: radix-sci-az-kv-test
       environmentConfig:
         - environment: dev
+          readOnlyFileSystem: true
           volumeMounts:
+            - name: temp
+              path: /tmp
+              emptyDir:
+                sizeLimit: 10M
             - name: videos
               path: /mnt/videos
               blobFuse2:
