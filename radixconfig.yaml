@@ -132,7 +132,6 @@ spec:
         limit:
           cpu: 50m
           memory: 100Mi
-      
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
@@ -141,4 +140,11 @@ spec:
           sessionStoreType: redis
           scope: openid email profile offline_access # https://graph.microsoft.com/User.Read
           redisStore:
-            connectionUrl: redis://redis:6379       
+            connectionUrl: redis://redis:6379   
+      environmentConfig:
+        - environment: dev
+          volumeMounts:
+            - name: tmp
+              path: /tmp/proxy_temp
+              emptyDir:
+                sizeLimit: 50Mi
