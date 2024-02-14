@@ -79,10 +79,10 @@ spec:
           volumeMounts:
             - name: temp
               path: /tmp
-              blobFuse2:
-                container: dfsd
               emptyDir:
-                sizeLimit: 10M
+                sizeLimit: 5Ti
+
+
             - name: videos
               path: /mnt/videos
               blobFuse2:
