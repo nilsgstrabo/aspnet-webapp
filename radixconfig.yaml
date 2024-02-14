@@ -77,10 +77,10 @@ spec:
         - environment: dev
           readOnlyFileSystem: true
           volumeMounts:
-            - name: temp
-              path: /tmp
-              emptyDir:
-                sizeLimit: 10M
+            # - name: temp
+            #   path: /tmp
+            #   emptyDir:
+            #     sizeLimit: 10M
             - name: videos
               path: /mnt/videos
               blobFuse2:
@@ -130,6 +130,7 @@ spec:
         limit:
           cpu: 50m
           memory: 100Mi
+      
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
