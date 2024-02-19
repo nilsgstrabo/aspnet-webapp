@@ -45,6 +45,9 @@ spec:
     - name: dev
       build:
         from: main
+    - name: dev1
+      build:
+        from: main
     - name: prod
       build:
         from: release
@@ -77,10 +80,10 @@ spec:
         - environment: dev
           readOnlyFileSystem: true
           volumeMounts:
-            - name: temp
-              path: /tmp
-              emptyDir:
-                sizeLimit: 5Ti
+            # - name: temp
+            #   path: /tmp
+            #   emptyDir:
+            #     sizeLimit: 5Ti
 
 
             - name: videos
@@ -143,8 +146,8 @@ spec:
             connectionUrl: redis://redis:6379   
       environmentConfig:
         - environment: dev
-          volumeMounts:
-            - name: tmp
-              path: /tmp/proxy_temp
-              emptyDir:
-                sizeLimit: 50Mi
+          # volumeMounts:
+          #   - name: tmp
+          #     path: /tmp/proxy_temp
+          #     emptyDir:
+          #       sizeLimit: 50Mi
