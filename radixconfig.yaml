@@ -28,10 +28,10 @@ spec:
       component: web
   dnsExternalAlias:
     - alias: myapp.equinor.com
-      component: proxy
+      component: web
       environment: dev
     - alias: myapp-oa.dev.radix.equinor.com
-      component: proxy
+      component: web
       environment: dev
       useCertificateAutomation: true
   build:
