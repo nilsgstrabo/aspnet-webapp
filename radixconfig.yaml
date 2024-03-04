@@ -31,7 +31,7 @@ spec:
       component: proxy
       environment: dev
     - alias: myapp-oa.dev.radix.equinor.com
-      component: web
+      component: proxy
       environment: dev
       useCertificateAutomation: true
   build:
