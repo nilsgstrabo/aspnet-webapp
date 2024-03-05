@@ -145,8 +145,8 @@ spec:
             connectionUrl: redis://redis:6379   
       environmentConfig:
         - environment: dev
-          # volumeMounts:
-          #   - name: tmp
-          #     path: /tmp/proxy_temp
-          #     emptyDir:
-          #       sizeLimit: 50Mi
+          volumeMounts:
+            - name: tmp
+              path: /tmp/proxy_temp
+              emptyDir:
+                sizeLimit: 50Mi
