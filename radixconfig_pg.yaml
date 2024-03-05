@@ -32,7 +32,7 @@ spec:
       environment: dev
       useCertificateAutomation: false
     - alias: one.example.com
-      component: web
+      component: proxy
       environment: dev
       useCertificateAutomation: false
     - alias: two.example.com
