@@ -152,6 +152,6 @@ spec:
         - environment: dev
           volumeMounts:
             - name: tmp
-              path: /tmp/client_temp
+              path: /tmp
               emptyDir:
-                sizeLimit: 10Mi
+                sizeLimit: 50Mi
