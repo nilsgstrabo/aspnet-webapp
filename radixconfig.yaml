@@ -147,6 +147,6 @@ spec:
         - environment: dev
           volumeMounts:
             - name: tmp
-              path: /tmp/proxy_temp
+              path: /tmp/client_temp
               emptyDir:
                 sizeLimit: 50Mi
