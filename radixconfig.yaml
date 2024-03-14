@@ -16,9 +16,6 @@ kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
-  privateImageHubs:
-    rihagtest.azurecr.io:
-      username: nst-test
   dnsAppAlias:
     component: web
     environment: dev
