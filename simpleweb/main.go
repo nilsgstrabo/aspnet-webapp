@@ -13,7 +13,8 @@ func main() {
 	handler.RemoveExtraSlash = true
 	handler.GET("/", func(ctx *gin.Context) {
 		fmt.Println("")
-		fmt.Printf("Remote addr: %s\n", net.ParseIP(ctx.Request.RemoteAddr))
+		host, _, _ := net.SplitHostPort(ctx.Request.RemoteAddr)
+		fmt.Printf("Remote addr: %s\n", net.ParseIP(host))
 		fmt.Println("")
 		for k, v := range ctx.Request.Header {
 			fmt.Printf("%q: %v\n", k, v)
