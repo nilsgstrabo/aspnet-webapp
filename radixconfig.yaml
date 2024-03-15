@@ -39,9 +39,6 @@ spec:
     - name: dev
       build:
         from: main
-    - name: dev1
-      build:
-        from: main
     - name: prod
       build:
         from: release
