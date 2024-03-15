@@ -1,4 +1,4 @@
-FROM golang:1.22 as builder
+FROM registry.hub.docker.com/library/golang:1.22 as builder
 
 WORKDIR /build
 
