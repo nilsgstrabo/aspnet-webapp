@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/1120-readOnlyFileSystem/json-schema/radixapplication.json
-
 x-redis: &redis bitnami/redis:latest
 x-default-requests: &request
   memory: 201M
@@ -48,7 +46,6 @@ spec:
       build:
         from: release
   components:
-  
     - name: web
       dockerfilename: Dockerfile
       identity:
@@ -147,3 +144,15 @@ spec:
               path: /tmp/client_temp
               emptyDir:
                 sizeLimit: 50Mi
+    - name: simple
+      src: /simpleweb
+      ports:
+        - name: http
+          port: 9001
+      publicPort: http
+      resources:
+        requests:
+          cpu: 10m
+          memory: 10Mi
+          
+
