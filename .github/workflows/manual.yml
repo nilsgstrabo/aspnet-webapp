@@ -10,7 +10,6 @@ on:
 
 permissions:
   id-token: write
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -27,14 +26,14 @@ jobs:
           echo "::add-mask::$token"
           echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> $GITHUB_ENV
       - name: List apps
-        uses: equinor/radix-github-actions@v1
+        uses: equinor/radix-github-actions@define-args-input
         with:
           args: >
             get
             application
             --context development
       - name: Run deploy
-        uses: equinor/radix-github-actions@v1
+        uses: equinor/radix-github-actions@define-args-input
         with:
           args: >
             create
