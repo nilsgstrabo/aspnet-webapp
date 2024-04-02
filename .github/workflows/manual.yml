@@ -28,14 +28,14 @@ jobs:
       - name: List apps
         uses: equinor/radix-github-actions@define-args-input
         with:
-          args: >
+          args2: >
             get
             application
             --context development
       - name: Run deploy
         uses: equinor/radix-github-actions@define-args-input
         with:
-          args: >
+          args2: >
             create
             job
             deploy
