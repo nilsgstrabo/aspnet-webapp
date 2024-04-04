@@ -25,10 +25,14 @@ spec:
     - alias: myapp.equinor.com
       component: web
       environment: dev
-    - alias: myapp-oa.dev.radix.equinor.com
+    - alias: first.example.com
       component: web
       environment: dev
-      useCertificateAutomation: false
+      useCertificateAutomation: true
+    - alias: another.example.com
+      component: web
+      environment: dev
+      useCertificateAutomation: true
   build:
     secrets:
       - SECRET1
