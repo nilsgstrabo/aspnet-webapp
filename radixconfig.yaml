@@ -36,7 +36,7 @@ spec:
     - alias: ngsapp.dev.radix.equinor.com
       component: web
       environment: dev
-      useCertificateAutomation: false
+      useCertificateAutomation: true
   build:
     secrets:
       - SECRET1
