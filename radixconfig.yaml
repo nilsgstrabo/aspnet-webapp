@@ -49,6 +49,8 @@ spec:
     useBuildCache: true
   environments:
     - name: dev
+      build:
+        from: main
     - name: qa
     - name: prod
       build:
