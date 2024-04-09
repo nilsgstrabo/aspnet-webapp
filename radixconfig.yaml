@@ -32,7 +32,7 @@ spec:
     - alias: another.example.com
       component: web
       environment: dev
-      useCertificateAutomation: true
+      useCertificateAutomation: false
     - alias: ngsapp.dev.radix.equinor.com
       component: web
       environment: dev
