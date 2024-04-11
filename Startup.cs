@@ -46,8 +46,6 @@ namespace aspnet_webapp
                 c.Conventions.AllowAnonymousToPage("/Error");
             });
 
-            
-            
             services.AddControllersWithViews();
             services.AddAzureClients(builder=> {
                 builder.AddSecretClient(new Uri(Configuration["KEY_VAULT_URL"]));
