@@ -21,26 +21,26 @@ spec:
     - alias: nils
       environment: dev
       component: web
-  dnsExternalAlias:
-    - alias: myapp.equinor.com
-      component: web
-      environment: dev
-    - alias: first.example.com
-      component: web
-      environment: dev
-      useCertificateAutomation: true
-    - alias: another.example.com
-      component: web
-      environment: dev
-      useCertificateAutomation: true
-    - alias: ngsapp.dev.radix.equinor.com
-      component: web
-      environment: dev
-      useCertificateAutomation: true
-    - alias: radixacmetest.equinor.com
-      component: web
-      environment: dev
-      useCertificateAutomation: true      
+  # dnsExternalAlias:
+  #   - alias: myapp.equinor.com
+  #     component: web
+  #     environment: dev
+  #   - alias: first.example.com
+  #     component: web
+  #     environment: dev
+  #     useCertificateAutomation: true
+  #   - alias: another.example.com
+  #     component: web
+  #     environment: dev
+  #     useCertificateAutomation: true
+  #   - alias: ngsapp.dev.radix.equinor.com
+  #     component: web
+  #     environment: dev
+  #     useCertificateAutomation: true
+  #   - alias: radixacmetest.equinor.com
+  #     component: web
+  #     environment: dev
+  #     useCertificateAutomation: true      
   build:
     secrets:
       - SECRET1
