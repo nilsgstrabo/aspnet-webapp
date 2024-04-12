@@ -64,8 +64,8 @@ spec:
       variables:
         ASPNETCORE_URLS: http://*:5005
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
-        SQL_SERVER_NAME: "fed-test.database.windows.net"
-        SQL_DATABASE_NAME: "fed-test"
+        SQL_SERVER_NAME: "radix-test-server-delete-me.database.windows.net"
+        SQL_DATABASE_NAME: "radix-test-database-delete-me"
         MEGA_FILE_SIZE: "1000"
         ENABLE_PROXY_BUFFERING: "true"
         DOTNET_EnableDiagnostics: "0"
@@ -82,6 +82,30 @@ spec:
       environmentConfig:
         - environment: dev
           readOnlyFileSystem: true
+          # horizontalScaling:
+          #   maxReplicas: 1
+          kedaScaling: # ref https://keda.sh/docs/2.13/concepts/scaling-deployments/
+            pollingInterval: 10 # required?
+            cooldownPeriod: 60 # required?
+            minReplicaCount: 0
+            maxReplicaCount: 5
+            fallback:
+              failureThreshold: 5
+              replicas: 1
+            triggers:
+              - name: azureservicebus #required
+                azureServiceBus: # ref https://keda.sh/docs/2.13/scalers/azure-service-bus/
+                  messageCount: 10 # required
+                  activationMessageCount: 1 # optional, default 0
+                  queueName: foo-queue 
+                  topicName: foo-topid
+                  subscriptionName: foo-topic-sub
+                  namespace: service-bus-namespace # should probably not be exposed. Not a secret, but gives an attacker an entrypoint. Can we store it in a CM and let users manage the value via Web/CLI?
+                  authentication: # optional. If omitted, create a secret with connection string that use sets in Web/CLI
+                    clientId: xxx # required 
+
+
+
           volumeMounts:
             # - name: temp
             #   path: /tmp
