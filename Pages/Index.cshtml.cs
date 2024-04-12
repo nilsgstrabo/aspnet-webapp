@@ -44,21 +44,21 @@ namespace aspnet_webapp.Pages
                 _logger.LogError(ex,ex.Message);
             }
 
-            // try
-            // {
-            //     var connStr = $"Server={_configRoot["SQL_SERVER_NAME"]}; Authentication=Active Directory Managed Identity; Encrypt=True; Database={_configRoot["SQL_DATABASE_NAME"]}";
-            //     using(SqlConnection conn = new SqlConnection(connStr)) {
-            //         conn.Open();
-            //         using(SqlCommand cmd=new SqlCommand("select count(1) as cnt from dbo.Products", conn)) {
-            //             ProductCount=(int)cmd.ExecuteScalar();
-            //         }
-            //     }
+            try
+            {
+                var connStr = $"Server={_configRoot["SQL_SERVER_NAME"]}; Authentication=Active Directory Managed Identity; Encrypt=True; Database={_configRoot["SQL_DATABASE_NAME"]}";
+                using(SqlConnection conn = new SqlConnection(connStr)) {
+                    conn.Open();
+                    using(SqlCommand cmd=new SqlCommand("select count(1) as cnt from dbo.Products", conn)) {
+                        ProductCount=(int)cmd.ExecuteScalar();
+                    }
+                }
                 
-            // }
-            // catch (System.Exception ex)
-            // {
-            //     _logger.LogError(ex, ex.Message);
-            // }
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
         }
     }
 }
