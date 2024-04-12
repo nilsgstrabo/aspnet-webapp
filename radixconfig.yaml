@@ -64,8 +64,8 @@ spec:
       variables:
         ASPNETCORE_URLS: http://*:5005
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
-        SQL_SERVER_NAME: "radix-test-server-delete-me.database.windows.net"
-        SQL_DATABASE_NAME: "radix-test-database-delete-me"
+        SQL_SERVER_NAME: "fed-test.database.windows.net"
+        SQL_DATABASE_NAME: "fed-test"
         MEGA_FILE_SIZE: "1000"
         ENABLE_PROXY_BUFFERING: "true"
         DOTNET_EnableDiagnostics: "0"
