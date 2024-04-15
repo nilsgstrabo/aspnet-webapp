@@ -141,6 +141,7 @@ spec:
       ports:
         - name: redis
           port: 6379
+      readOnlyFileSystem: true
       resources:
         limits:
           memory: 50M
