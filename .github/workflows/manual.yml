@@ -26,21 +26,21 @@ jobs:
           echo "::add-mask::$token"
           echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> $GITHUB_ENV
       - name: List apps1
-        uses: equinor/radix-github-actions@update-rx-version-1-16-1
+        uses: equinor/radix-github-actions@define-args-input
         with:
           args: >
             get
             application
             --context development
       - name: List apps2
-        uses: equinor/radix-github-actions@update-rx-version-1-16-1
+        uses: equinor/radix-github-actions@define-args-input
         with:
           args: >-
             get
             application
             --context development
       - name: Run deploy
-        uses: equinor/radix-github-actions@update-rx-version-1-16-1
+        uses: equinor/radix-github-actions@define-args-input
         with:
           args: >
             create
