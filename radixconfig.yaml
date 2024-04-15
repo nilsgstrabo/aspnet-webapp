@@ -138,6 +138,8 @@ spec:
       image: *redis
       secrets:
         - REDIS_PASSWORD
+      variables:
+        RI_FILES_LOGGER: "false"
       ports:
         - name: redis
           port: 6379
