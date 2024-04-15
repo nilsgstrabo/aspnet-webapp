@@ -142,6 +142,25 @@ spec:
         - name: redis
           port: 6379
       readOnlyFileSystem: true
+      environmentConfig:
+        - environment: dev
+          volumeMounts:
+            - name: redis-tmp
+              path: /opt/bitnami/redis/tmp
+              emptyDir:
+                sizeLimit: 10M
+        - environment: qa
+          volumeMounts:
+            - name: redis-tmp
+              path: /opt/bitnami/redis/tmp
+              emptyDir:
+                sizeLimit: 10M        
+        - environment: prod
+          volumeMounts:
+            - name: redis-tmp
+              path: /opt/bitnami/redis/tmp
+              emptyDir:
+                sizeLimit: 10M        
       resources:
         limits:
           memory: 50M
