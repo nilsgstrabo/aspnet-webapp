@@ -9,6 +9,12 @@ x-resources: &resources
   requests: *request
   limits: *limit
 
+x-volumeMounts: &volumemounts
+  - name: tmp
+    path: /tmp
+    emptyDir:
+      sizeLimit: 1M
+
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
@@ -64,8 +70,8 @@ spec:
       variables:
         ASPNETCORE_URLS: http://*:5005
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
-        SQL_SERVER_NAME: "fed-test.database.windows.net"
-        SQL_DATABASE_NAME: "fed-test"
+        SQL_SERVER_NAME: "radix-test-server-delete-me.database.windows.net"
+        SQL_DATABASE_NAME: "radix-test-server-delete-me"
         MEGA_FILE_SIZE: "1000"
         ENABLE_PROXY_BUFFERING: "true"
         DOTNET_EnableDiagnostics: "0"
@@ -173,11 +179,7 @@ spec:
             connectionUrl: redis://redis:6379   
       environmentConfig:
         - environment: dev
-          volumeMounts:
-            - name: tmp
-              path: /tmp
-              emptyDir:
-                sizeLimit: 50Mi
+          volumeMounts: *volumemounts
     - name: simple
       src: /simpleweb
       ports:
