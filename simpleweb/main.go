@@ -1,14 +1,18 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 	handler := gin.New()
 	handler.RemoveExtraSlash = true
 	handler.GET("/", func(ctx *gin.Context) {
@@ -22,7 +26,13 @@ func main() {
 		ctx.Status(http.StatusOK)
 	})
 
-	if err := http.ListenAndServe(":9001", handler); err != nil {
-		panic(err)
-	}
+	go func() {
+		if err := http.ListenAndServe(":9001", handler); err != nil {
+			panic(err)
+		}
+	}()
+
+	fmt.Println("waiting")
+	<-ctx.Done()
+	fmt.Println("done waiting")
 }
