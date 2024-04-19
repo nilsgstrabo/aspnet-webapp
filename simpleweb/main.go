@@ -5,13 +5,20 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	var timeout time.Duration
+	timeout, err := time.ParseDuration(os.Getenv("TIMEOUT"))
+	if err != nil {
+		fmt.Println(err)
+		timeout = 10 * time.Second
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 	handler := gin.New()
 	handler.RemoveExtraSlash = true
@@ -28,7 +35,7 @@ func main() {
 
 	go func() {
 		if err := http.ListenAndServe(":9001", handler); err != nil {
-			panic(err)
+			fmt.Println(err)
 		}
 	}()
 

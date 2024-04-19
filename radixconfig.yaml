@@ -186,6 +186,8 @@ spec:
         - name: http
           port: 9001
       publicPort: http
+      variables:
+        TIMEOUT: 5m
       resources:
         requests:
           cpu: 10m
