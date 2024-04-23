@@ -45,7 +45,7 @@ func main() {
 	}()
 
 	sigCh := make(chan os.Signal, 1)
-	signal.Notify(sigCh, os.Interrupt, syscall.SIGTERM)
+	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
 
 	go func() {
 		fmt.Println("waiting for signal")
@@ -70,19 +70,41 @@ func slowlyWriteToFile(stop <-chan struct{}) {
 		panic(fmt.Errorf("failed to create file: %w", err))
 	}
 
-	append := strings.Repeat("helloworld", 10000)
+	append := strings.Repeat("helloworld", 100)
 
 	for {
 		select {
 		case <-ticker.C:
-			log.Println("tick")
 			_, err = f.WriteString(append)
 			if err != nil {
 				panic(fmt.Errorf("failed to create file: %w", err))
 			}
+			stat, err := os.Stat(fileName)
+			if err != nil {
+				panic(fmt.Errorf("failed to get stats for file: %w", err))
+			}
+			log.Printf("file size: %s\n", formatFileSize(float64(stat.Size()), 1024.0))
 		case <-stop:
 			return
 		}
 
 	}
+}
+
+var sizes = []string{"B", "kB", "MB", "GB", "TB", "PB", "EB"}
+
+func formatFileSize(s float64, base float64) string {
+	unitsLimit := len(sizes)
+	i := 0
+	for s >= base && i < unitsLimit {
+		s = s / base
+		i++
+	}
+
+	f := "%.0f %s"
+	if i > 1 {
+		f = "%.2f %s"
+	}
+
+	return fmt.Sprintf(f, s, sizes[i])
 }
