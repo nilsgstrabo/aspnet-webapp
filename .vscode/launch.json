@@ -1,6 +1,17 @@
 {
     "version": "0.2.0",
     "configurations": [
+    {
+        "name": "Launch simpleweb",
+        "type": "go",
+        "request": "launch",
+        "mode": "debug",
+        "program": "${workspaceFolder}/simpleweb/main.go",
+        "env": {
+            "TMPDIR": "/tmp",
+            "TIMEOUT": "5m"
+        }
+    },
         {
             // Use IntelliSense to find out which attributes exist for C# debugging
             // Use hover for the description of the existing attributes

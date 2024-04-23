@@ -3,9 +3,14 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"net"
 	"net/http"
 	"os"
+	"os/signal"
+	"path"
+	"strings"
+	"syscall"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -39,7 +44,45 @@ func main() {
 		}
 	}()
 
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh, os.Interrupt, syscall.SIGTERM)
+
+	go func() {
+		fmt.Println("waiting for signal")
+		s := <-sigCh
+		fmt.Printf("received signal %v, but we ignore it", s)
+	}()
+
+	go slowlyWriteToFile(ctx.Done())
+
 	fmt.Println("waiting")
 	<-ctx.Done()
 	fmt.Println("done waiting")
+}
+
+func slowlyWriteToFile(stop <-chan struct{}) {
+	ticker := time.NewTicker(1 * time.Second)
+	defer ticker.Stop()
+
+	fileName := path.Join("/", os.Getenv("TMPDIR"), "file.txt")
+	f, err := os.Create(fileName)
+	if err != nil {
+		panic(fmt.Errorf("failed to create file: %w", err))
+	}
+
+	append := strings.Repeat("helloworld", 10000)
+
+	for {
+		select {
+		case <-ticker.C:
+			log.Println("tick")
+			_, err = f.WriteString(append)
+			if err != nil {
+				panic(fmt.Errorf("failed to create file: %w", err))
+			}
+		case <-stop:
+			return
+		}
+
+	}
 }

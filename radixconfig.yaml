@@ -183,8 +183,15 @@ spec:
         - name: http
           port: 9001
       publicPort: http
+      readOnlyFileSystem: true
       variables:
         TIMEOUT: 5m
+        TMPDIR: "/tmp"
+      volumeMounts:
+        - name: tmp
+          path: /tmp
+          emptyDir:
+            sizeLimit: 5M
       resources:
         requests:
           cpu: 10m
