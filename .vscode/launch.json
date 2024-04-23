@@ -9,7 +9,8 @@
         "program": "${workspaceFolder}/simpleweb/main.go",
         "env": {
             "TMPDIR": "/tmp",
-            "TIMEOUT": "5m"
+            "TIMEOUT": "5m",
+            "APPENDTICK": "10s"
         }
     },
         {
