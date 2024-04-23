@@ -187,6 +187,7 @@ spec:
       variables:
         TIMEOUT: 10h
         TMPDIR: "/tmp"
+        APPENDTICK: 10s
       volumeMounts:
         - name: tmp
           path: /tmp

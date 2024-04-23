@@ -61,7 +61,13 @@ func main() {
 }
 
 func slowlyWriteToFile(stop <-chan struct{}) {
-	ticker := time.NewTicker(1 * time.Second)
+	tick, err := time.ParseDuration(os.Getenv("APPENDTICK"))
+	if err != nil {
+		fmt.Println(err)
+		tick = 5 * time.Second
+	}
+	log.Printf("appending to file every %v second(s)", tick.Seconds())
+	ticker := time.NewTicker(tick)
 	defer ticker.Stop()
 
 	fileName := path.Join("/", os.Getenv("TMPDIR"), "file.txt")
