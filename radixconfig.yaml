@@ -185,7 +185,7 @@ spec:
       publicPort: http
       readOnlyFileSystem: true
       variables:
-        TIMEOUT: 5m
+        TIMEOUT: 10h
         TMPDIR: "/tmp"
       volumeMounts:
         - name: tmp
