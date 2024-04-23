@@ -147,9 +147,10 @@ spec:
       ports:
         - name: redis
           port: 6379
-      resources:
-        requests:
-          memory: 51M
+      # resources:
+      #   requests:
+      #     memory: 51M
+      #     cpu: 51m
     - name: proxy
       src: proxy
       ports:
