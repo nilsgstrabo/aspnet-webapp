@@ -150,7 +150,6 @@ spec:
       resources:
         requests:
           memory: 51M
-          cpu: 51m
     - name: proxy
       src: proxy
       ports:
