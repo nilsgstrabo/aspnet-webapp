@@ -178,12 +178,14 @@ spec:
         - environment: dev
           volumeMounts: *volumemounts
     - name: simple
-      image: radixdev.azurecr.io/nilssimple:latest
-      # src: /simpleweb
+      # image: radixdev.azurecr.io/nilssimple:latest
+      src: /simpleweb
       ports:
         - name: http
           port: 9001
       publicPort: http
+      # runtime:
+      #   architecture: arm64
       readOnlyFileSystem: true
       variables:
         TIMEOUT: 10h

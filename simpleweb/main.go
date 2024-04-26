@@ -3,12 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"net"
 	"net/http"
 	"os"
 	"os/signal"
 	"path"
+	"runtime"
 	"strings"
 	"syscall"
 	"time"
@@ -17,6 +17,8 @@ import (
 )
 
 func main() {
+	fmt.Printf("Running on %s/%s\n\n", runtime.GOOS, runtime.GOARCH)
+
 	var timeout time.Duration
 	timeout, err := time.ParseDuration(os.Getenv("TIMEOUT"))
 	if err != nil {
@@ -66,7 +68,7 @@ func slowlyWriteToFile(stop <-chan struct{}) {
 		fmt.Println(err)
 		tick = 5 * time.Second
 	}
-	log.Printf("appending to file every %v second(s)", tick.Seconds())
+	fmt.Printf("appending to file every %v second(s)", tick.Seconds())
 	ticker := time.NewTicker(tick)
 	defer ticker.Stop()
 
@@ -89,7 +91,7 @@ func slowlyWriteToFile(stop <-chan struct{}) {
 			if err != nil {
 				panic(fmt.Errorf("failed to get stats for file: %w", err))
 			}
-			log.Printf("file size: %s\n", formatFileSize(float64(stat.Size()), 1024.0))
+			fmt.Printf("file size: %s\n", formatFileSize(float64(stat.Size()), 1024.0))
 		case <-stop:
 			return
 		}
