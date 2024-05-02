@@ -1,7 +1,7 @@
 # Building for multiple architectures
 
 Build for single:
-````
+```
 docker buildx build -t radixdev.azurecr.io/nilssimple:latest --platform linux/arm64 --push .
 ```
 
