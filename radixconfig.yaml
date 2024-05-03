@@ -51,8 +51,8 @@ spec:
     secrets:
       - SECRET1
       - SECRET2
-    useBuildKit: true
-    useBuildCache: true
+    # useBuildKit: true
+    # useBuildCache: true
   environments:
     - name: dev
       build:
