@@ -52,7 +52,7 @@ spec:
       - SECRET1
       - SECRET2
     useBuildKit: true
-    useBuildCache: true
+    useBuildCache: false
   environments:
     - name: dev
       build:
