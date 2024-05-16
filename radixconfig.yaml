@@ -88,29 +88,11 @@ spec:
       environmentConfig:
         - environment: dev
           readOnlyFileSystem: true
-          # horizontalScaling:
-          #   maxReplicas: 1
-          kedaScaling: # ref https://keda.sh/docs/2.13/concepts/scaling-deployments/
-            pollingInterval: 10 # required?
-            cooldownPeriod: 60 # required?
-            minReplicaCount: 0
-            maxReplicaCount: 5
-            fallback:
-              failureThreshold: 5
-              replicas: 1
-            triggers:
-              - name: azureservicebus #required
-                azureServiceBus: # ref https://keda.sh/docs/2.13/scalers/azure-service-bus/
-                  messageCount: 10 # required
-                  activationMessageCount: 1 # optional, default 0
-                  queueName: foo-queue 
-                  topicName: foo-topid
-                  subscriptionName: foo-topic-sub
-                  namespace: service-bus-namespace # should probably not be exposed. Not a secret, but gives an attacker an entrypoint. Can we store it in a CM and let users manage the value via Web/CLI?
-                  authentication: # optional. If omitted, create a secret with connection string that use sets in Web/CLI
-                    clientId: xxx # required 
-
-
+          horizontalScaling:
+            maxReplicas: 2
+            resources:
+              cpu:
+                averageUtilization: 60
 
           volumeMounts:
             # - name: temp
