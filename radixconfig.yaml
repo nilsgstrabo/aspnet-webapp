@@ -95,7 +95,8 @@ spec:
             triggers:
               - name: cpu
                 cpu:
-                  value: 50
+                  value: 40
+                  metricType: Utilization
               - name: cron
                 cron:
                   desiredReplicas: 1
