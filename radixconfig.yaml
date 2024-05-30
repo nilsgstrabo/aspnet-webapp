@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/master/json-schema/radixapplication.json
+
 x-redis: &redis bitnami/redis:latest
 x-default-requests: &request
   memory: 200M
@@ -90,9 +92,16 @@ spec:
           readOnlyFileSystem: true
           horizontalScaling:
             maxReplicas: 2
-            resources:
-              cpu:
-                averageUtilization: 50
+            triggers:
+              - name: cpu
+                cpu:
+                  value: 50
+              - name: cron
+                cron:
+                  desiredReplicas: 1
+                  end: 15 14 * * *
+                  start: 0 12 * * *
+                  timezone: Europe/Oslo
           volumeMounts:
             # - name: temp
             #   path: /tmp
