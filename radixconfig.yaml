@@ -103,8 +103,8 @@ spec:
               - name: cron
                 cron:
                   desiredReplicas: 1
-                  start: 0 12 * * *
-                  end: 50 13 * * *
+                  start: 0 7 * * *
+                  end: 50 17 * * *
                   timezone: Europe/Oslo
           volumeMounts:
             # - name: temp
