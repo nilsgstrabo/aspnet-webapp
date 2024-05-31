@@ -3,10 +3,10 @@
 x-redis: &redis bitnami/redis:latest
 x-default-requests: &request
   memory: 200M
-  cpu: 50m
+  cpu: 60m
 x-default-limit: &limit
   memory: 200M
-  cpu: 50m    
+  cpu: 60m    
 x-resources: &resources
   requests: *request
   limits: *limit
@@ -93,10 +93,12 @@ spec:
           horizontalScaling:
             maxReplicas: 2
             triggers:
-              - name: cpu
+              - name: cpux
                 cpu:
-                  value: 40
-                  metricType: Utilization
+                  value: 60
+              - name: memoryx
+                memory:
+                  value: 80
               - name: cron
                 cron:
                   desiredReplicas: 1
