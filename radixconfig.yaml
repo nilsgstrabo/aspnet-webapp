@@ -92,6 +92,7 @@ spec:
           readOnlyFileSystem: true
           horizontalScaling:
             maxReplicas: 2
+            minReplicas: 0
             triggers:
               - name: cpux
                 cpu:
@@ -102,8 +103,8 @@ spec:
               - name: cron
                 cron:
                   desiredReplicas: 1
-                  end: 15 14 * * *
                   start: 0 12 * * *
+                  end: 50 13 * * *
                   timezone: Europe/Oslo
           volumeMounts:
             # - name: temp
