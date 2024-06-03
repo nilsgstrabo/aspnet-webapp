@@ -81,6 +81,22 @@ spec:
         - name: http
           port: 5005
       publicPort: http
+      horizontalScaling:
+        maxReplicas: 1
+        minReplicas: 0
+        triggers:
+          - name: cpux
+            cpu:
+              value: 60
+          - name: memoryx
+            memory:
+              value: 80
+          - name: cron
+            cron:
+              desiredReplicas: 1
+              start: 0 8 * * *
+              end: 0 16 * * *
+              timezone: Europe/Oslo
       secretRefs:
         azureKeyVaults:
           - items:
@@ -90,22 +106,6 @@ spec:
       environmentConfig:
         - environment: dev
           readOnlyFileSystem: true
-          horizontalScaling:
-            maxReplicas: 2
-            minReplicas: 0
-            triggers:
-              - name: cpux
-                cpu:
-                  value: 60
-              - name: memoryx
-                memory:
-                  value: 80
-              - name: cron
-                cron:
-                  desiredReplicas: 1
-                  start: 0 7 * * *
-                  end: 50 17 * * *
-                  timezone: Europe/Oslo
           volumeMounts:
             # - name: temp
             #   path: /tmp
@@ -141,10 +141,26 @@ spec:
       ports:
         - name: redis
           port: 6379
-      # resources:
-      #   requests:
-      #     memory: 51M
-      #     cpu: 51m
+      resources:
+        requests:
+          memory: 51M
+          cpu: 51m
+      horizontalScaling:
+        maxReplicas: 1
+        minReplicas: 0
+        triggers:
+          - name: cpux
+            cpu:
+              value: 60
+          - name: memoryx
+            memory:
+              value: 80
+          - name: cron
+            cron:
+              desiredReplicas: 1
+              start: 0 8 * * *
+              end: 0 16 * * *
+              timezone: Europe/Oslo
     - name: proxy
       src: proxy
       ports:
@@ -168,6 +184,22 @@ spec:
           scope: openid email profile offline_access # https://graph.microsoft.com/User.Read
           redisStore:
             connectionUrl: redis://redis:6379   
+      horizontalScaling:
+        maxReplicas: 1
+        minReplicas: 0
+        triggers:
+          - name: cpux
+            cpu:
+              value: 60
+          - name: memoryx
+            memory:
+              value: 80
+          - name: cron
+            cron:
+              desiredReplicas: 1
+              start: 0 8 * * *
+              end: 0 16 * * *
+              timezone: Europe/Oslo
       environmentConfig:
         - environment: dev
           volumeMounts: *volumemounts
@@ -194,5 +226,21 @@ spec:
         requests:
           cpu: 10m
           memory: 10Mi
+      horizontalScaling:
+        maxReplicas: 1
+        minReplicas: 0
+        triggers:
+          - name: cpux
+            cpu:
+              value: 60
+          - name: memoryx
+            memory:
+              value: 80
+          - name: cron
+            cron:
+              desiredReplicas: 1
+              start: 0 8 * * *
+              end: 0 16 * * *
+              timezone: Europe/Oslo
           
 
