@@ -172,7 +172,7 @@ spec:
         - environment: dev
           volumeMounts: *volumemounts
     - name: simple
-      image: radixdev.azurecr.io/nilssimple:latest
+      image: docker.io/nilsgustavstrabo/nilssimple:latest
       # src: /simpleweb
       ports:
         - name: http
