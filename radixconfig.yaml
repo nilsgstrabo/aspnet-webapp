@@ -103,6 +103,7 @@ spec:
               - name: secret1
                 envVar: SECRET1
             name: radix-sci-az-kv-test
+            useAzureIdentity: true
       environmentConfig:
         - environment: dev
           readOnlyFileSystem: true
