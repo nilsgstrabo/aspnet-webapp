@@ -208,8 +208,8 @@ spec:
         - name: http
           port: 9001
       publicPort: http
-      # runtime:
-      #   architecture: arm64
+      runtime:
+        architecture: amd64
       readOnlyFileSystem: true
       variables:
         TIMEOUT: 10h
