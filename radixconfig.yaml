@@ -81,25 +81,20 @@ spec:
       publicPort: http
       horizontalScaling:
         maxReplicas: 2
-        minReplicas: 1
-        resources:
-          cpu:
-            averageUtilization: 75
-          memory:
-            averageUtilization: 75
-        # triggers:
-        #   - name: cpux
-        #     cpu:
-        #       value: 60
-        #   - name: memoryx
-        #     memory:
-        #       value: 80
-        #   - name: cron
-        #     cron:
-        #       desiredReplicas: 1
-        #       start: 0 8 * * *
-        #       end: 0 16 * * *
-        #       timezone: Europe/Oslo
+        minReplicas: 0
+        triggers:
+          - name: cpux
+            cpu:
+              value: 60
+          - name: memoryx
+            memory:
+              value: 80
+          - name: cron
+            cron:
+              desiredReplicas: 1
+              start: 0 8 * * *
+              end: 0 16 * * *
+              timezone: Europe/Oslo
       secretRefs:
         azureKeyVaults:
           - items:
