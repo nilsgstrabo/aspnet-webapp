@@ -80,8 +80,8 @@ spec:
           port: 5005
       publicPort: http
       horizontalScaling:
-        maxReplicas: 1
-        minReplicas: 0
+        maxReplicas: 2
+        minReplicas: 1
         resources:
           cpu:
             averageUtilization: 75
