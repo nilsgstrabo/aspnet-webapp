@@ -210,6 +210,10 @@ spec:
       publicPort: http
       runtime:
         architecture: amd64
+      environmentConfig:
+        - environment: dev
+          runtime:
+            architecture: arm64
       readOnlyFileSystem: true
       variables:
         TIMEOUT: 10h
