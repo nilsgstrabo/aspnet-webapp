@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/release/json-schema/radixapplication.json
+# yaml-language-server: $schema=file:///home/nst/go/src/github.com/equinor/radix-operator/json-schema/radixapplication.json
 
 x-redis: &redis bitnami/redis:latest
 x-default-requests: &request
@@ -202,8 +202,8 @@ spec:
         - environment: dev
           volumeMounts: *volumemounts
     - name: simple
-      image: docker.io/nilsgustavstrabo/nilssimple:latest
-      # src: /simpleweb
+      # image: docker.io/nilsgustavstrabo/nilssimple:latest
+      src: /simpleweb
       ports:
         - name: http
           port: 9001
