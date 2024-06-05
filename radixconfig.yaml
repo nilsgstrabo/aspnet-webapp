@@ -1,21 +1,19 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/master/json-schema/radixapplication.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/release/json-schema/radixapplication.json
 
 x-redis: &redis bitnami/redis:latest
 x-default-requests: &request
   memory: 200M
   cpu: 60m
 x-default-limit: &limit
-  memory: 200M
   cpu: 60m    
 x-resources: &resources
   requests: *request
   limits: *limit
-
 x-volumeMounts: &volumemounts
   - name: tmp
     path: /tmp
     emptyDir:
-      sizeLimit: 1M
+      sizeLimit: 222M
 
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
@@ -84,19 +82,24 @@ spec:
       horizontalScaling:
         maxReplicas: 1
         minReplicas: 0
-        triggers:
-          - name: cpux
-            cpu:
-              value: 60
-          - name: memoryx
-            memory:
-              value: 80
-          - name: cron
-            cron:
-              desiredReplicas: 1
-              start: 0 8 * * *
-              end: 0 16 * * *
-              timezone: Europe/Oslo
+        resources:
+          cpu:
+            averageUtilization: 75
+          memory:
+            averageUtilization: 75
+        # triggers:
+        #   - name: cpux
+        #     cpu:
+        #       value: 60
+        #   - name: memoryx
+        #     memory:
+        #       value: 80
+        #   - name: cron
+        #     cron:
+        #       desiredReplicas: 1
+        #       start: 0 8 * * *
+        #       end: 0 16 * * *
+        #       timezone: Europe/Oslo
       secretRefs:
         azureKeyVaults:
           - items:
@@ -173,9 +176,8 @@ spec:
         requests:
           cpu: 50m
           memory: 100Mi
-        limit:
+        limits:
           cpu: 50m
-          memory: 100Mi
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
