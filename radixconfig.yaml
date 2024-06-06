@@ -54,7 +54,7 @@ spec:
     useBuildKit: true
     useBuildCache: false
   privateImageHubs:
-    docker.io/nilsgustavstrabo:
+    docker.io:
       username: nilsgustavstrabo
   environments:
     - name: dev
