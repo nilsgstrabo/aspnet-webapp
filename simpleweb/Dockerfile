@@ -2,12 +2,13 @@ FROM docker.io/nilsgustavstrabo/golang:1.22-alpine3.20 as builder
 # FROM docker.io/library/golang:1.22-alpine3.20 as builder
 # FROM --platform=$TARGETPLATFORM docker.io/library/golang:1.22-alpine3.20 as builder
 
-ARG TARGETPLATFORM
-ARG BUILDPLATFORM
+# ARG TARGETPLATFORM
+# ARG BUILDPLATFORM
 
 WORKDIR /build
 
-RUN echo "hello world" && echo $TARGETPLATFORM && echo $BUILDPLATFORM
+# RUN echo "hello world" && echo $TARGETPLATFORM && echo $BUILDPLATFORM
+RUN echo "hello world"
 RUN go env
 COPY go.mod go.sum ./
 RUN go mod download
