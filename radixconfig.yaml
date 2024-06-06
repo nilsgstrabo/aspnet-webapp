@@ -53,6 +53,9 @@ spec:
       - SECRET2
     useBuildKit: true
     useBuildCache: false
+  privateImageHubs:
+    docker.io/nilsgustavstrabo:
+      username: nilsgustavstrabo
   environments:
     - name: dev
       build:
