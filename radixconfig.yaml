@@ -51,8 +51,8 @@ spec:
     secrets:
       - SECRET1
       - SECRET2
-    useBuildKit: false
-    useBuildCache: false
+    useBuildKit: true
+    useBuildCache: true
   privateImageHubs:
     docker.io:
       username: nilsgustavstrabo
