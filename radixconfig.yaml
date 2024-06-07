@@ -216,7 +216,7 @@ spec:
       environmentConfig:
         - environment: dev
           runtime:
-            architecture: amd64
+            architecture: arm64
       readOnlyFileSystem: true
       variables:
         TIMEOUT: 10h
