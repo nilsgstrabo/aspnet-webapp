@@ -96,7 +96,7 @@ spec:
             cron:
               desiredReplicas: 1
               start: 0 8 * * *
-              end: 0 16 * * *
+              end: 0 18 * * *
               timezone: Europe/Oslo
       secretRefs:
         azureKeyVaults:
@@ -163,7 +163,7 @@ spec:
             cron:
               desiredReplicas: 1
               start: 0 8 * * *
-              end: 0 16 * * *
+              end: 0 18 * * *
               timezone: Europe/Oslo
     - name: proxy
       src: proxy
@@ -201,7 +201,7 @@ spec:
             cron:
               desiredReplicas: 1
               start: 0 8 * * *
-              end: 0 16 * * *
+              end: 0 18 * * *
               timezone: Europe/Oslo
       environmentConfig:
         - environment: dev
@@ -247,7 +247,7 @@ spec:
       #       cron:
       #         desiredReplicas: 1
       #         start: 0 8 * * *
-      #         end: 0 16 * * *
+      #         end: 0 18 * * *
       #         timezone: Europe/Oslo
           
 
