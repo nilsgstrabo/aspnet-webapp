@@ -108,6 +108,8 @@ spec:
       environmentConfig:
         - environment: dev
           readOnlyFileSystem: true
+          runtime:
+            architecture: arm64
           volumeMounts:
             # - name: temp
             #   path: /tmp
