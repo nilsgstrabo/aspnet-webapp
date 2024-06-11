@@ -110,8 +110,6 @@ spec:
       environmentConfig:
         - environment: dev
           readOnlyFileSystem: true
-          runtime:
-            architecture: amd64
           volumeMounts:
             # - name: temp
             #   path: /tmp
