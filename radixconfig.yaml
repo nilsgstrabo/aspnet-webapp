@@ -172,6 +172,7 @@ spec:
           port: 8080
       publicPort: http
       readOnlyFileSystem: true
+      volumeMounts: *volumemounts
       resources:
         requests:
           cpu: 50m
@@ -205,7 +206,7 @@ spec:
               timezone: Europe/Oslo
       environmentConfig:
         - environment: dev
-          volumeMounts: *volumemounts
+        - environment: prod
     - name: simple
       # image: docker.io/nilsgustavstrabo/nilssimple:latest
       src: /simpleweb
