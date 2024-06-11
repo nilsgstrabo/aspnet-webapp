@@ -27,26 +27,7 @@ spec:
     - alias: nils
       environment: dev
       component: web
-  # dnsExternalAlias:
-  #   - alias: myapp.equinor.com
-  #     component: web
-  #     environment: dev
-  #   - alias: first.example.com
-  #     component: web
-  #     environment: dev
-  #     useCertificateAutomation: true
-  #   - alias: another.example.com
-  #     component: web
-  #     environment: dev
-  #     useCertificateAutomation: true
-  #   - alias: ngsapp.dev.radix.equinor.com
-  #     component: web
-  #     environment: dev
-  #     useCertificateAutomation: true
-  #   - alias: radixacmetest.equinor.com
-  #     component: web
-  #     environment: dev
-  #     useCertificateAutomation: true      
+  
   build:
     secrets:
       - SECRET1
@@ -174,6 +155,8 @@ spec:
           port: 8080
       publicPort: http
       readOnlyFileSystem: true
+      runtime:
+        architecture: arm64
       volumeMounts: *volumemounts
       resources:
         requests:
@@ -217,11 +200,7 @@ spec:
           port: 9001
       publicPort: http
       runtime:
-        architecture: amd64
-      environmentConfig:
-        - environment: dev
-          runtime:
-            architecture: arm64
+        architecture: arm64
       readOnlyFileSystem: true
       variables:
         TIMEOUT: 10h
@@ -236,21 +215,6 @@ spec:
         requests:
           cpu: 10m
           memory: 10Mi
-      # horizontalScaling:
-      #   maxReplicas: 1
-      #   minReplicas: 0
-      #   triggers:
-      #     - name: cpux
-      #       cpu:
-      #         value: 60
-      #     - name: memoryx
-      #       memory:
-      #         value: 80
-      #     - name: cron
-      #       cron:
-      #         desiredReplicas: 1
-      #         start: 0 8 * * *
-      #         end: 0 18 * * *
-      #         timezone: Europe/Oslo
+
           
 
