@@ -51,8 +51,8 @@ spec:
     secrets:
       - SECRET1
       - SECRET2
-    useBuildKit: true
-    useBuildCache: true
+    useBuildKit: false
+    # useBuildCache: true
   privateImageHubs:
     docker.io:
       username: nilsgustavstrabo
@@ -109,7 +109,7 @@ spec:
         - environment: dev
           readOnlyFileSystem: true
           runtime:
-            architecture: arm64
+            architecture: amd64
           volumeMounts:
             # - name: temp
             #   path: /tmp
@@ -218,7 +218,7 @@ spec:
       environmentConfig:
         - environment: dev
           runtime:
-            architecture: arm64
+            architecture: amd64
       readOnlyFileSystem: true
       variables:
         TIMEOUT: 10h
