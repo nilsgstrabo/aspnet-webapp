@@ -82,6 +82,8 @@ spec:
         - name: http
           port: 5005
       publicPort: http
+      runtime:
+        architecture: arm64
       horizontalScaling:
         maxReplicas: 2
         minReplicas: 0
@@ -149,6 +151,8 @@ spec:
         requests:
           memory: 51M
           cpu: 51m
+      runtime:
+        architecture: arm64
       horizontalScaling:
         maxReplicas: 1
         minReplicas: 0
@@ -219,7 +223,7 @@ spec:
       environmentConfig:
         - environment: dev
           runtime:
-            architecture: amd64
+            architecture: arm64
       readOnlyFileSystem: true
       variables:
         TIMEOUT: 10h
