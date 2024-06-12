@@ -132,7 +132,7 @@ spec:
           memory: 51M
           cpu: 51m
       runtime:
-        architecture: amd64
+        architecture: arm64
       horizontalScaling:
         maxReplicas: 1
         minReplicas: 0
@@ -157,7 +157,7 @@ spec:
       publicPort: http
       readOnlyFileSystem: true
       runtime:
-        architecture: amd64
+        architecture: arm64
       volumeMounts: *volumemounts
       resources:
         requests:
@@ -201,7 +201,7 @@ spec:
           port: 9001
       publicPort: http
       runtime:
-        architecture: amd64
+        architecture: arm64
       readOnlyFileSystem: true
       variables:
         TIMEOUT: 10h
