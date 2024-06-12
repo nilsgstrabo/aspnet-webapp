@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	fmt.Printf("Running on %s/%s\n\n", runtime.GOOS, runtime.GOARCH)
+	fmt.Printf("Running server on %s/%s\n\n", runtime.GOOS, runtime.GOARCH)
 
 	var timeout time.Duration
 	timeout, err := time.ParseDuration(os.Getenv("TIMEOUT"))
