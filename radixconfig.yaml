@@ -47,7 +47,8 @@ spec:
         from: release
   components:
     - name: web
-      dockerfilename: Dockerfile
+      # dockerfilename: Dockerfile
+      image: docker.io/nilsgustavstrabo/oauth-demo-dev-web:cksjc
       identity:
         azure:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
