@@ -65,7 +65,7 @@ spec:
           port: 5005
       publicPort: http
       runtime:
-        architecture: amd64
+        architecture: arm64
       horizontalScaling:
         maxReplicas: 2
         minReplicas: 0
