@@ -110,6 +110,8 @@ spec:
                   enabled: true
           variables:
             VIDEO_PATH: "/mnt/videos"
+        - environment: prod
+          enabled: false
       resources: *resources
       authentication:
         oauth2:
@@ -149,6 +151,9 @@ spec:
               start: 0 8 * * *
               end: 0 18 * * *
               timezone: Europe/Oslo
+      environmentConfig:
+        - environment: prod
+          enabled: false
     - name: proxy
       src: proxy
       ports:
@@ -193,6 +198,7 @@ spec:
       environmentConfig:
         - environment: dev
         - environment: prod
+          enabled: false
     - name: simple
       # image: docker.io/nilsgustavstrabo/nilssimple:latest
       src: /simpleweb
