@@ -206,8 +206,6 @@ spec:
         - name: http
           port: 9001
       publicPort: http
-      runtime:
-        architecture: arm64
       readOnlyFileSystem: true
       variables:
         TIMEOUT: 10h
@@ -222,6 +220,14 @@ spec:
         requests:
           cpu: 10m
           memory: 10Mi
+      environmentConfig:
+        - environment: dev
+          runtime:
+            architecture: amd64
+        - environment: prod
+          runtime:
+            architecture: arm64
+
 
           
 
