@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace aspnet_webapp.Pages
 {
@@ -26,10 +29,6 @@ namespace aspnet_webapp.Pages
             _configuration=configuration;
             _videoService=videoService;
             Videos=videoService.GetVideos().ToArray();
-            // var videoPath=_configuration["VIDEO_PATH"];
-            // if(videoPath?.Length>0) {
-            //     Videos=System.IO.Directory.GetFiles(_configuration["VIDEO_PATH"]).Select(f=>new System.IO.FileInfo(f).Name).ToArray();
-            // }
         }
 
         public VideoInfo[] Videos { get; set; }
@@ -40,12 +39,30 @@ namespace aspnet_webapp.Pages
         [BindProperty]
         public string SelectedVideoId { get; set; } = "";
 
-        public void OnPost() {
+        public void OnPostPlay() {
             SelectedVideo=Videos.FirstOrDefault(v=>v.Id==(SelectedVideoId ?? ""));
         }
 
         public string ConvertToMB(long value) {
             return string.Format("{0} MB", value/1024/1024);
+        }
+
+        [BindProperty]
+        public IFormFile Upload { get; set; }
+
+        public string UploadError { get; set; }
+
+        public async Task OnPostUploadAsync() {
+            try
+            {
+                await _videoService.UploadVideoAsync(Upload.OpenReadStream(), Upload.FileName);    
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex,ex.Message);
+                UploadError=ex.Message;
+            }
+            
         }
     }
 }

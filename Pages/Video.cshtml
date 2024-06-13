@@ -3,19 +3,33 @@
 @{
     ViewData["Title"] = "Videos";
 }
-<h1>@ViewData["Title"]</h1>
 
+<h3>Upload file</h3>
+<form method="post" asp-page-handler="Upload" enctype="multipart/form-data">
+    <input type="file" asp-for="Upload" />
+    <input type="submit" />
+</form>
+@if(Model.UploadError?.Length>0)
+{
+    <div>@Model.UploadError</div>
+}
+<h3>Videos</h3>
+
+<div>
+    <a href="/api/video/megafile">Download mega file</a>
+</div>
 
 @if(Model.Videos?.Length==0)
 {
     <div>No videos available</div>
 } else {
-    <form method="post">
+    <form asp-page-handler="Play" method="post">
     @foreach (var item in Model.Videos)
     {
         <div>
             <input type="radio" name="SelectedVideoId" id="@item.Id" value="@item.Id" />
             <label for="@item.Id">@item.FileName (@Model.ConvertToMB(item.SizeBytes))</label>
+            <a href="/api/video/@item.Id">Download</a>
         </div>
     }
     <input type="submit" value="Play" />  

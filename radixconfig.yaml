@@ -1,3 +1,19 @@
+# yaml-language-server: $schema=file:///home/nst/go/src/github.com/equinor/radix-operator/json-schema/radixapplication.json
+
+x-redis: &redis bitnami/redis:latest
+x-default-requests: &request
+  memory: 200M
+  cpu: 60m
+x-default-limit: &limit
+  cpu: 60m    
+x-resources: &resources
+  requests: *request
+  limits: *limit
+x-volumeMounts: &volumemounts
+  - name: tmp
+    path: /tmp
+    emptyDir:
+      sizeLimit: 222M
 
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
@@ -7,81 +23,107 @@ spec:
   dnsAppAlias:
     component: web
     environment: dev
-  dnsExternalAlias:
-    - alias: foodev.equinor.com
-      component: web
+  dnsAlias:
+    - alias: nils
       environment: dev
-    - alias: fooprod.equinor.com
       component: web
-      environment: prod
+  
   build:
     secrets:
       - SECRET1
       - SECRET2
     useBuildKit: true
-    useBuildCache: true
+    useBuildCache: false
+  privateImageHubs:
+    docker.io:
+      username: nilsgustavstrabo
   environments:
-    - name: prod
-      build:
-        from: release
     - name: dev
       build:
         from: main
+    - name: qa
+    - name: prod
+      build:
+        from: release
   components:
     - name: web
       dockerfilename: Dockerfile
+      # image: docker.io/nilsgustavstrabo/oauth-demo-dev-web:cksjc
       identity:
         azure:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
       variables:
         ASPNETCORE_URLS: http://*:5005
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
-        SQL_SERVER_NAME: "fed-test.database.windows.net"
-        SQL_DATABASE_NAME: "fed-test"
+        SQL_SERVER_NAME: "radix-test-server-delete-me.database.windows.net"
+        SQL_DATABASE_NAME: "radix-test-database-delete-me"
+        MEGA_FILE_SIZE: "1000"
+        ENABLE_PROXY_BUFFERING: "true"
+        DOTNET_EnableDiagnostics: "0"
       ports:
         - name: http
           port: 5005
       publicPort: http
+      runtime:
+        architecture: amd64
+      horizontalScaling:
+        maxReplicas: 2
+        minReplicas: 0
+        triggers:
+          - name: cpux
+            cpu:
+              value: 60
+          - name: memoryx
+            memory:
+              value: 80
+          - name: cron
+            cron:
+              desiredReplicas: 1
+              start: 0 8 * * *
+              end: 0 18 * * *
+              timezone: Europe/Oslo
+      secretRefs:
+        azureKeyVaults:
+          - items:
+              - name: secret1
+                envVar: SECRET1
+            name: radix-sci-az-kv-test
+            useAzureIdentity: true
       environmentConfig:
         - environment: dev
+          readOnlyFileSystem: true
           volumeMounts:
-            - name: storage
-              path: /usr/share/aasx
+            # - name: temp
+            #   path: /tmp
+            #   emptyDir:
+            #     sizeLimit: 5Ti
+
+
+            - name: videos
+              path: /mnt/videos
               blobFuse2:
                 protocol: fuse2
-                container: manyfiles
+                container: videos
                 uid: "1001"
                 accessMode: ReadWriteMany
                 streaming: 
                   enabled: true
-          horizontalScaling:
-            minReplicas: 1
-            maxReplicas: 3
-            resources:
-              memory:
-                averageUtilization: 80
-              cpu:
-                averageUtilization: 80
           variables:
             VIDEO_PATH: "/mnt/videos"
-      resources:
-        requests:
-          memory: 201M
-          cpu: 56m
-        limits:
-          memory: 2G
-          cpu: 56m
+        - environment: prod
+          enabled: false
+      resources: *resources
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
           setXAuthRequestHeaders: true
           setAuthorizationHeader: true
           sessionStoreType: redis
-          scope: openid email profile offline_access https://graph.microsoft.com/User.Read
+          scope: openid email profile offline_access # https://graph.microsoft.com/User.Read
           redisStore:
             connectionUrl: redis://redis:6379
     - name: redis
-      image: bitnami/redis:latest
+      image: *redis
       secrets:
         - REDIS_PASSWORD
       ports:
@@ -89,5 +131,97 @@ spec:
           port: 6379
       resources:
         requests:
-          memory: 50M
-          cpu: 50m     
+          memory: 51M
+          cpu: 51m
+      runtime:
+        architecture: arm64
+      horizontalScaling:
+        maxReplicas: 1
+        minReplicas: 0
+        triggers:
+          - name: cpux
+            cpu:
+              value: 60
+          - name: memoryx
+            memory:
+              value: 80
+          - name: cron
+            cron:
+              desiredReplicas: 1
+              start: 0 8 * * *
+              end: 0 18 * * *
+              timezone: Europe/Oslo
+      environmentConfig:
+        - environment: prod
+          enabled: false
+    - name: proxy
+      src: proxy
+      ports:
+        - name: http
+          port: 8080
+      publicPort: http
+      readOnlyFileSystem: true
+      runtime:
+        architecture: arm64
+      volumeMounts: *volumemounts
+      resources:
+        requests:
+          cpu: 50m
+          memory: 100Mi
+        limits:
+          cpu: 50m
+      authentication:
+        oauth2:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+          setXAuthRequestHeaders: true
+          setAuthorizationHeader: true
+          sessionStoreType: redis
+          scope: openid email profile offline_access # https://graph.microsoft.com/User.Read
+          redisStore:
+            connectionUrl: redis://redis:6379   
+      horizontalScaling:
+        maxReplicas: 1
+        minReplicas: 0
+        triggers:
+          - name: cpux
+            cpu:
+              value: 60
+          - name: memoryx
+            memory:
+              value: 80
+          - name: cron
+            cron:
+              desiredReplicas: 1
+              start: 0 8 * * *
+              end: 0 18 * * *
+              timezone: Europe/Oslo
+      environmentConfig:
+        - environment: dev
+        - environment: prod
+          enabled: false
+    - name: simple
+      # image: docker.io/nilsgustavstrabo/nilssimple:latest
+      src: /simpleweb
+      ports:
+        - name: http
+          port: 9001
+      publicPort: http
+      runtime:
+        architecture: arm64
+      readOnlyFileSystem: true
+      variables:
+        TIMEOUT: 10h
+        TMPDIR: "/tmp"
+        APPENDTICK: 10s
+      volumeMounts:
+        - name: tmp
+          path: /tmp
+          emptyDir:
+            sizeLimit: 5M
+      resources:
+        requests:
+          cpu: 10m
+          memory: 10Mi
+
+          
+

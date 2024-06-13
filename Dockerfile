@@ -1,5 +1,6 @@
 # https://hub.docker.com/_/microsoft-dotnet
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+# FROM rihagtest.azurecr.io/dotnet/sdk:6.0 as build
 
 WORKDIR /source
 
@@ -13,6 +14,7 @@ RUN dotnet publish -c release -o /app .
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
+# ENV DOTNET_EnableDiagnostics=0
 WORKDIR /app
 
 RUN	apt-get update && apt-get -y install curl

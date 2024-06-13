@@ -1,6 +1,18 @@
 {
     "version": "0.2.0",
     "configurations": [
+    {
+        "name": "Launch simpleweb",
+        "type": "go",
+        "request": "launch",
+        "mode": "debug",
+        "program": "${workspaceFolder}/simpleweb/main.go",
+        "env": {
+            "TMPDIR": "/tmp",
+            "TIMEOUT": "5m",
+            "APPENDTICK": "10s"
+        }
+    },
         {
             // Use IntelliSense to find out which attributes exist for C# debugging
             // Use hover for the description of the existing attributes
@@ -22,7 +34,8 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
                 "KEY_VAULT_URL": "https://radix-sci-az-kv-test.vault.azure.net/",
-                "VIDEO_PATH": "/home/nst/go/src/github.com/nilsgstrabo/aspnet-webapp/videos"
+                "VIDEO_PATH": "/home/nst/go/src/github.com/nilsgstrabo/aspnet-webapp/videos",
+                "MEGA_FILE_SIZE": "8192"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
