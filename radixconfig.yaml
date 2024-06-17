@@ -13,7 +13,7 @@ x-volumeMounts: &volumemounts
   - name: tmp
     path: /tmp
     emptyDir:
-      sizeLimit: 222M
+      sizeLimit: 200M
 
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
