@@ -38,7 +38,7 @@ spec:
     - alias: oauthappx.dev.radix.equinor.com
       component: simple
       environment: prod
-      useCertificateAutomation: false
+      useCertificateAutomation: true
   privateImageHubs:
     docker.io:
       username: nilsgustavstrabo
@@ -203,7 +203,7 @@ spec:
       environmentConfig:
         - environment: dev
         - environment: prod
-          enabled: true
+          enabled: false
     - name: simple
       # image: docker.io/nilsgustavstrabo/nilssimple:latest
       src: /simpleweb
