@@ -34,6 +34,11 @@ spec:
       - SECRET2
     useBuildKit: true
     useBuildCache: false
+  dnsExternalAlias:
+    - alias: oauthappx.dev.radix.equinor.com
+      component: simple
+      environment: prod
+      useCertificateAutomation: false
   privateImageHubs:
     docker.io:
       username: nilsgustavstrabo
