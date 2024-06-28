@@ -97,11 +97,9 @@ spec:
               path: /mnt/videos
               blobFuse2:
                 protocol: fuse2
-                container: videos
+                container: testdata
                 uid: "1001"
                 accessMode: ReadWriteMany
-                streaming: 
-                  enabled: true
           variables:
             VIDEO_PATH: "/mnt/videos"
         - environment: prod
