@@ -106,6 +106,7 @@ spec:
                 container: videos
                 uid: "1001"
                 accessMode: ReadWriteMany
+                useAdls: true
                 streaming: 
                   enabled: true
           variables:
