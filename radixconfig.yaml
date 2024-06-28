@@ -100,6 +100,7 @@ spec:
                 container: videos
                 uid: "1001"
                 accessMode: ReadWriteMany
+                useAdls: true
           variables:
             VIDEO_PATH: "/mnt/videos"
         - environment: prod
