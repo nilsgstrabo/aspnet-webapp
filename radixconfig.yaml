@@ -92,17 +92,17 @@ spec:
       environmentConfig:
         - environment: dev
           readOnlyFileSystem: true
-          volumeMounts:
-            - name: videos
-              path: /mnt/videos
-              blobFuse2:
-                protocol: fuse2
-                container: videos
-                uid: "1001"
-                accessMode: ReadWriteMany
-                useAdls: false
-                streaming: 
-                  enabled: true
+          # volumeMounts:
+          #   - name: videos
+          #     path: /mnt/videos
+          #     blobFuse2:
+          #       protocol: fuse2
+          #       container: videos
+          #       uid: "1001"
+          #       accessMode: ReadWriteMany
+          #       useAdls: false
+          #       streaming: 
+          #         enabled: true
           variables:
             VIDEO_PATH: "/mnt/videos"
         - environment: prod
