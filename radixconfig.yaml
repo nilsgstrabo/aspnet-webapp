@@ -122,12 +122,6 @@ spec:
       ports:
         - name: redis
           port: 6379
-      readOnlyFileSystem: true
-      volumeMounts:
-        - name: redisdata
-          path: /bitnami/redis/data
-          emptyDir:
-            sizeLimit: 100M
       resources:
         requests:
           memory: 51M
