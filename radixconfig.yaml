@@ -27,7 +27,6 @@ spec:
     - alias: nils
       environment: dev
       component: web
-  
   build:
     secrets:
       - SECRET1
@@ -36,7 +35,7 @@ spec:
     useBuildCache: false
   privateImageHubs:
     docker.io:
-      username: nilsgustavstrabo
+      username: nst656
   environments:
     - name: dev
       build:
@@ -190,7 +189,6 @@ spec:
               timezone: Europe/Oslo
       environmentConfig:
         - environment: dev
-          enabled: false
         - environment: prod
           enabled: false
     - name: simple
@@ -216,7 +214,6 @@ spec:
           memory: 10Mi
       environmentConfig:
         - environment: dev
-          enabled: false
           runtime:
             architecture: amd64
         - environment: prod
