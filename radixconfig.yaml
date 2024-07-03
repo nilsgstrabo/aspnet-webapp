@@ -33,9 +33,9 @@ spec:
       - SECRET2
     useBuildKit: true
     useBuildCache: false
-  privateImageHubs:
-    docker.io:
-      username: nst656
+  # privateImageHubs:
+  #   docker.io:
+  #     username: nst656
   environments:
     - name: dev
       build:
