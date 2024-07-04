@@ -45,15 +45,18 @@ spec:
       build:
         from: release
   components:
-    - name: garnet
-      image: ghcr.io/microsoft/garnet:1
+    - name: simpledotnet
+      src: simpledotnet
       ports:
-      - name: redis
-        port: 6379
+        - name: http
+          port: 8080
       resources:
         requests:
           cpu: 50m
-          memory: 100M
+          memory: 50M
+        limits:
+          cpu: 50m
+          memory: 50M
     - name: web
       dockerfilename: Dockerfile
       # image: docker.io/nilsgustavstrabo/oauth-demo-dev-web:cksjc
