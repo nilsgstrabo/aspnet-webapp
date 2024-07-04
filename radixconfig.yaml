@@ -45,18 +45,6 @@ spec:
       build:
         from: release
   components:
-    - name: simpledotnet
-      src: simpledotnet
-      ports:
-        - name: http
-          port: 8080
-      resources:
-        requests:
-          cpu: 50m
-          memory: 50M
-        limits:
-          cpu: 50m
-          memory: 50M
     - name: web
       dockerfilename: Dockerfile
       # image: docker.io/nilsgustavstrabo/oauth-demo-dev-web:cksjc
