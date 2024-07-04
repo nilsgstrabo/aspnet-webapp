@@ -69,10 +69,10 @@ spec:
         maxReplicas: 2
         minReplicas: 0
         triggers:
-          - name: cpux
+          - name: cpu
             cpu:
               value: 60
-          - name: memoryx
+          - name: memory
             memory:
               value: 80
           - name: cron
