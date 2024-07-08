@@ -24,9 +24,9 @@ spec:
     component: web
     environment: dev
   dnsAlias:
-    - alias: nils
+    - alias: nilssimple
       environment: dev
-      component: web
+      component: simple
   build:
     secrets:
       - SECRET1
