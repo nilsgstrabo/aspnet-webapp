@@ -13,7 +13,11 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      myenv: abcd
     steps:
+      - name: 'env test'
+        run: 'echo ${{ env.myenv }}'
       - name: 'Az CLI login'
         uses: azure/login@v2
         with:
