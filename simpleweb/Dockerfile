@@ -1,4 +1,4 @@
-FROM docker.io/library/golang:1.22-alpine3.20 as builder
+FROM docker.io/library/golang:1.22-alpine3.20 AS builder
 # FROM docker.io/nilsgustavstrabo/golang:1.22-alpine3.20 as builder
 # FROM --platform=$TARGETPLATFORM docker.io/library/golang:1.22-alpine3.20 as builder
 
