@@ -27,7 +27,7 @@ spec:
     - alias: nilssimple
       environment: dev
       component: simple
-  build: {}
+  # build: {}
     # secrets:
     #   - SECRET1
     #   - SECRET2
