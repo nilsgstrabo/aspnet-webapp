@@ -27,7 +27,7 @@ spec:
     - alias: nilssimple
       environment: dev
       component: simple
-  # build: {}
+  build: {}
     # secrets:
     #   - SECRET1
     #   - SECRET2
@@ -126,7 +126,7 @@ spec:
           memory: 51M
           cpu: 51m
       runtime:
-        architecture: arm64
+        architecture: amd64
       horizontalScaling:
         maxReplicas: 1
         minReplicas: 0
@@ -154,7 +154,7 @@ spec:
       publicPort: http
       readOnlyFileSystem: true
       runtime:
-        architecture: arm64
+        architecture: amd64
       volumeMounts: *volumemounts
       resources:
         requests:
@@ -228,7 +228,7 @@ spec:
             architecture: amd64
         - environment: prod
           runtime:
-            architecture: arm64
+            architecture: amd64
 
 
           
