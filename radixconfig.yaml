@@ -27,12 +27,12 @@ spec:
     - alias: nilssimple
       environment: dev
       component: simple
-  build:
+  build: {}
     # secrets:
     #   - SECRET1
     #   - SECRET2
-    useBuildKit: true
-    useBuildCache: false
+    # useBuildKit: true
+    # useBuildCache: false
   privateImageHubs:
     docker.io:
       username: nst656
