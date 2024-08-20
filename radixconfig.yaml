@@ -27,12 +27,12 @@ spec:
     - alias: nilssimple
       environment: dev
       component: simple
-  # build: {}
-    # secrets:
-    #   - SECRET1
-    #   - SECRET2
-    # useBuildKit: true
-    # useBuildCache: false
+  build:
+    secrets:
+      - SECRET1
+      - SECRET2
+    useBuildKit: true
+    useBuildCache: false
   privateImageHubs:
     docker.io:
       username: nst656
@@ -126,7 +126,7 @@ spec:
           memory: 51M
           cpu: 51m
       runtime:
-        architecture: amd64
+        architecture: arm64
       horizontalScaling:
         maxReplicas: 1
         minReplicas: 0
@@ -154,7 +154,7 @@ spec:
       publicPort: http
       readOnlyFileSystem: true
       runtime:
-        architecture: amd64
+        architecture: arm64
       volumeMounts: *volumemounts
       resources:
         requests:
@@ -228,7 +228,7 @@ spec:
             architecture: amd64
         - environment: prod
           runtime:
-            architecture: amd64
+            architecture: arm64
 
 
           
