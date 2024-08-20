@@ -28,9 +28,9 @@ spec:
       environment: dev
       component: simple
   build:
-    secrets:
-      - SECRET1
-      - SECRET2
+    # secrets:
+    #   - SECRET1
+    #   - SECRET2
     useBuildKit: true
     useBuildCache: false
   privateImageHubs:
