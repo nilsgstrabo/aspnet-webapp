@@ -30,7 +30,7 @@ spec:
   build:
     secrets:
       - SECRET1
-      - SECRET2
+      - SECRET2a
     useBuildKit: true
     useBuildCache: false
   privateImageHubs:
