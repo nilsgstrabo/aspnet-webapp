@@ -212,21 +212,30 @@ spec:
         requests:
           cpu: 10m
           memory: 10Mi
-      horizontalScaling:
-        maxReplicas: 1
-        minReplicas: 0
-        triggers:
-          - name: cron
-            cron:
-              desiredReplicas: 1
-              start: 0 8 * * *
-              end: 0 9 * * *
-              timezone: Europe/Oslo
       environmentConfig:
         - environment: dev
+          horizontalScaling:
+            maxReplicas: 1
+            minReplicas: 0
+            triggers:
+              - name: cron
+                cron:
+                  desiredReplicas: 1
+                  start: 0 8 * * *
+                  end: 0 9 * * *
+                  timezone: Europe/Oslo
           runtime:
             architecture: amd64
         - environment: prod
+          replicas: 2
+          horizontalScaling:
+            maxReplicas: 4
+            minReplicas: 2
+            cooldownPeriod: 600 # 10 minutes
+            triggers:
+              - name: cpu
+                cpu:
+                  value: 50
           runtime:
             architecture: arm64
 
