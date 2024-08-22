@@ -32,6 +32,7 @@ jobs:
       - name: List apps1
         uses: equinor/radix-github-actions@v1 #define-args-input
         with:
+          foo: bar
           args: >
             get
             application
