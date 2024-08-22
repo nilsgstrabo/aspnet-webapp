@@ -1,4 +1,5 @@
-FROM docker.io/library/golang:1.22-alpine3.20 as builder
+FROM docker.io/library/golang:1.22-alpine3.20 AS builder
+# FROM golang:1.22-alpine3.20 AS builder
 # FROM docker.io/nilsgustavstrabo/golang:1.22-alpine3.20 as builder
 # FROM --platform=$TARGETPLATFORM docker.io/library/golang:1.22-alpine3.20 as builder
 
@@ -8,8 +9,8 @@ FROM docker.io/library/golang:1.22-alpine3.20 as builder
 
 WORKDIR /build
 
-# RUN --mount=type=secret,id=SECRET1,dst=/abc/my-secrets/secret-1.txt export BUILD_ARG=$(cat /abc/my-secrets/secret-1.txt) && \
-#     echo $BUILD_ARG
+RUN --mount=type=secret,id=SECRET1,dst=/abc/my-secrets/secret-1.txt export BUILD_ARG=$(cat /abc/my-secrets/secret-1.txt) && \
+    echo $BUILD_ARG
 
 # RUN echo "hello world" && echo $TARGETPLATFORM && echo $BUILDPLATFORM
 RUN echo "hello world"
