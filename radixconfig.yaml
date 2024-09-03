@@ -41,6 +41,8 @@ spec:
       build:
         from: main
     - name: qa
+      build:
+        from: main
     - name: prod
       build:
         from: release
