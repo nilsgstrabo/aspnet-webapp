@@ -32,7 +32,7 @@ spec:
       - SECRET1
       - SECRET2a
     useBuildKit: true
-    useBuildCache: false
+    useBuildCache: true
   privateImageHubs:
     docker.io:
       username: nilsgustavstrabo
