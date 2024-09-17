@@ -12,8 +12,10 @@ WORKDIR /build
 # RUN --mount=type=secret,id=SECRET1,dst=/abc/my-secrets/secret-1.txt export BUILD_ARG=$(cat /abc/my-secrets/secret-1.txt) && \
 #     echo $BUILD_ARG
 
-RUN --mount=type=secret,id=SECRET1,env=BUILDARG \
-    echo $BUILD_ARG
+RUN --mount=type=secret,id=SECRET1,dst=/abc/my-secrets/secret-1.txt --mount=type=secret,id=SECRET2,dst=/abc/my-secrets/secret-2.txt \
+    export BUILD_ARG=$(cat /abc/my-secrets/secret-1.txt) && \
+    export BUILD_ARG2=$(cat /abc/my-secrets/secret-2.txt) && \
+    echo $BUILD_ARG and $BUILD_ARG2
 
 # RUN echo "hello world" && echo $TARGETPLATFORM && echo $BUILDPLATFORM
 RUN echo "hello world"
