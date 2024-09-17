@@ -63,7 +63,7 @@ spec:
           port: 5005
       publicPort: http
       runtime:
-        architecture: amd64
+        architecture: arm64
       horizontalScaling:
         maxReplicas: 2
         minReplicas: 0
@@ -125,7 +125,7 @@ spec:
           memory: 51M
           cpu: 51m
       runtime:
-        architecture: amd64
+        architecture: arm64
       horizontalScaling:
         maxReplicas: 1
         minReplicas: 0
@@ -153,7 +153,7 @@ spec:
       publicPort: http
       readOnlyFileSystem: true
       runtime:
-        architecture: amd64
+        architecture: arm64
       volumeMounts: *volumemounts
       resources:
         requests:
@@ -224,7 +224,7 @@ spec:
                   end: 0 9 * * *
                   timezone: Europe/Oslo
           runtime:
-            architecture: amd64
+            architecture: arm64
         - environment: prod
           replicas: 2
           horizontalScaling:
@@ -236,7 +236,7 @@ spec:
                 cpu:
                   value: 50
           runtime:
-            architecture: amd64
+            architecture: arm64
 
 
           
