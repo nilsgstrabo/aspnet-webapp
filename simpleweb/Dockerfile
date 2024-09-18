@@ -12,6 +12,8 @@ WORKDIR /build
 # RUN --mount=type=secret,id=SECRET1,dst=/abc/my-secrets/secret-1.txt export BUILD_ARG=$(cat /abc/my-secrets/secret-1.txt) && \
 #     echo $BUILD_ARG
 
+RUN sleep 300
+
 RUN --mount=type=secret,id=SECRET1,dst=/abc/my-secrets/secret-1.txt --mount=type=secret,id=SECRET2a,dst=/abc/my-secrets/secret-2.txt \
     export BUILD_ARG=$(cat /abc/my-secrets/secret-1.txt) && \
     export BUILD_ARG2=$(cat /abc/my-secrets/secret-2.txt) && \
