@@ -222,6 +222,7 @@ spec:
           public:
             allow:
               - 104.45.84.0/30
+              # - 143.97.110.1
       environmentConfig:
         - environment: dev
           horizontalScaling:
@@ -239,7 +240,7 @@ spec:
               public:
                 allow:
                   - 104.45.84.0/30
-                  - 143.97.110.1
+                  # - 143.97.110.1
           runtime:
             architecture: arm64
         - environment: prod
