@@ -38,14 +38,6 @@ spec:
       username: nilsgustavstrabo
   environments:
     - name: dev
-      # ingress:
-      #   public:
-      #     allow:
-      #       - ip: 104.45.84.0/30
-      #       - ip: 143.97.110.1
-      #       - named: radix
-      #       # - country: "NO"
-      #       # - country: IE
       build:
         from: main
     - name: prod
@@ -70,16 +62,14 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      # ingress:
-      #   public:
-      #     allow:
-      #       - ip: 104.45.84.0/30
-      #       - ip: 143.97.110.1
-      #       - named: radix
-      #       # - country: "NO"
-      #       # - country: IE
       runtime:
         architecture: arm64
+        network:
+          ingress:
+            public:
+              allow:
+                - 104.45.84.0/30
+                # - 143.97.110.1
       horizontalScaling:
         maxReplicas: 2
         minReplicas: 0
