@@ -236,8 +236,7 @@ spec:
                   timezone: Europe/Oslo
           network:
             ingress:
-              public:
-                allow: []
+              public: {}
           runtime:
             architecture: arm64
         - environment: prod
