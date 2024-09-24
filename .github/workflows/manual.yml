@@ -36,6 +36,14 @@ jobs:
             get
             application
             --context development
+      - name: Get oauth-demo
+        uses: equinor/radix-github-actions@v1
+        with:
+          args: >
+            get
+            application
+            --application oauth-demo
+            --context development            
       - name: Run deploy
         uses: equinor/radix-github-actions@v1
         with:
