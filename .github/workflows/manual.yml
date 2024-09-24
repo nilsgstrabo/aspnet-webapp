@@ -36,13 +36,6 @@ jobs:
             get
             application
             --context development
-      - name: List apps2
-        uses: equinor/radix-github-actions@v1
-        with:
-          args: >-
-            get
-            application
-            --context development
       - name: Run deploy
         uses: equinor/radix-github-actions@v1
         with:
