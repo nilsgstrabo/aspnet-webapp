@@ -96,6 +96,10 @@ spec:
       environmentConfig:
         - environment: dev
           readOnlyFileSystem: false
+          # network:
+          #   ingress:
+          #     public: 
+          #       allow: []
           volumeMounts:
             - name: videos
               path: /mnt/videos
