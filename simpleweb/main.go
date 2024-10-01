@@ -9,12 +9,17 @@ import (
 	"os/signal"
 	"path"
 	"runtime"
+	"strconv"
 	"strings"
 	"syscall"
 	"time"
 
 	"github.com/gin-gonic/gin"
 )
+
+type CodeRequest struct {
+	Code string `uri:"code" binding:"required"`
+}
 
 func main() {
 	fmt.Printf("Running server on %s/%s\n\n", runtime.GOOS, runtime.GOARCH)
@@ -37,7 +42,21 @@ func main() {
 		for k, v := range ctx.Request.Header {
 			fmt.Printf("%q: %v\n", k, v)
 		}
-		ctx.Status(http.StatusOK)
+		ctx.String(http.StatusOK, "Hello from root")
+	})
+
+	handler.GET("/:code", func(ctx *gin.Context) {
+		var c CodeRequest
+		if err := ctx.ShouldBindUri(&c); err != nil {
+			ctx.JSON(400, gin.H{"msg": err.Error()})
+			return
+		}
+		code, err := strconv.Atoi(c.Code)
+		if err != nil {
+			ctx.JSON(400, gin.H{"msg": err.Error()})
+			return
+		}
+		ctx.JSON(code, c)
 	})
 
 	go func() {
