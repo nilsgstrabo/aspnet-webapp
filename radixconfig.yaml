@@ -242,9 +242,7 @@ spec:
           network:
             ingress:
               public:
-                allow:
-                  - 104.45.84.0/30
-                  # - 143.97.110.1
+                allow: []
           runtime:
             architecture: arm64
         - environment: prod
