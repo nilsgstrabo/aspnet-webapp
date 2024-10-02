@@ -36,13 +36,14 @@ jobs:
             get
             application
             --context development
-      - name: List apps2
+      - name: Get oauth-demo
         uses: equinor/radix-github-actions@v1
         with:
-          args: >-
+          args: >
             get
             application
-            --context development
+            --application oauth-demo
+            --context development            
       - name: Run deploy
         uses: equinor/radix-github-actions@v1
         with:

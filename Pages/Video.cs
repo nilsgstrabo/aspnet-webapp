@@ -55,7 +55,10 @@ namespace aspnet_webapp.Pages
         public async Task OnPostUploadAsync() {
             try
             {
-                await _videoService.UploadVideoAsync(Upload.OpenReadStream(), Upload.FileName);    
+                _logger.LogInformation("starting upload");
+                await Task.CompletedTask;
+                // await _videoService.UploadVideoAsync(Upload.OpenReadStream(), Upload.FileName);    
+                _logger.LogInformation("finished upload");
             }
             catch (System.Exception ex)
             {

@@ -32,15 +32,14 @@ spec:
       - SECRET1
       - SECRET2a
     useBuildKit: true
-    useBuildCache: false
+    # useBuildCache: false
   privateImageHubs:
     docker.io:
-      username: nst656
+      username: nilsgustavstrabo
   environments:
     - name: dev
       build:
         from: main
-    - name: qa
     - name: prod
       build:
         from: release
@@ -63,8 +62,14 @@ spec:
         - name: http
           port: 5005
       publicPort: http
+      network:
+        ingress:
+          public:
+            allow:
+              - 104.45.84.0/30
+              - 143.97.110.1
       runtime:
-        architecture: amd64
+        architecture: arm64
       horizontalScaling:
         maxReplicas: 2
         minReplicas: 0
@@ -90,7 +95,11 @@ spec:
             useAzureIdentity: true
       environmentConfig:
         - environment: dev
-          readOnlyFileSystem: true
+          readOnlyFileSystem: false
+          # network:
+          #   ingress:
+          #     public: 
+          #       allow: []
           volumeMounts:
             - name: videos
               path: /mnt/videos
@@ -103,7 +112,6 @@ spec:
           variables:
             VIDEO_PATH: "/mnt/videos"
         - environment: prod
-          enabled: false
       resources: *resources
       authentication:
         oauth2:
@@ -111,7 +119,7 @@ spec:
           setXAuthRequestHeaders: true
           setAuthorizationHeader: true
           sessionStoreType: redis
-          scope: openid email profile offline_access # https://graph.microsoft.com/User.Read
+          scope: openid email offline_access # https://graph.microsoft.com/User.Read
           redisStore:
             connectionUrl: redis://redis:6379
     - name: redis
@@ -145,7 +153,6 @@ spec:
               timezone: Europe/Oslo
       environmentConfig:
         - environment: prod
-          enabled: false
     - name: proxy
       src: proxy
       ports:
@@ -190,7 +197,6 @@ spec:
       environmentConfig:
         - environment: dev
         - environment: prod
-          enabled: false
     - name: simple
       # image: docker.io/nilsgustavstrabo/nilssimple:latest
       src: /simpleweb
@@ -225,7 +231,7 @@ spec:
                   end: 0 9 * * *
                   timezone: Europe/Oslo
           runtime:
-            architecture: amd64
+            architecture: arm64
         - environment: prod
           replicas: 2
           horizontalScaling:

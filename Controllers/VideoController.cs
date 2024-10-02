@@ -103,7 +103,7 @@ namespace aspnet_webapp.Controllers
         [HttpGet()]
         public IActionResult GetVideos()
         {
-            var s=new FileStream("",FileMode.OpenOrCreate);
+            // var s=new FileStream("",FileMode.OpenOrCreate);
             return this.Ok();
         }
 
