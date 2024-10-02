@@ -221,12 +221,6 @@ spec:
         requests:
           cpu: 10m
           memory: 10Mi
-      network:
-        ingress:
-          public:
-            allow:
-              - 104.45.84.0/30
-              # - 143.97.110.1
       environmentConfig:
         - environment: dev
           horizontalScaling:
@@ -239,10 +233,6 @@ spec:
                   start: 0 8 * * *
                   end: 0 9 * * *
                   timezone: Europe/Oslo
-          network:
-            ingress:
-              public:
-                allow: []
           runtime:
             architecture: arm64
         - environment: prod
