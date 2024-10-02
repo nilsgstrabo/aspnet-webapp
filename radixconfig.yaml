@@ -226,6 +226,11 @@ spec:
               - 104.45.84.0/30
       environmentConfig:
         - environment: dev
+          network:
+            ingress:
+              public:
+                allow:
+                  - 100.0.0.0
           horizontalScaling:
             maxReplicas: 1
             minReplicas: 0
