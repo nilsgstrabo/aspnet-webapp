@@ -218,6 +218,12 @@ spec:
         requests:
           cpu: 10m
           memory: 10Mi
+      network:
+        ingress:
+          public:
+            allow:
+              - 143.97.110.1
+              - 104.45.84.0/30
       environmentConfig:
         - environment: dev
           horizontalScaling:
