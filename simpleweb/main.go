@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"io"
 	"net"
 	"net/http"
 	"os"
@@ -42,10 +43,16 @@ func main() {
 		for k, v := range ctx.Request.Header {
 			fmt.Printf("%q: %v\n", k, v)
 		}
+		if b, err := io.ReadAll(ctx.Request.Body); err == nil {
+			fmt.Printf("body: \n%s", string(b))
+		} else {
+			fmt.Printf("error reading body: %v", err)
+		}
+
 		ctx.String(http.StatusOK, "Hello from root")
 	})
 
-	handler.GET("/:code", func(ctx *gin.Context) {
+	handler.Any("/:code", func(ctx *gin.Context) {
 		var c CodeRequest
 		if err := ctx.ShouldBindUri(&c); err != nil {
 			ctx.JSON(400, gin.H{"msg": err.Error()})
