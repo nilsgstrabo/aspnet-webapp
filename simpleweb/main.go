@@ -49,7 +49,7 @@ func main() {
 			fmt.Printf("error reading body: %v", err)
 		}
 
-		ctx.Status(400)
+		ctx.Status(http.StatusOK)
 		ctx.Stream(func(w io.Writer) bool {
 			for i := range 5 {
 				fmt.Printf("sending line %d to client\n", i)
