@@ -53,7 +53,9 @@ func main() {
 		ctx.Stream(func(w io.Writer) bool {
 			for i := range 5 {
 				fmt.Printf("sending line %d to client\n", i)
-				w.Write([]byte(fmt.Sprintf("line %d", i)))
+				if _, err := w.Write([]byte(fmt.Sprintf("line %d", i))); err != nil {
+					fmt.Printf("error writing response: %v\n", err)
+				}
 				time.Sleep(1 * time.Second)
 			}
 			return false
