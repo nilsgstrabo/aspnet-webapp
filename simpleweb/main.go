@@ -49,7 +49,14 @@ func main() {
 			fmt.Printf("error reading body: %v", err)
 		}
 
-		ctx.String(http.StatusOK, "Hello from root")
+		ctx.Status(400)
+		ctx.Stream(func(w io.Writer) bool {
+			for i := range 5 {
+				w.Write([]byte(fmt.Sprintf("line %d", i)))
+				time.Sleep(1 * time.Second)
+			}
+			return false
+		})
 	})
 
 	handler.Any("/:code", func(ctx *gin.Context) {
