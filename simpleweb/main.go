@@ -50,16 +50,16 @@ func main() {
 		}
 
 		ctx.Status(http.StatusOK)
-		ctx.Stream(func(w io.Writer) bool {
-			for i := range 5 {
-				fmt.Printf("sending line %d to client\n", i)
-				if _, err := w.Write([]byte(fmt.Sprintf("line %d", i))); err != nil {
-					fmt.Printf("error writing response: %v\n", err)
-				}
-				time.Sleep(1 * time.Second)
+
+		for i := range 5 {
+			fmt.Printf("sending line %d to client\n", i)
+			if _, err := ctx.Writer.Write([]byte(fmt.Sprintf("line %d", i))); err != nil {
+				fmt.Printf("error writing response: %v\n", err)
 			}
-			return false
-		})
+			ctx.Writer.Flush()
+			time.Sleep(1 * time.Second)
+		}
+
 	})
 
 	handler.Any("/:code", func(ctx *gin.Context) {
