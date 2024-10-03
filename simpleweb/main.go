@@ -52,6 +52,7 @@ func main() {
 		ctx.Status(400)
 		ctx.Stream(func(w io.Writer) bool {
 			for i := range 5 {
+				fmt.Printf("sending line %d to client\n", i)
 				w.Write([]byte(fmt.Sprintf("line %d", i)))
 				time.Sleep(1 * time.Second)
 			}
@@ -88,7 +89,7 @@ func main() {
 		fmt.Printf("received signal %v, but we ignore it", s)
 	}()
 
-	go slowlyWriteToFile(ctx.Done())
+	// go slowlyWriteToFile(ctx.Done())
 
 	fmt.Println("waiting")
 	<-ctx.Done()
