@@ -46,14 +46,9 @@ func main() {
 		host, _, _ := net.SplitHostPort(ctx.Request.RemoteAddr)
 		fmt.Printf("Remote addr : %s\n", net.ParseIP(host))
 		fmt.Println("")
-		for k, v := range ctx.Request.Header {
-			fmt.Printf("%q: %v\n", k, v)
-		}
-		if b, err := io.ReadAll(ctx.Request.Body); err == nil {
-			fmt.Printf("body: \n%s", string(b))
-		} else {
-			fmt.Printf("error reading body: %v", err)
-		}
+		// for k, v := range ctx.Request.Header {
+		// 	fmt.Printf("%q: %v\n", k, v)
+		// }
 
 		hostName, err := os.Hostname()
 		if err != nil {
@@ -123,17 +118,21 @@ func main() {
 
 func getLog(client http.Client) func(*gin.Context) {
 	return func(ctx *gin.Context) {
+		fmt.Println("preparing log request")
 		resp, err := client.Get("https://server-radix-log-api-qa.dev.radix.equinor.com/api/v1/applications/oauth-demo/environments/dev/components/simple")
 		if err != nil {
-			ctx.AbortWithError(http.StatusInternalServerError, err)
+			fmt.Printf("log request failed: %v", err)
+			ctx.AbortWithStatus(http.StatusInternalServerError)
 			return
 		}
 		defer resp.Body.Close()
 		d, err := io.ReadAll(resp.Body)
 		if err != nil {
-			ctx.AbortWithError(http.StatusInternalServerError, err)
+			fmt.Printf("reading response failed: %v", err)
+			ctx.AbortWithStatus(http.StatusInternalServerError)
 			return
 		}
+		fmt.Println("returning log data")
 		ctx.String(http.StatusOK, string(d))
 	}
 }
