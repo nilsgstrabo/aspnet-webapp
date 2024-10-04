@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"math/rand"
 	"net"
 	"net/http"
 	"os"
@@ -55,6 +56,10 @@ func main() {
 			fmt.Printf("error getting host name: %v", err)
 		}
 		ctx.String(http.StatusOK, fmt.Sprintf("hello from %s", hostName))
+
+		// Sleet between 0 and 1000 ms
+		time.Sleep(time.Duration(rand.Intn(1000) * int(time.Millisecond)))
+
 		// ctx.Status(http.StatusOK)
 		// for i := range 5 {
 		// 	fmt.Printf("sending line %d to client\n", i)
