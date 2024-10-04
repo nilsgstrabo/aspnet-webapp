@@ -16,7 +16,11 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/oauth2"
 )
 
 type CodeRequest struct {
@@ -34,6 +38,7 @@ func main() {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
+
 	handler := gin.New()
 	handler.RemoveExtraSlash = true
 	handler.GET("/", func(ctx *gin.Context) {
@@ -86,6 +91,14 @@ func main() {
 		ctx.JSON(code, c)
 	})
 
+	cred, err := azidentity.NewManagedIdentityCredential(nil)
+	if err != nil {
+		panic(err)
+	}
+	azts := &azTokenSource{cred: cred}
+	client := oauth2.NewClient(context.Background(), oauth2.ReuseTokenSource(nil, oauth2.ReuseTokenSource(nil, azts)))
+	handler.GET("/log", getLog(*client))
+
 	go func() {
 		if err := http.ListenAndServe(":9001", handler); err != nil {
 			fmt.Println(err)
@@ -106,6 +119,43 @@ func main() {
 	fmt.Println("waiting")
 	<-ctx.Done()
 	fmt.Println("done waiting")
+}
+
+func getLog(client http.Client) func(*gin.Context) {
+	return func(ctx *gin.Context) {
+		resp, err := client.Get("https://server-radix-log-api-qa.dev.radix.equinor.com/api/v1/applications/oauth-demo/environments/dev/components/simple")
+		if err != nil {
+			ctx.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
+		defer resp.Body.Close()
+		d, err := io.ReadAll(resp.Body)
+		if err != nil {
+			ctx.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
+		ctx.String(http.StatusOK, string(d))
+	}
+}
+
+var _ oauth2.TokenSource = &azTokenSource{}
+
+type azTokenSource struct {
+	cred azcore.TokenCredential
+}
+
+func (s *azTokenSource) Token() (*oauth2.Token, error) {
+	t, err := s.cred.GetToken(context.Background(), policy.TokenRequestOptions{
+		Scopes: []string{"6dae42f8-4368-4678-94ff-3960e28e3630/.default"},
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &oauth2.Token{
+		AccessToken: t.Token,
+		Expiry:      t.ExpiresOn,
+	}, nil
 }
 
 func slowlyWriteToFile(stop <-chan struct{}) {
