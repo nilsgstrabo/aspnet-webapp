@@ -49,16 +49,21 @@ func main() {
 			fmt.Printf("error reading body: %v", err)
 		}
 
-		ctx.Status(http.StatusOK)
-
-		for i := range 5 {
-			fmt.Printf("sending line %d to client\n", i)
-			if _, err := ctx.Writer.Write([]byte(fmt.Sprintf("line %d", i))); err != nil {
-				fmt.Printf("error writing response: %v\n", err)
-			}
-			ctx.Writer.Flush()
-			time.Sleep(1 * time.Second)
+		hostName, err := os.Hostname()
+		if err != nil {
+			hostName = "N/A"
+			fmt.Printf("error getting host name: %v", err)
 		}
+		ctx.String(http.StatusOK, fmt.Sprintf("hello from %s", hostName))
+		// ctx.Status(http.StatusOK)
+		// for i := range 5 {
+		// 	fmt.Printf("sending line %d to client\n", i)
+		// 	if _, err := ctx.Writer.Write([]byte(fmt.Sprintf("line %d", i))); err != nil {
+		// 		fmt.Printf("error writing response: %v\n", err)
+		// 	}
+		// 	ctx.Writer.Flush()
+		// 	time.Sleep(1 * time.Second)
+		// }
 
 	})
 
