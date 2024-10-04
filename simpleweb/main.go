@@ -30,13 +30,15 @@ type CodeRequest struct {
 func main() {
 	fmt.Printf("Running server on %s/%s\n\n", runtime.GOOS, runtime.GOARCH)
 
-	var timeout time.Duration
-	timeout, err := time.ParseDuration(os.Getenv("TIMEOUT"))
-	if err != nil {
-		fmt.Println(err)
-		timeout = 10 * time.Second
-	}
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	// var timeout time.Duration
+	// timeout, err := time.ParseDuration(os.Getenv("TIMEOUT"))
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	timeout = 10 * time.Second
+	// }
+	// ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	// defer cancel()
+	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer cancel()
 
 	handler := gin.New()
@@ -86,7 +88,7 @@ func main() {
 		ctx.JSON(code, c)
 	})
 
-	cred, err := azidentity.NewManagedIdentityCredential(nil)
+	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
 		panic(err)
 	}
@@ -100,14 +102,14 @@ func main() {
 		}
 	}()
 
-	sigCh := make(chan os.Signal, 1)
-	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
+	// sigCh := make(chan os.Signal, 1)
+	// signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
 
-	go func() {
-		fmt.Println("waiting for signal")
-		s := <-sigCh
-		fmt.Printf("received signal %v, but we ignore it", s)
-	}()
+	// go func() {
+	// 	fmt.Println("waiting for signal")
+	// 	s := <-sigCh
+	// 	fmt.Printf("received signal %v, but we ignore it", s)
+	// }()
 
 	// go slowlyWriteToFile(ctx.Done())
 
@@ -119,7 +121,11 @@ func main() {
 func getLog(client http.Client) func(*gin.Context) {
 	return func(ctx *gin.Context) {
 		fmt.Println("preparing log request")
-		resp, err := client.Get("https://server-radix-log-api-qa.dev.radix.equinor.com/api/v1/applications/oauth-demo/environments/dev/components/simple")
+		tctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer cancel()
+		req, _ := http.NewRequest("GET", "https://server-radix-log-api-qa.dev.radix.equinor.com/api/v1/applications/oauth-demo/environments/dev/components/simple", nil)
+		req = req.WithContext(tctx)
+		resp, err := client.Do(req)
 		if err != nil {
 			fmt.Printf("log request failed: %v", err)
 			ctx.AbortWithStatus(http.StatusInternalServerError)
@@ -144,7 +150,9 @@ type azTokenSource struct {
 }
 
 func (s *azTokenSource) Token() (*oauth2.Token, error) {
-	t, err := s.cred.GetToken(context.Background(), policy.TokenRequestOptions{
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	t, err := s.cred.GetToken(ctx, policy.TokenRequestOptions{
 		Scopes: []string{"6dae42f8-4368-4678-94ff-3960e28e3630/.default"},
 	})
 	if err != nil {
