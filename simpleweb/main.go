@@ -88,13 +88,7 @@ func main() {
 		ctx.JSON(code, c)
 	})
 
-	cred, err := azidentity.NewDefaultAzureCredential(nil)
-	if err != nil {
-		panic(err)
-	}
-	azts := &azTokenSource{cred: cred}
-	client := oauth2.NewClient(context.Background(), oauth2.ReuseTokenSource(nil, oauth2.ReuseTokenSource(nil, azts)))
-	handler.GET("/log", getLog(*client))
+	handler.GET("/log", initLogHandler())
 
 	go func() {
 		if err := http.ListenAndServe(":9001", handler); err != nil {
@@ -118,7 +112,15 @@ func main() {
 	fmt.Println("done waiting")
 }
 
-func getLog(client http.Client) func(*gin.Context) {
+func initLogHandler() func(*gin.Context) {
+	cred, err := azidentity.NewWorkloadIdentityCredential(nil)
+	if err != nil {
+		panic(err)
+	}
+	client := oauth2.NewClient(
+		context.Background(),
+		oauth2.ReuseTokenSource(nil, &azTokenSource{cred: cred}),
+	)
 	return func(ctx *gin.Context) {
 		fmt.Println("preparing log request")
 		tctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
