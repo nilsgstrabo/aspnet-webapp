@@ -205,6 +205,9 @@ spec:
           port: 9001
       publicPort: http
       readOnlyFileSystem: true
+      identity:
+        azure:
+          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
       variables:
         TIMEOUT: 10h
         TMPDIR: "/tmp"
