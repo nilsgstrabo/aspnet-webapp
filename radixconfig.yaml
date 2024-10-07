@@ -65,6 +65,7 @@ spec:
       network:
         ingress:
           public:
+            proxyBodySize: 5m
             allow:
               - 104.45.84.0/30
               - 143.97.110.1
@@ -224,6 +225,9 @@ spec:
       network:
         ingress:
           public:
+            proxyBodySize: "2m"
+            proxyReadTimeout: 2
+            proxySendTimeout: 5
             allow:
               - 143.97.110.1
               - 104.45.84.0/30
