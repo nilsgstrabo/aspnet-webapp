@@ -60,7 +60,7 @@ func main() {
 		ctx.String(http.StatusOK, fmt.Sprintf("hello from %s", hostName))
 
 		// Sleet between 0 and 1000 ms
-		time.Sleep(time.Duration(rand.Intn(1000) * int(time.Millisecond)))
+		time.Sleep(time.Duration(rand.Intn(3000) * int(time.Millisecond)))
 
 		// ctx.Status(http.StatusOK)
 		// for i := range 5 {
