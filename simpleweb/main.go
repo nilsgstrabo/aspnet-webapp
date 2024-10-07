@@ -57,10 +57,16 @@ func main() {
 			hostName = "N/A"
 			fmt.Printf("error getting host name: %v", err)
 		}
-		ctx.String(http.StatusOK, fmt.Sprintf("hello from %s", hostName))
-
-		// Sleet between 0 and 1000 ms
-		time.Sleep(time.Duration(rand.Intn(3000) * int(time.Millisecond)))
+		// ctx.String(http.StatusOK, fmt.Sprintf("hello from %s", hostName))
+		ctx.Status(http.StatusOK)
+		sleep := time.Duration(rand.Intn(3000) * int(time.Millisecond))
+		ctx.Writer.WriteString(fmt.Sprintf("hello from %s\n", hostName))
+		ctx.Writer.WriteString(fmt.Sprintf("sleeping %s before sending more data in response\n", sleep.String()))
+		ctx.Writer.Flush()
+		fmt.Printf("sleeping for %s", sleep.String())
+		time.Sleep(sleep)
+		ctx.Writer.WriteString("this is the last data in the response")
+		// Sleep between 0 and 1000 ms
 
 		// ctx.Status(http.StatusOK)
 		// for i := range 5 {
