@@ -63,7 +63,7 @@ func main() {
 		ctx.Writer.WriteString(fmt.Sprintf("hello from %s\n", hostName))
 		ctx.Writer.WriteString(fmt.Sprintf("sleeping %s before sending more data in response\n", sleep.String()))
 		ctx.Writer.Flush()
-		fmt.Printf("sleeping for %s", sleep.String())
+		fmt.Printf("sleeping for %s\n", sleep.String())
 		time.Sleep(sleep)
 		ctx.Writer.WriteString("this is the last data in the response")
 		// Sleep between 0 and 1000 ms
