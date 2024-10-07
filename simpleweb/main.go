@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"math/rand"
@@ -80,7 +81,7 @@ func main() {
 
 	})
 
-	handler.Any("/:code", func(ctx *gin.Context) {
+	handler.GET("/:code", func(ctx *gin.Context) {
 		var c CodeRequest
 		if err := ctx.ShouldBindUri(&c); err != nil {
 			ctx.JSON(400, gin.H{"msg": err.Error()})
@@ -95,6 +96,7 @@ func main() {
 	})
 
 	handler.GET("/log", initLogHandler())
+	handler.POST("/data", readBody)
 
 	go func() {
 		if err := http.ListenAndServe(":9001", handler); err != nil {
@@ -116,6 +118,27 @@ func main() {
 	fmt.Println("waiting")
 	<-ctx.Done()
 	fmt.Println("done waiting")
+}
+
+func readBody(ctx *gin.Context) {
+	defer ctx.Request.Body.Close()
+	buf := make([]byte, 1024*64)
+	code, msg := http.StatusOK, "Ok"
+
+	for {
+		l, err := ctx.Request.Body.Read(buf)
+		if l > 0 {
+			fmt.Printf("read %d bytes from request\n", l)
+		}
+		if err != nil && !errors.Is(err, io.EOF) {
+			msg = err.Error()
+		}
+		if l == 0 || err != nil {
+			fmt.Println("finished reading request body")
+			break
+		}
+	}
+	ctx.String(code, msg)
 }
 
 func initLogHandler() func(*gin.Context) {
