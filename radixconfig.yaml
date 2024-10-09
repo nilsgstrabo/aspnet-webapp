@@ -257,6 +257,20 @@ spec:
                   value: 50
           runtime:
             architecture: arm64
+    - name: jaeger
+      image: docker.io/jaegertracing/all-in-one:{imageTagName}
+      imageTagName: 1.62.0
+      ports:
+        - name: ui
+          port: 16686
+        - name: collector-grpc
+          port: 4318
+        - name: collector-http
+          port: 4318
+      resources:
+        requests:
+          cpu: 500m
+          memory: 500M
 
 
           
