@@ -226,7 +226,7 @@ spec:
         ingress:
           public:
             proxyBodySize: "5m"
-            proxyReadTimeout: 2
+            # proxyReadTimeout: 2
             proxySendTimeout: 5
             allow:
               - 143.97.110.1
