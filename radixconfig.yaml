@@ -264,7 +264,7 @@ spec:
         - name: ui
           port: 16686
         - name: collector-grpc
-          port: 4318
+          port: 4317
         - name: collector-http
           port: 4318
       resources:
