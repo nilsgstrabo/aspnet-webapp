@@ -231,6 +231,8 @@ spec:
             allow:
               - 143.97.110.1
               - 104.45.84.0/30
+      ingressConfiguration:
+        - websocketfriendly
       environmentConfig:
         - environment: dev
           horizontalScaling:
