@@ -124,7 +124,7 @@ func main() {
 func logRequestInfo(ctx *gin.Context) {
 	fmt.Println()
 	fmt.Printf("Content length: %d \n", ctx.Request.ContentLength)
-	fmt.Printf("Remote address: %d \n", ctx.Request.RemoteAddr)
+	fmt.Printf("Remote address: %s \n", ctx.Request.RemoteAddr)
 
 	fmt.Println("Headers:")
 	for k, v := range ctx.Request.Header {
