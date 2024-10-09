@@ -44,7 +44,7 @@ func main() {
 
 	handler := gin.New()
 	handler.RemoveExtraSlash = true
-	handler.Use(logHeqaders)
+	handler.Use(logRequestInfo)
 	handler.GET("/", func(ctx *gin.Context) {
 		fmt.Println("")
 		host, _, _ := net.SplitHostPort(ctx.Request.RemoteAddr)
@@ -121,10 +121,14 @@ func main() {
 	fmt.Println("done waiting")
 }
 
-func logHeqaders(ctx *gin.Context) {
-	fmt.Printf("content length: %d \n\n", ctx.Request.ContentLength)
+func logRequestInfo(ctx *gin.Context) {
+	fmt.Println()
+	fmt.Printf("Content length: %d \n", ctx.Request.ContentLength)
+	fmt.Printf("Remote address: %d \n", ctx.Request.RemoteAddr)
+
+	fmt.Println("Headers:")
 	for k, v := range ctx.Request.Header {
-		fmt.Printf("%q: %v\n", k, v)
+		fmt.Printf("  %q: %v\n", k, v)
 	}
 }
 
