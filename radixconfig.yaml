@@ -65,6 +65,7 @@ spec:
       network:
         ingress:
           public:
+            proxyBodySize: 5m
             allow:
               - 104.45.84.0/30
               - 143.97.110.1
@@ -205,6 +206,9 @@ spec:
           port: 9001
       publicPort: http
       readOnlyFileSystem: true
+      identity:
+        azure:
+          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
       variables:
         TIMEOUT: 10h
         TMPDIR: "/tmp"
@@ -218,6 +222,17 @@ spec:
         requests:
           cpu: 10m
           memory: 10Mi
+      network:
+        ingress:
+          public:
+            proxyBodySize: "5m"
+            proxyReadTimeout: 2
+            proxySendTimeout: 5
+            allow:
+              - 143.97.110.1
+              - 104.45.84.0/30
+      # ingressConfiguration:
+      #   - websocketfriendly
       environmentConfig:
         - environment: dev
           horizontalScaling:

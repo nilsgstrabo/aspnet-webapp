@@ -2,7 +2,10 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"io"
+	"math/rand"
 	"net"
 	"net/http"
 	"os"
@@ -14,7 +17,11 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/oauth2"
 )
 
 type CodeRequest struct {
@@ -24,25 +31,55 @@ type CodeRequest struct {
 func main() {
 	fmt.Printf("Running server on %s/%s\n\n", runtime.GOOS, runtime.GOARCH)
 
-	var timeout time.Duration
-	timeout, err := time.ParseDuration(os.Getenv("TIMEOUT"))
-	if err != nil {
-		fmt.Println(err)
-		timeout = 10 * time.Second
-	}
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	// var timeout time.Duration
+	// timeout, err := time.ParseDuration(os.Getenv("TIMEOUT"))
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	timeout = 10 * time.Second
+	// }
+	// ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	// defer cancel()
+	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer cancel()
+
 	handler := gin.New()
 	handler.RemoveExtraSlash = true
+	handler.Use(logRequestInfo)
 	handler.GET("/", func(ctx *gin.Context) {
 		fmt.Println("")
 		host, _, _ := net.SplitHostPort(ctx.Request.RemoteAddr)
 		fmt.Printf("Remote addr : %s\n", net.ParseIP(host))
 		fmt.Println("")
-		for k, v := range ctx.Request.Header {
-			fmt.Printf("%q: %v\n", k, v)
+		// for k, v := range ctx.Request.Header {
+		// 	fmt.Printf("%q: %v\n", k, v)
+		// }
+
+		hostName, err := os.Hostname()
+		if err != nil {
+			hostName = "N/A"
+			fmt.Printf("error getting host name: %v", err)
 		}
-		ctx.String(http.StatusOK, "Hello from root")
+		// ctx.String(http.StatusOK, fmt.Sprintf("hello from %s", hostName))
+		ctx.Status(http.StatusOK)
+		sleep := time.Duration(rand.Intn(3000) * int(time.Millisecond))
+		ctx.Writer.WriteString(fmt.Sprintf("hello from %s\n", hostName))
+		ctx.Writer.WriteString(fmt.Sprintf("sleeping %s before sending more data in response\n", sleep.String()))
+		ctx.Writer.Flush()
+		fmt.Printf("sleeping for %s\n", sleep.String())
+		time.Sleep(sleep)
+		ctx.Writer.WriteString("this is the last data in the response")
+		// Sleep between 0 and 1000 ms
+
+		// ctx.Status(http.StatusOK)
+		// for i := range 5 {
+		// 	fmt.Printf("sending line %d to client\n", i)
+		// 	if _, err := ctx.Writer.Write([]byte(fmt.Sprintf("line %d", i))); err != nil {
+		// 		fmt.Printf("error writing response: %v\n", err)
+		// 	}
+		// 	ctx.Writer.Flush()
+		// 	time.Sleep(1 * time.Second)
+		// }
+
 	})
 
 	handler.GET("/:code", func(ctx *gin.Context) {
@@ -59,26 +96,116 @@ func main() {
 		ctx.JSON(code, c)
 	})
 
+	handler.GET("/log", initLogHandler())
+	handler.POST("/data", readBody)
+
 	go func() {
 		if err := http.ListenAndServe(":9001", handler); err != nil {
 			fmt.Println(err)
 		}
 	}()
 
-	sigCh := make(chan os.Signal, 1)
-	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
+	// sigCh := make(chan os.Signal, 1)
+	// signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
 
-	go func() {
-		fmt.Println("waiting for signal")
-		s := <-sigCh
-		fmt.Printf("received signal %v, but we ignore it", s)
-	}()
+	// go func() {
+	// 	fmt.Println("waiting for signal")
+	// 	s := <-sigCh
+	// 	fmt.Printf("received signal %v, but we ignore it", s)
+	// }()
 
-	go slowlyWriteToFile(ctx.Done())
+	// go slowlyWriteToFile(ctx.Done())
 
 	fmt.Println("waiting")
 	<-ctx.Done()
 	fmt.Println("done waiting")
+}
+
+func logRequestInfo(ctx *gin.Context) {
+	fmt.Println()
+	fmt.Printf("Content length: %d \n", ctx.Request.ContentLength)
+	fmt.Printf("Remote address: %s \n", ctx.Request.RemoteAddr)
+
+	fmt.Println("Headers:")
+	for k, v := range ctx.Request.Header {
+		fmt.Printf("  %q: %v\n", k, v)
+	}
+}
+
+func readBody(ctx *gin.Context) {
+	defer ctx.Request.Body.Close()
+	buf := make([]byte, 1024*64)
+	code, msg := http.StatusOK, "Ok"
+
+	for {
+		l, err := ctx.Request.Body.Read(buf)
+		if l > 0 {
+			fmt.Printf("read %d bytes from request\n", l)
+		}
+		if err != nil && !errors.Is(err, io.EOF) {
+			msg = err.Error()
+		}
+		if l == 0 || err != nil {
+			fmt.Println("finished reading request body")
+			break
+		}
+	}
+	ctx.String(code, msg)
+}
+
+func initLogHandler() func(*gin.Context) {
+	cred, err := azidentity.NewWorkloadIdentityCredential(nil)
+	if err != nil {
+		panic(err)
+	}
+	client := oauth2.NewClient(
+		context.Background(),
+		oauth2.ReuseTokenSource(nil, &azTokenSource{cred: cred}),
+	)
+	return func(ctx *gin.Context) {
+		fmt.Println("preparing log request")
+		tctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer cancel()
+		req, _ := http.NewRequest("GET", "https://server-radix-log-api-qa.dev.radix.equinor.com/api/v1/applications/oauth-demo/environments/dev/components/simple", nil)
+		req = req.WithContext(tctx)
+		resp, err := client.Do(req)
+		if err != nil {
+			fmt.Printf("log request failed: %v", err)
+			ctx.AbortWithStatus(http.StatusInternalServerError)
+			return
+		}
+		defer resp.Body.Close()
+		d, err := io.ReadAll(resp.Body)
+		if err != nil {
+			fmt.Printf("reading response failed: %v", err)
+			ctx.AbortWithStatus(http.StatusInternalServerError)
+			return
+		}
+		fmt.Println("returning log data")
+		ctx.String(http.StatusOK, string(d))
+	}
+}
+
+var _ oauth2.TokenSource = &azTokenSource{}
+
+type azTokenSource struct {
+	cred azcore.TokenCredential
+}
+
+func (s *azTokenSource) Token() (*oauth2.Token, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	t, err := s.cred.GetToken(ctx, policy.TokenRequestOptions{
+		Scopes: []string{"6dae42f8-4368-4678-94ff-3960e28e3630/.default"},
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &oauth2.Token{
+		AccessToken: t.Token,
+		Expiry:      t.ExpiresOn,
+	}, nil
 }
 
 func slowlyWriteToFile(stop <-chan struct{}) {
