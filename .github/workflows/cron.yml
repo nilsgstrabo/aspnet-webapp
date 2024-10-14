@@ -1,4 +1,4 @@
-name: deploy
+name: Restart Components
 
 on:
   schedule:
@@ -7,7 +7,7 @@ on:
 permissions:
   id-token: write
 jobs:
-  restart:
+  restart-components:
     runs-on: ubuntu-latest
     steps:
       - name: 'Az CLI login'
