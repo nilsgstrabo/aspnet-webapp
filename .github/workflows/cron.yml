@@ -2,7 +2,7 @@ name: Restart Components
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 */4 * * *'
 
 permissions:
   id-token: write
