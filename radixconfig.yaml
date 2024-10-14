@@ -96,6 +96,7 @@ spec:
             useAzureIdentity: true
       environmentConfig:
         - environment: dev
+          identity: {}
           readOnlyFileSystem: false
           # network:
           #   ingress:
