@@ -226,6 +226,7 @@ spec:
       network:
         ingress:
           public:
+            proxyBodySize: 100m
             allow:
               - 143.97.110.1
               - 104.45.84.0/30
