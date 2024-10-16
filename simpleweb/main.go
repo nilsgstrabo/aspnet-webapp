@@ -60,7 +60,9 @@ func main() {
 			fmt.Printf("error getting host name: %v", err)
 		}
 		// ctx.String(http.StatusOK, fmt.Sprintf("hello from %s", hostName))
+
 		ctx.Status(http.StatusOK)
+
 		sleep := time.Duration(rand.Intn(3000) * int(time.Millisecond))
 		ctx.Writer.WriteString(fmt.Sprintf("hello from %s\n", hostName))
 		ctx.Writer.WriteString(fmt.Sprintf("sleeping %s before sending more data in response\n", sleep.String()))
@@ -68,6 +70,7 @@ func main() {
 		fmt.Printf("sleeping for %s\n", sleep.String())
 		time.Sleep(sleep)
 		ctx.Writer.WriteString("this is the last data in the response")
+
 		// Sleep between 0 and 1000 ms
 
 		// ctx.Status(http.StatusOK)
@@ -136,11 +139,12 @@ func readBody(ctx *gin.Context) {
 	defer ctx.Request.Body.Close()
 	buf := make([]byte, 1024*64)
 	code, msg := http.StatusOK, "Ok"
-
+	var total int
 	for {
 		l, err := ctx.Request.Body.Read(buf)
+		total += l
 		if l > 0 {
-			fmt.Printf("read %d bytes from request\n", l)
+			fmt.Printf("read %d bytes from request, total %d\n", l, total)
 		}
 		if err != nil && !errors.Is(err, io.EOF) {
 			msg = err.Error()
