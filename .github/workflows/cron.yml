@@ -31,4 +31,4 @@ jobs:
             --application oauth-demo
             --environment dev
             --component proxy
-            --context platform
+            --context development
