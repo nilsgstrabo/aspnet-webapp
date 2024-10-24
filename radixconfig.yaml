@@ -20,6 +20,15 @@ kind: RadixApplication
 metadata:
   name: oauth-demo
 spec:
+  dnsExternalAlias:
+    - alias: simple.nils.com
+      component: simple
+      environment: dev
+      useCertificateAutomation: false
+    - alias: web.nils.com
+      component: web
+      environment: dev
+      useCertificateAutomation: false
   dnsAppAlias:
     component: web
     environment: dev
@@ -65,9 +74,9 @@ spec:
       network:
         ingress:
           public:
-            proxyBodySize: 5m
-            proxyReadTimeout: 2
-            proxySendTimeout: 5
+            proxyBodySize: "5m"
+            proxyReadTimeout: 15
+            proxySendTimeout: 15
             allow:
               - 104.45.84.0/30
               - 143.97.110.1
