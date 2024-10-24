@@ -27,7 +27,7 @@ spec:
       useCertificateAutomation: false
     - alias: web.nils.com
       component: web
-      environment: qa
+      environment: prod
       useCertificateAutomation: false
   dnsAppAlias:
     component: web
