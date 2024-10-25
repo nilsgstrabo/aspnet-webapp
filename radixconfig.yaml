@@ -21,13 +21,13 @@ metadata:
   name: oauth-demo
 spec:
   dnsExternalAlias:
-    - alias: simple1.nils.com
+    - alias: simple.nils.com
       component: simple
       environment: prod
       useCertificateAutomation: false
-    - alias: web1.nils.com
+    - alias: web.nils.com
       component: web
-      environment: dev
+      environment: prod
       useCertificateAutomation: false
   dnsAppAlias:
     component: web
