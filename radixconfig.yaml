@@ -23,11 +23,15 @@ spec:
   dnsExternalAlias:
     - alias: simple.nils.com
       component: simple
-      environment: prod
+      environment: dev
       useCertificateAutomation: false
     - alias: web.nils.com
       component: web
-      environment: dev
+      environment: prod
+      useCertificateAutomation: false
+    - alias: webqa.nils.com
+      component: web
+      environment: qa
       useCertificateAutomation: false
   dnsAppAlias:
     component: web
