@@ -76,17 +76,17 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      network:
-        ingress:
-          public:
-            proxyBodySize: "5m"
-            proxyReadTimeout: 15
-            proxySendTimeout: 15
-            allow:
-              - 104.45.84.0/30
-              - 143.97.110.1
+      # network:
+      #   ingress:
+      #     public:
+      #       proxyBodySize: "5m"
+      #       proxyReadTimeout: 15
+      #       proxySendTimeout: 15
+      #       allow:
+      #         - 104.45.84.0/30
+      #         - 143.97.110.1
       runtime:
-        architecture: arm64
+        architecture: amd64
       horizontalScaling:
         maxReplicas: 2
         minReplicas: 0
