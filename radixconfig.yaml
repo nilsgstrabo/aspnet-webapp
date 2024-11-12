@@ -118,15 +118,15 @@ spec:
           #   ingress:
           #     public: 
           #       allow: []
-          volumeMounts:
-            - name: videos
-              path: /mnt/videos
-              blobFuse2:
-                protocol: fuse2
-                container: videos
-                uid: "1001"
-                accessMode: ReadWriteMany
-                useAdls: true
+          # volumeMounts:
+          #   - name: videos
+          #     path: /mnt/videos
+          #     blobFuse2:
+          #       protocol: fuse2
+          #       container: videos
+          #       uid: "1001"
+          #       accessMode: ReadWriteMany
+          #       useAdls: true
           variables:
             VIDEO_PATH: "/mnt/videos"
         - environment: prod
