@@ -50,7 +50,10 @@ spec:
     docker.io:
       username: nilsgustavstrabo
   environments:
-    - name: userdev
+    - name: userdev1
+      build:
+        from: feat*
+    - name: userdev2
       build:
         from: feat*
     - name: dev
