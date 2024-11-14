@@ -78,6 +78,8 @@ spec:
         MEGA_FILE_SIZE: "1000"
         ENABLE_PROXY_BUFFERING: "true"
         DOTNET_EnableDiagnostics: "0"
+      secrets:
+        - TEST1
       ports:
         - name: http
           port: 5005
