@@ -54,6 +54,8 @@ spec:
       build:
         from: main
     - name: qa
+      build:
+        from: v1*
     - name: prod
       build:
         from: release
