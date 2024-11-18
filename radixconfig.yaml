@@ -53,6 +53,7 @@ spec:
     - name: dev
       build:
         from: main
+    - name: dev2
     - name: qa
       build:
         from: v1*
