@@ -61,6 +61,7 @@ func main() {
 		}
 		// ctx.String(http.StatusOK, fmt.Sprintf("hello from %s", hostName))
 
+		ctx.Header("x-large-header", strings.Repeat("abcdefghijklmnop", 1280))
 		ctx.Status(http.StatusOK)
 
 		sleep := time.Duration(rand.Intn(3000) * int(time.Millisecond))
