@@ -55,7 +55,7 @@ spec:
         from: main
     - name: qa
       build:
-        from: v1*
+        from: v\d+\.\d+\..*
     - name: prod
       build:
         from: release
