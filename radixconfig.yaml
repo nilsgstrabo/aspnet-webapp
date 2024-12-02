@@ -57,8 +57,6 @@ spec:
       build:
         from: v\d+\.\d+\..*
     - name: prod
-      build:
-        from: release
   components:
     - name: web
       dockerfilename: Dockerfile
