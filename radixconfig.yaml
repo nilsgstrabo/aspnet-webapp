@@ -51,9 +51,6 @@ spec:
       username: nilsgustavstrabo
   environments:
     - name: dev
-      build:
-        from: main
-    - name: qa
       egress:
         rules:
           - destinations:
@@ -61,6 +58,9 @@ spec:
             ports:
               - port: 6380
                 protocol: TCP
+      build:
+        from: main
+    - name: qa
       build:
         from: v\d+\.\d+\..*
     - name: prod
