@@ -51,13 +51,6 @@ spec:
       username: nilsgustavstrabo
   environments:
     - name: dev
-      egress:
-        rules:
-          - destinations:
-              - 10.0.0.16/32
-            ports:
-              - port: 6380
-                protocol: TCP
       build:
         from: main
     - name: qa
@@ -146,7 +139,7 @@ spec:
           sessionStoreType: redis
           scope: openid email offline_access # https://graph.microsoft.com/User.Read
           redisStore:
-            connectionUrl: rediss://radix-dev-qa.redis.cache.windows.net:6380 # redis://redis:6379
+            connectionUrl: redis://redis:6379
     - name: redis
       image: *redis
       secrets:
