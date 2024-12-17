@@ -48,7 +48,7 @@ func main() {
 	handler.GET("/", func(ctx *gin.Context) {
 		fmt.Println("")
 		host, _, _ := net.SplitHostPort(ctx.Request.RemoteAddr)
-		fmt.Printf("Remote addr : %s\n", net.ParseIP(host))
+		fmt.Printf("Remote address : %s\n", net.ParseIP(host))
 		fmt.Println("")
 		// for k, v := range ctx.Request.Header {
 		// 	fmt.Printf("%q: %v\n", k, v)
