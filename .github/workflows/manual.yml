@@ -16,6 +16,9 @@ jobs:
     env:
       myenv: abcd
     steps:
+      - name: 'is go installed'
+        run: |
+          go version
       - name: 'env test'
         run: 'echo ${{ env.myenv }}'
       - name: 'Az CLI login'
