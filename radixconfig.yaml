@@ -122,7 +122,7 @@ spec:
             - name: videos
               path: /mnt/videos
               blobFuse2:
-                protocol: fuse2
+                protocol: nfs
                 streaming:
                   enabled: false
                 container: videos
