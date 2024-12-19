@@ -118,15 +118,15 @@ spec:
           #   ingress:
           #     public: 
           #       allow: []
-          # volumeMounts:
-          #   - name: videos
-          #     path: /mnt/videos
-          #     blobFuse2:
-          #       protocol: fuse2
-          #       container: videos
-          #       uid: "1001"
-          #       accessMode: ReadWriteMany
-          #       useAdls: true
+          volumeMounts:
+            - name: videos
+              path: /mnt/videos
+              blobFuse2:
+                protocol: fuse2
+                container: videos
+                uid: "1001"
+                accessMode: ReadWriteMany
+                useAdls: true
           variables:
             VIDEO_PATH: "/mnt/videos"
         - environment: prod
@@ -139,7 +139,7 @@ spec:
           sessionStoreType: redis
           scope: openid email offline_access # https://graph.microsoft.com/User.Read
           redisStore:
-            connectionUrl: rediss://radix-dev-prod.redis.cache.windows.net:6380 #redis://redis:6379
+            connectionUrl: redis://redis:6379
     - name: redis
       image: *redis
       secrets:
