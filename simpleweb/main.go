@@ -86,6 +86,26 @@ func main() {
 
 	})
 
+	handler.GET("/nils", func(ctx *gin.Context) {
+		f, err := os.Open("/mnt/videos/nils.txt")
+		if err != nil {
+			fmt.Println(err)
+			ctx.AbortWithError(500, err)
+			return
+		}
+		b, err := io.ReadAll(f)
+		if err != nil {
+			fmt.Println(err)
+			ctx.AbortWithError(500, err)
+			return
+		}
+		ctx.String(200, "text/plain", string(b))
+	})
+
+	handler.GET("/nils2", func(ctx *gin.Context) {
+		ctx.File("/mnt/videos/nils.txt")
+	})
+
 	handler.GET("/:code", func(ctx *gin.Context) {
 		var c CodeRequest
 		if err := ctx.ShouldBindUri(&c); err != nil {
