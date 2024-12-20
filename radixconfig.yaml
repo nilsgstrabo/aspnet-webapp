@@ -237,6 +237,16 @@ spec:
           path: /tmp
           emptyDir:
             sizeLimit: 5M
+        - name: videos
+          path: /mnt/videos
+          blobFuse2:
+            protocol: fuse2
+            streaming:
+              enabled: false
+            container: videos
+            uid: "1000"
+            accessMode: ReadWriteMany
+            useAdls: true
       resources:
         requests:
           cpu: 10m
