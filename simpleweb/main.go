@@ -109,7 +109,10 @@ func main() {
 			ctx.AbortWithError(500, err)
 			return
 		}
-		ctx.String(200, string(b))
+		ctx.Writer.Header().Set("Content-Type", "text/html")
+		ctx.Writer.WriteHeader(200)
+		ctx.Writer.Write(b)
+		// ctx.String(200, string(b))
 	})
 
 	handler.GET("/nils2", func(ctx *gin.Context) {
