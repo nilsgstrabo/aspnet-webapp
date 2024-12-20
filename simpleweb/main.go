@@ -101,7 +101,7 @@ func main() {
 			ctx.AbortWithError(500, err)
 			return
 		}
-		fmt.Printf(fs.FormatFileInfo(fi))
+		fmt.Println(fs.FormatFileInfo(fi))
 
 		b, err := io.ReadAll(f)
 		if err != nil {
