@@ -93,6 +93,7 @@ func main() {
 			ctx.AbortWithError(500, err)
 			return
 		}
+		defer f.Close()
 		b, err := io.ReadAll(f)
 		if err != nil {
 			fmt.Println(err)
