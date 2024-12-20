@@ -99,7 +99,7 @@ func main() {
 			ctx.AbortWithError(500, err)
 			return
 		}
-		ctx.String(200, "text/plain", string(b))
+		ctx.String(200, string(b))
 	})
 
 	handler.GET("/nils2", func(ctx *gin.Context) {
