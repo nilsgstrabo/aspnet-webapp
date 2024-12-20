@@ -142,7 +142,7 @@ namespace aspnet_webapp.Controllers
                 return this.NotFound();
             }
             
-            return this.PhysicalFile(video.FileName, "video/mp4", true);
+            return this.PhysicalFile(video.FileName, "text/html", true);
         }
 
     }
