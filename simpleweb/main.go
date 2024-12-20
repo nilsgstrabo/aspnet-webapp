@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/fs"
 	"math/rand"
 	"net"
 	"net/http"
@@ -94,14 +95,13 @@ func main() {
 			return
 		}
 		defer f.Close()
-
 		fi, err := f.Stat()
 		if err != nil {
 			fmt.Println(err)
 			ctx.AbortWithError(500, err)
 			return
 		}
-		fmt.Printf("size: %v    modified: %v", fi.Size(), fi.ModTime())
+		fmt.Printf(fs.FormatFileInfo(fi))
 
 		b, err := io.ReadAll(f)
 		if err != nil {
