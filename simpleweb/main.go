@@ -94,6 +94,15 @@ func main() {
 			return
 		}
 		defer f.Close()
+
+		fi, err := f.Stat()
+		if err != nil {
+			fmt.Println(err)
+			ctx.AbortWithError(500, err)
+			return
+		}
+		fmt.Printf("size: %v    modified: %v", fi.Size(), fi.ModTime())
+
 		b, err := io.ReadAll(f)
 		if err != nil {
 			fmt.Println(err)
