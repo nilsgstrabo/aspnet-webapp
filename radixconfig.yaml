@@ -277,7 +277,7 @@ spec:
                   end: 0 17 * * *
                   timezone: Europe/Oslo
           runtime:
-            architecture: amd64
+            architecture: arm64
         - environment: prod
           replicas: 2
           horizontalScaling:
