@@ -274,7 +274,7 @@ spec:
                 cron:
                   desiredReplicas: 1
                   start: 0 8 * * *
-                  end: 0 9 * * *
+                  end: 0 17 * * *
                   timezone: Europe/Oslo
           runtime:
             architecture: amd64
