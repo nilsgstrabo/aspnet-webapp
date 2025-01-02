@@ -135,13 +135,14 @@ namespace aspnet_webapp.Controllers
         [HttpGet("{name}")]
         public IActionResult GetVideo(string name)
         {
-            _logger.LogInformation("Stream video {0}, range {1}", name, this.Request.GetTypedHeaders().Range?.ToString());
+            _logger.LogInformation("Request video {0}, range {1}", name, this.Request.GetTypedHeaders().Range?.ToString());
             var video=_videoService.GetVideos().FirstOrDefault(v=>v.Id==name);
 
             if(video==null) {
                 return this.NotFound();
             }
             
+            _logger.LogInformation("Stream video from file {0}", video.FileName);
             return this.PhysicalFile(video.FileName, "text/html", true);
         }
 
