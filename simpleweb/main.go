@@ -88,6 +88,14 @@ func main() {
 	})
 
 	handler.GET("/nils", func(ctx *gin.Context) {
+		de, err := os.ReadDir("/mnt/videos/")
+		if err != nil {
+			fmt.Println(err)
+			ctx.AbortWithError(500, err)
+			return
+		}
+		fmt.Printf("found %d files in directory\n", len(de))
+
 		f, err := os.Open("/mnt/videos/nils.txt")
 		if err != nil {
 			fmt.Println(err)
