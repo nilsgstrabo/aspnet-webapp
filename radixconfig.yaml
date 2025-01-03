@@ -245,7 +245,7 @@ spec:
               enabled: false
             container: videos
             uid: "1000"
-            accessMode: ReadWriteMany
+            accessMode: ReadOnlyMany
             useAdls: true
       resources:
         requests:
