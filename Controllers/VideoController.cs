@@ -143,7 +143,7 @@ namespace aspnet_webapp.Controllers
             }
             
             _logger.LogInformation("Stream video from file {0}", video.FileName);
-            return this.PhysicalFile(video.FileName, "text/html", true);
+            return this.PhysicalFile(video.FileName, "application/octet-stream", true);
         }
 
     }

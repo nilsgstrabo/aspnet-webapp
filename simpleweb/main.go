@@ -12,6 +12,7 @@ import (
 	"os"
 	"os/signal"
 	"path"
+	"path/filepath"
 	"runtime"
 	"strconv"
 	"strings"
@@ -27,6 +28,10 @@ import (
 
 type CodeRequest struct {
 	Code string `uri:"code" binding:"required"`
+}
+
+type FileRequest struct {
+	FileName string `uri:"filename" binding:"required"`
 }
 
 func main() {
@@ -117,14 +122,20 @@ func main() {
 			ctx.AbortWithError(500, err)
 			return
 		}
-		ctx.Writer.Header().Set("Content-Type", "text/html")
+		ctx.Writer.Header().Set("Content-Type", "application/octet-stream")
 		ctx.Writer.WriteHeader(200)
 		ctx.Writer.Write(b)
 		// ctx.String(200, string(b))
 	})
 
-	handler.GET("/nils2", func(ctx *gin.Context) {
-		ctx.File("/mnt/videos/nils.txt")
+	handler.GET("/files/:filename", func(ctx *gin.Context) {
+		var f FileRequest
+		if err := ctx.ShouldBindUri(&f); err != nil {
+			ctx.JSON(400, gin.H{"msg": err.Error()})
+			return
+		}
+
+		ctx.File(filepath.Join("/mnt/videos/", filepath.Join("/", f.FileName)))
 	})
 
 	handler.GET("/:code", func(ctx *gin.Context) {
