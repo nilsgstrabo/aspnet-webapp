@@ -13,6 +13,8 @@ namespace aspnet_webapp
             var builder = CreateHostBuilder(args);
             
             builder.Build().Run();
+            
+            
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
