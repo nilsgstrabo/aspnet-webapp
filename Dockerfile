@@ -21,8 +21,8 @@ WORKDIR /app
 # RUN	curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 # RUN az --version
 
-COPY --from=build /app ./
-COPY run.sh ./run.sh
+# COPY --from=build /app ./
+# COPY run.sh ./run.sh
 # Add a new user "radix-non-root-user" with user id 1001
 # RUN adduser -D --uid 1001 radix-non-root-user
 
@@ -31,4 +31,5 @@ COPY run.sh ./run.sh
 # RUN chown -R 1001 /opt/az
 USER 1001
 
-CMD ["sh", "run.sh"]
+# CMD ["sh", "run.sh"]
+ENTRYPOINT ["dotnet", "aspnet-webapp.dll"]
