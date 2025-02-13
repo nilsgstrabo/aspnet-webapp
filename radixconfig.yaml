@@ -126,7 +126,7 @@ spec:
               blobFuse2:
                 protocol: fuse2
                 streaming:
-                  enabled: false
+                  enabled: true
                 container: videos
                 uid: "1001"
                 accessMode: ReadWriteMany
