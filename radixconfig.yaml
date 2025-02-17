@@ -250,7 +250,8 @@ spec:
             streaming:
               enabled: false
             container: videos
-            uid: "1000"
+            uid: "2000"
+            gid: "2001"
             accessMode: ReadOnlyMany
             useAdls: true
             storageAccount: radixblobtest6
