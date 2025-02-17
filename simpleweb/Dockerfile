@@ -37,6 +37,6 @@ FROM docker.io/library/alpine:3.20
 COPY --from=builder /api /usr/local/bin/api
 COPY --from=builder /mysecrets.txt /mysecrets.txt
 # COPY --from=builder /etc/passwd /etc/passwd
-USER 2000:2001
+USER 3000:3001
 
 ENTRYPOINT ["/usr/local/bin/api"]
