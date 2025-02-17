@@ -253,6 +253,7 @@ spec:
             uid: "1000"
             accessMode: ReadOnlyMany
             useAdls: true
+            storageAccount: radixblobtest6
       resources:
         requests:
           cpu: 10m
