@@ -246,8 +246,6 @@ spec:
             sizeLimit: 5M
         - name: videos
           path: /mnt/videos
-          emptyDir:
-            sizeLimit: 1M
           blobFuse2:
             protocol: fuse2
             cacheMode: Block
