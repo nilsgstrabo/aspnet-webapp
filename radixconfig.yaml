@@ -258,6 +258,7 @@ spec:
             blockCache:
               poolSize: 100
               diskSize: 100
+              diskTimeout: 10
         - name: images
           path: /mnt/images
           type: azure-blob
