@@ -255,6 +255,8 @@ spec:
             attributeCache:
               timeout: 0
             cacheMode: Block
+            blockCache:
+              poolSize: 100
         - name: images
           path: /mnt/images
           type: azure-blob
