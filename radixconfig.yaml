@@ -248,27 +248,13 @@ spec:
           path: /mnt/videos
           blobFuse2:
             protocol: fuse2
-            cacheMode: Block
-            # attributeCache:
-            #   timeout: -1
-            # fileCache:
-            #   timeout: -1
-            # blockCache:
-            #   blockSize: -1
-            #   diskSize: -1
-            #   diskTimeout: -1
-            #   parallelism: -1
-            #   poolSize: -1
-            #   prefetch: -1
-            #   prefetchOnOpen: true
-            streaming:
-              enabled: true
             container: videos
-            uid: "2000"
-            gid: "2001"
             accessMode: ReadWriteMany
             useAdls: true
             storageAccount: radixblobtest6
+            attributeCache:
+              timeout: 0
+            cacheMode: Block
         - name: images
           path: /mnt/images
           type: azure-blob
@@ -319,7 +305,7 @@ spec:
                   value: 50
           runtime:
             architecture: arm64
-
+    
 
           
 
