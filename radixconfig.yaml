@@ -253,7 +253,7 @@ spec:
             useAdls: true
             storageAccount: radixblobtest6
             attributeCache:
-              timeout: 0
+              timeout: 30
             cacheMode: Block
             blockCache:
               poolSize: 100
