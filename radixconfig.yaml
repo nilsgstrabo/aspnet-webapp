@@ -247,7 +247,7 @@ spec:
           path: /mnt/videos
           blobFuse2:
             container: videos
-            accessMode: ReadOnlyMany
+            accessMode: ReadWriteMany
             useAdls: true
             cacheMode: Block
             blockCache:
