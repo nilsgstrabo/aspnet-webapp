@@ -232,6 +232,9 @@ spec:
           port: 9001
       publicPort: http
       readOnlyFileSystem: true
+      horizontalScaling:
+        maxReplicas: 1
+        minReplicas: 1
       identity:
         azure:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
@@ -240,25 +243,13 @@ spec:
         TMPDIR: "/tmp"
         APPENDTICK: 10s
       volumeMounts:
-        - name: tmp
-          path: /tmp
-          emptyDir:
-            sizeLimit: 5M
-        - name: videos
-          path: /mnt/videos
+        - name: myimages
+          path: /mnt/files
           blobFuse2:
-            protocol: fuse2
-            container: videos
+            container: images
             accessMode: ReadWriteMany
             useAdls: true
             storageAccount: radixblobtest6
-            attributeCache:
-              timeout: 0
-            cacheMode: Block
-            blockCache:
-              poolSize: 100
-              diskSize: 100
-              diskTimeout: 10
         - name: images
           path: /mnt/images
           type: azure-blob
