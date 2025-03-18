@@ -243,12 +243,16 @@ spec:
         TMPDIR: "/tmp"
         APPENDTICK: 10s
       volumeMounts:
-        - name: myimages
-          path: /mnt/files
+        - name: videos
+          path: /mnt/videos
           blobFuse2:
-            container: images
-            accessMode: ReadWriteMany
+            container: videos
+            accessMode: ReadOnlyMany
             useAdls: true
+            cacheMode: Block
+            blockCache:
+              blockSize: 4
+              poolSize: 200
             useAzureIdentity: true
             storageAccount: radixblobtest6
             resourceGroup: test-resources
