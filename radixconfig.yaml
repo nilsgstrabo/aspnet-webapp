@@ -265,9 +265,9 @@ spec:
       resources:
         requests:
           cpu: 10m
-          memory: 10Mi
+          memory: 100Mi
         limits:
-          memory: 20Mi
+          memory: 500Mi
       network:
         ingress:
           public:
