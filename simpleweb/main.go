@@ -48,7 +48,7 @@ func init() {
 	readFileCmd.Flags().StringP("file", "f", "", "File name")
 	readFileCmd.Flags().Int64("offset", 0, "Seek to position before starting read")
 	readFileCmd.Flags().Bool("offset-from-end", false, "Seek from end of file")
-	readFileCmd.Flags().Int64("count", 0, "Number of MB to read (0 means read all)")
+	readFileCmd.Flags().Int64("read", 0, "Number of MB to read (0 means read all)")
 	readFileCmd.Flags().Int64("block-size", 4, "Number of MR to read at a time, default 4MB")
 	readFileCmd.Flags().Int("repeat", 0, "Number of times to repeat the read operation")
 	readFileCmd.Flags().Bool("verbose", false, "Print debug info")
@@ -68,16 +68,17 @@ func readFile(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	offset, err := cmd.Flags().GetInt64("offset")
+	offsetBytes, err := cmd.Flags().GetInt64("offset")
 	if err != nil {
 		return err
 	}
+	offsetBytes = offsetBytes * 1024 * 1024
 
-	count, err := cmd.Flags().GetInt64("count")
+	readBytes, err := cmd.Flags().GetInt64("read")
 	if err != nil {
 		return err
 	}
-	count = count * 1024 * 1024
+	readBytes = readBytes * 1024 * 1024
 
 	offsetFromEnd, err := cmd.Flags().GetBool("offset-from-end")
 	if err != nil {
@@ -120,20 +121,20 @@ func readFile(cmd *cobra.Command, args []string) error {
 		if offsetFromEnd {
 			whence = 2
 		}
-		offset, err := file.Seek(offset, whence)
+		offset, err := file.Seek(offsetBytes, whence)
 		if err != nil {
 			return fmt.Errorf("iteration %v: failed to seek: %w", i, err)
 		}
 		if verbose {
-			fmt.Fprintf(os.Stderr, "iteration %v: offset set to %v\n", i, offset)
+			fmt.Fprintf(os.Stderr, "iteration %v: offset set to %v\n", i, formatFileSize(float64(offset), 1024))
 		}
 
 		var totalBytesRead int64
 		doRead := true
 		for doRead {
 			bufSize := blockSize
-			if count > 0 {
-				bufSize = min(bufSize, count-totalBytesRead)
+			if readBytes > 0 {
+				bufSize = min(bufSize, readBytes-totalBytesRead)
 			}
 			buf := make([]byte, bufSize)
 			bytesRead, err := file.Read(buf)
@@ -145,7 +146,7 @@ func readFile(cmd *cobra.Command, args []string) error {
 				}
 			}
 
-			if bytesRead == 0 || (count > 0 && totalBytesRead >= count) {
+			if bytesRead == 0 || (readBytes > 0 && totalBytesRead >= readBytes) {
 				doRead = false
 			}
 
