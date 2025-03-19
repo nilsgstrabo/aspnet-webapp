@@ -48,8 +48,8 @@ func init() {
 	readFileCmd.Flags().StringP("file", "f", "", "File name")
 	readFileCmd.Flags().Int64("offset", 0, "Seek to position before starting read")
 	readFileCmd.Flags().Bool("offset-from-end", false, "Seek from end of file")
-	readFileCmd.Flags().Int64("count", 0, "Number of bytes to read (0 means read all)")
-	readFileCmd.Flags().Int64("block-size", 1024*1024*4, "Number of bytes to read at a time, default 4MB")
+	readFileCmd.Flags().Int64("count", 0, "Number of MB to read (0 means read all)")
+	readFileCmd.Flags().Int64("block-size", 4, "Number of MR to read at a time, default 4MB")
 	readFileCmd.Flags().Int("repeat", 0, "Number of times to repeat the read operation")
 	readFileCmd.Flags().Bool("verbose", false, "Print debug info")
 	readFileCmd.Flags().Bool("stdout", false, "Print file content to stdout")
@@ -77,6 +77,7 @@ func readFile(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
+	count = count * 1024 * 1024
 
 	offsetFromEnd, err := cmd.Flags().GetBool("offset-from-end")
 	if err != nil {
@@ -102,6 +103,7 @@ func readFile(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
+	blockSize = blockSize * 1024 * 1024
 
 	startTotal := time.Now()
 	file, err := os.OpenFile(filename, os.O_RDONLY, 0)
@@ -158,7 +160,7 @@ func readFile(cmd *cobra.Command, args []string) error {
 		totalRate += iterRate
 		if verbose {
 			fmt.Fprintf(os.Stderr, "iteration %v: took %v\n", i, iterDur)
-			fmt.Fprintf(os.Stderr, "iteration %v: total %v bytes at %v/s\n", i, totalBytesRead, formatFileSize(iterRate, 1024))
+			fmt.Fprintf(os.Stderr, "iteration %v: total %v at %v/s\n", i, formatFileSize(float64(totalBytesRead), 1024), formatFileSize(iterRate, 1024))
 		}
 
 		fmt.Fprintln(os.Stdout)
