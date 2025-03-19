@@ -241,6 +241,10 @@ spec:
         TMPDIR: "/tmp"
         APPENDTICK: 10s
       volumeMounts:
+        - name: tmp
+          path: /mnt/tmp
+          emptyDir:
+            sizeLimit: 10G
         - name: videos
           path: /mnt/videos
           blobFuse2:
