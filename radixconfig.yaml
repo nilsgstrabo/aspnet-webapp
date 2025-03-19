@@ -125,9 +125,7 @@ spec:
               path: /mnt/videos
               blobFuse2:
                 protocol: fuse2
-                streaming:
-                  enabled: true
-                  
+                cacheMode: Block
                 container: videos
                 uid: "1001"
                 accessMode: ReadWriteMany

@@ -23,6 +23,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/cobra"
 	"golang.org/x/oauth2"
 )
 
@@ -34,7 +35,141 @@ type FileRequest struct {
 	FileName string `uri:"filename" binding:"required"`
 }
 
+var rootCmd = &cobra.Command{
+	Run: runServer,
+}
+
+func init() {
+	readFileCmd := &cobra.Command{
+		Use:   "open",
+		Short: "Open a file",
+		RunE:  readFile,
+	}
+	readFileCmd.Flags().StringP("file", "f", "", "File name")
+	readFileCmd.Flags().Int64("offset", 0, "Seek to position before starting read")
+	readFileCmd.Flags().Bool("offset-from-end", false, "Seek from end of file")
+	readFileCmd.Flags().Int64("count", 0, "Number of bytes to read (0 means read all)")
+	readFileCmd.Flags().Int64("block-size", 1024*1024*4, "Number of bytes to read at a time, default 4MB")
+	readFileCmd.Flags().Int("repeat", 0, "Number of times to repeat the read operation")
+	readFileCmd.Flags().Bool("verbose", false, "Print debug info")
+	readFileCmd.Flags().Bool("stdout", false, "Print file content to stdout")
+	readFileCmd.MarkFlagRequired("file")
+
+	rootCmd.AddCommand(readFileCmd)
+}
+
 func main() {
+	rootCmd.Execute()
+}
+
+func readFile(cmd *cobra.Command, args []string) error {
+	filename, err := cmd.Flags().GetString("file")
+	if err != nil {
+		return err
+	}
+
+	offset, err := cmd.Flags().GetInt64("offset")
+	if err != nil {
+		return err
+	}
+
+	count, err := cmd.Flags().GetInt64("count")
+	if err != nil {
+		return err
+	}
+
+	offsetFromEnd, err := cmd.Flags().GetBool("offset-from-end")
+	if err != nil {
+		return err
+	}
+
+	repeat, err := cmd.Flags().GetInt("repeat")
+	if err != nil {
+		return err
+	}
+
+	verbose, err := cmd.Flags().GetBool("verbose")
+	if err != nil {
+		return err
+	}
+
+	stdout, err := cmd.Flags().GetBool("stdout")
+	if err != nil {
+		return err
+	}
+
+	blockSize, err := cmd.Flags().GetInt64("block-size")
+	if err != nil {
+		return err
+	}
+
+	startTotal := time.Now()
+	file, err := os.OpenFile(filename, os.O_RDONLY, 0)
+	if err != nil {
+		return fmt.Errorf("failed to open file: %w", err)
+	}
+	defer file.Close()
+
+	var totalRate float64
+	for i := 0; i <= repeat; i++ {
+		iterStart := time.Now()
+
+		whence := 0
+		if offsetFromEnd {
+			whence = 2
+		}
+		offset, err := file.Seek(offset, whence)
+		if err != nil {
+			return fmt.Errorf("iteration %v: failed to seek: %w", i, err)
+		}
+		if verbose {
+			fmt.Fprintf(os.Stderr, "iteration %v: offset set to %v\n", i, offset)
+		}
+
+		var totalBytesRead int64
+		doRead := true
+		for doRead {
+			bufSize := blockSize
+			if count > 0 {
+				bufSize = min(bufSize, count-totalBytesRead)
+			}
+			buf := make([]byte, bufSize)
+			bytesRead, err := file.Read(buf)
+			if err != nil {
+				if errors.Is(err, io.EOF) {
+					doRead = false
+				} else {
+					return err
+				}
+			}
+
+			if bytesRead == 0 || (count > 0 && totalBytesRead >= count) {
+				doRead = false
+			}
+
+			if stdout && bytesRead > 0 {
+				fmt.Fprint(os.Stdout, string(buf[:bytesRead]))
+			}
+			totalBytesRead += int64(bytesRead)
+		}
+
+		iterDur := time.Since(iterStart)
+		iterRate := float64(totalBytesRead) / float64(iterDur.Nanoseconds()) * 1000 * 1000 * 1000
+		totalRate += iterRate
+		if verbose {
+			fmt.Fprintf(os.Stderr, "iteration %v: took %v\n", i, iterDur)
+			fmt.Fprintf(os.Stderr, "iteration %v: total %v bytes at %v/s\n", i, totalBytesRead, formatFileSize(iterRate, 1024))
+		}
+
+		fmt.Fprintln(os.Stdout)
+	}
+
+	fmt.Fprintf(os.Stderr, "total time %v, avg transfer rate %v/s\n", time.Since(startTotal), formatFileSize(totalRate/(float64(repeat)+1), 1024))
+	return nil
+}
+
+func runServer(cmd *cobra.Command, args []string) {
+
 	fmt.Printf("Running server on %s/%s\n\n", runtime.GOOS, runtime.GOARCH)
 
 	// var timeout time.Duration
