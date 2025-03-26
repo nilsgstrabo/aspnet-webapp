@@ -59,7 +59,6 @@ func init() {
 }
 
 func main() {
-	panic(errors.New("force fail"))
 	rootCmd.Execute()
 }
 
