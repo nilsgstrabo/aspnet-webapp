@@ -126,9 +126,11 @@ spec:
               blobFuse2:
                 protocol: fuse2
                 cacheMode: Block
+                blockCache:
+                  blockSize: 16
                 container: videos
                 uid: "1001"
-                accessMode: ReadWriteMany
+                accessMode: ReadOnlyMany
                 useAdls: true
                 useAzureIdentity: true
                 storageAccount: radixblobtest6
