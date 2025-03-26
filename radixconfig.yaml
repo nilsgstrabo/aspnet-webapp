@@ -252,6 +252,14 @@ spec:
             accessMode: ReadWriteMany
             useAdls: true
             cacheMode: Block
+            blockCache:
+              blockSize: 4
+              poolSize: 48
+              prefetchCount: 11
+              prefetchOnOpen: false
+              parallelism: 8
+              diskSize: 0
+              diskTimeout: 120
             useAzureIdentity: true
             storageAccount: radixblobtest6
             resourceGroup: test-resources
