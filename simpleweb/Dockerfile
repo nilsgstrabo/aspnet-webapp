@@ -12,11 +12,11 @@ WORKDIR /build
 # RUN --mount=type=secret,id=SECRET1,dst=/abc/my-secrets/secret-1.txt export BUILD_ARG=$(cat /abc/my-secrets/secret-1.txt) && \
 #     echo $BUILD_ARG
 
-# RUN --mount=type=secret,id=SECRET1,dst=/abc/my-secrets/secret-1.txt --mount=type=secret,id=SECRET2a,dst=/abc/my-secrets/secret-2.txt \
-#     export BUILD_ARG=$(cat /abc/my-secrets/secret-1.txt) && \
-#     export BUILD_ARG2=$(cat /abc/my-secrets/secret-2.txt) && \
-#     echo $BUILD_ARG and $BUILD_ARG2 && \
-#     echo $BUILD_ARG and $BUILD_ARG2 > /mysecrets.txt
+RUN --mount=type=secret,id=SECRET1,dst=/abc/my-secrets/secret-1.txt --mount=type=secret,id=SECRET2a,dst=/abc/my-secrets/secret-2.txt \
+    export BUILD_ARG=$(cat /abc/my-secrets/secret-1.txt) && \
+    export BUILD_ARG2=$(cat /abc/my-secrets/secret-2.txt) && \
+    echo $BUILD_ARG and $BUILD_ARG2 && \
+    echo $BUILD_ARG and $BUILD_ARG2 > /mysecrets.txt
 
 # RUN echo "hello world" && echo $TARGETPLATFORM && echo $BUILDPLATFORM
 RUN echo "hello world"
@@ -35,7 +35,7 @@ FROM alpine:3.21
 
 # COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /api /usr/local/bin/api
-# COPY --from=builder /mysecrets.txt /mysecrets.txt
+COPY --from=builder /mysecrets.txt /mysecrets.txt
 # COPY --from=builder /etc/passwd /etc/passwd
 USER 3000
 
