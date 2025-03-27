@@ -35,7 +35,7 @@ FROM alpine:3.21
 
 # COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /api /usr/local/bin/api
-COPY --from=builder /mysecrets.txt /mysecrets.txt
+# COPY --from=builder /mysecrets.txt /mysecrets.txt
 # COPY --from=builder /etc/passwd /etc/passwd
 USER 3000
 
