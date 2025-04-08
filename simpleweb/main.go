@@ -205,9 +205,6 @@ func runServer(cmd *cobra.Command, args []string) {
 		}
 		// ctx.String(http.StatusOK, fmt.Sprintf("hello from %s", hostName))
 
-		ctx.Header("x-large-header", strings.Repeat("abcdefghijklmnop", 1280))
-		ctx.Status(http.StatusOK)
-
 		sleep := time.Duration(rand.Intn(3000) * int(time.Millisecond))
 		ctx.Writer.WriteString("commit #13\n\n")
 		ctx.Writer.WriteString(fmt.Sprintf("hello from %s\n", hostName))
@@ -229,6 +226,20 @@ func runServer(cmd *cobra.Command, args []string) {
 		// 	time.Sleep(1 * time.Second)
 		// }
 
+	})
+
+	handler.GET("/largeheader", func(ctx *gin.Context) {
+		headerSizeKB := 1
+		if s, ok := ctx.GetQuery("size"); ok {
+			v, err := strconv.Atoi(s)
+			if err != nil {
+				ctx.AbortWithError(400, err)
+				return
+			}
+			headerSizeKB = v
+		}
+		ctx.Header("x-large-header", strings.Repeat(strings.Repeat("a", 1024), headerSizeKB))
+		ctx.Status(http.StatusOK)
 	})
 
 	handler.GET("/nils", func(ctx *gin.Context) {
