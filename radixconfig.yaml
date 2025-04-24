@@ -44,7 +44,7 @@ spec:
     secrets:
       - SECRET1
       - SECRET2a
-    useBuildKit: false
+    useBuildKit: true
     # useBuildCache: false
   privateImageHubs:
     docker.io:
