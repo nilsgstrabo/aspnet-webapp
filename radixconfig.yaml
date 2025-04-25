@@ -70,7 +70,7 @@ spec:
         KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
         SQL_SERVER_NAME: "radix-test-server-delete-me.database.windows.net"
         SQL_DATABASE_NAME: "radix-test-database-delete-me"
-        MEGA_FILE_SIZE: "1000"
+        MEGA_FILE_SIZE: "1001"
         ENABLE_PROXY_BUFFERING: "true"
         DOTNET_EnableDiagnostics: "0"
         AZURE_CLIENT_ID_FOR_KEYVAULT: afc6fbb0-6c82-45a1-abc8-280c9dce7b7d
