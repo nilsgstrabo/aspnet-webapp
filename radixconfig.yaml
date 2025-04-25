@@ -53,6 +53,7 @@ spec:
     - name: dev
       build:
         from: main
+        webhookEnabled: false
     - name: qa
       build:
         from: v\d+\.\d+\..*
