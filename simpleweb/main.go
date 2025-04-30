@@ -206,7 +206,7 @@ func runServer(cmd *cobra.Command, args []string) {
 		// ctx.String(http.StatusOK, fmt.Sprintf("hello from %s", hostName))
 
 		sleep := time.Duration(rand.Intn(3000) * int(time.Millisecond))
-		ctx.Writer.WriteString("commit #30\n\n")
+		ctx.Writer.WriteString("commit #31\n\n")
 		ctx.Writer.WriteString(fmt.Sprintf("hello from %s\n", hostName))
 		ctx.Writer.WriteString(fmt.Sprintf("sleeping %s before sending more data in response\n", sleep.String()))
 		ctx.Writer.Flush()
