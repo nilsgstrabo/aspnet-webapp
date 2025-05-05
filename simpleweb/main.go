@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
-	"math/rand"
 	"net/http"
 	"os"
 	"os/signal"
@@ -197,22 +196,22 @@ func runServer(cmd *cobra.Command, args []string) {
 		// 	fmt.Printf("%q: %v\n", k, v)
 		// }
 
-		hostName, err := os.Hostname()
-		if err != nil {
-			hostName = "N/A"
-			fmt.Printf("error getting host name: %v", err)
-		}
+		// hostName, err := os.Hostname()
+		// if err != nil {
+		// 	hostName = "N/A"
+		// 	fmt.Printf("error getting host name: %v", err)
+		// }
 		// ctx.String(http.StatusOK, fmt.Sprintf("hello from %s", hostName))
 
-		sleep := time.Duration(rand.Intn(3000) * int(time.Millisecond))
-		ctx.Writer.WriteString("commit #36\n\n")
-		ctx.Writer.WriteString(fmt.Sprintf("hello from %s\n", hostName))
-		ctx.Writer.WriteString(fmt.Sprintf("sleeping %s before sending more data in response\n", sleep.String()))
+		// sleep := time.Duration(rand.Intn(3000) * int(time.Millisecond))
+		// ctx.Writer.WriteString("commit #36\n\n")
+		// ctx.Writer.WriteString(fmt.Sprintf("hello from %s\n", hostName))
+		// ctx.Writer.WriteString(fmt.Sprintf("sleeping %s before sending more data in response\n", sleep.String()))
 		// ctx.Writer.Flush()
-		fmt.Printf("sleeping for %s\n", sleep.String())
-		// time.Sleep(sleep)
+		// fmt.Printf("sleeping for %s\n", sleep.String())
+		// // time.Sleep(sleep)
 		ctx.Writer.WriteString("this is the last data in the response")
-
+		ctx.String(200, "commit #36")
 		// Sleep between 0 and 1000 ms
 
 		// ctx.Status(http.StatusOK)
@@ -327,9 +326,9 @@ func runServer(cmd *cobra.Command, args []string) {
 }
 
 func logRequestInfo(ctx *gin.Context) {
-	fmt.Println()
+	// fmt.Println()
 	// fmt.Printf("Content length: %d \n", ctx.Request.ContentLength)
-	fmt.Printf("Remote address: %s \n", ctx.Request.RemoteAddr)
+	fmt.Printf("%v: Remote address: %s\n", time.Now(), ctx.Request.RemoteAddr)
 
 	// fmt.Println("Headers:")
 	// for k, v := range ctx.Request.Header {
