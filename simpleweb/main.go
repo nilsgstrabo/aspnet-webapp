@@ -211,6 +211,16 @@ func runServer(cmd *cobra.Command, args []string) {
 		// fmt.Printf("sleeping for %s\n", sleep.String())
 		// // time.Sleep(sleep)
 		// ctx.Writer.WriteString("this is the last data in the response")
+		sleep := 0
+		if s, ok := ctx.GetQuery("sleep"); ok {
+			v, err := strconv.Atoi(s)
+			if err != nil {
+				ctx.AbortWithError(400, err)
+				return
+			}
+			sleep = v
+		}
+		time.Sleep(time.Duration(sleep) * time.Second)
 		ctx.String(200, "commit #36")
 		// Sleep between 0 and 1000 ms
 
