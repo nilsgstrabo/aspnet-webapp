@@ -7,7 +7,6 @@ import (
 	"io"
 	"io/fs"
 	"math/rand"
-	"net"
 	"net/http"
 	"os"
 	"os/signal"
@@ -190,10 +189,10 @@ func runServer(cmd *cobra.Command, args []string) {
 	handler.RemoveExtraSlash = true
 	handler.Use(logRequestInfo)
 	handler.GET("/", func(ctx *gin.Context) {
-		fmt.Println("")
-		host, _, _ := net.SplitHostPort(ctx.Request.RemoteAddr)
-		fmt.Printf("Remote address : %s\n", net.ParseIP(host))
-		fmt.Println("")
+		// fmt.Println("")
+		// host, _, _ := net.SplitHostPort(ctx.Request.RemoteAddr)
+		// fmt.Printf("Remote address : %s\n", net.ParseIP(host))
+		// fmt.Println("")
 		// for k, v := range ctx.Request.Header {
 		// 	fmt.Printf("%q: %v\n", k, v)
 		// }
@@ -209,7 +208,7 @@ func runServer(cmd *cobra.Command, args []string) {
 		ctx.Writer.WriteString("commit #36\n\n")
 		ctx.Writer.WriteString(fmt.Sprintf("hello from %s\n", hostName))
 		ctx.Writer.WriteString(fmt.Sprintf("sleeping %s before sending more data in response\n", sleep.String()))
-		ctx.Writer.Flush()
+		// ctx.Writer.Flush()
 		fmt.Printf("sleeping for %s\n", sleep.String())
 		// time.Sleep(sleep)
 		ctx.Writer.WriteString("this is the last data in the response")
@@ -329,13 +328,13 @@ func runServer(cmd *cobra.Command, args []string) {
 
 func logRequestInfo(ctx *gin.Context) {
 	fmt.Println()
-	fmt.Printf("Content length: %d \n", ctx.Request.ContentLength)
+	// fmt.Printf("Content length: %d \n", ctx.Request.ContentLength)
 	fmt.Printf("Remote address: %s \n", ctx.Request.RemoteAddr)
 
-	fmt.Println("Headers:")
-	for k, v := range ctx.Request.Header {
-		fmt.Printf("  %q: %v\n", k, v)
-	}
+	// fmt.Println("Headers:")
+	// for k, v := range ctx.Request.Header {
+	// 	fmt.Printf("  %q: %v\n", k, v)
+	// }
 }
 
 func readBody(ctx *gin.Context) {
