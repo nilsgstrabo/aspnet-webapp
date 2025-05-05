@@ -210,7 +210,7 @@ func runServer(cmd *cobra.Command, args []string) {
 		// ctx.Writer.Flush()
 		// fmt.Printf("sleeping for %s\n", sleep.String())
 		// // time.Sleep(sleep)
-		ctx.Writer.WriteString("this is the last data in the response")
+		// ctx.Writer.WriteString("this is the last data in the response")
 		ctx.String(200, "commit #36")
 		// Sleep between 0 and 1000 ms
 
