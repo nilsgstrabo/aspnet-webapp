@@ -27,3 +27,6 @@ spec:
   components:
     - name: redis2
       image: bitnami/redis:{imageTagName}
+      environmentConfig:
+        - environment: qa
+          imageTagName: "8.0"
