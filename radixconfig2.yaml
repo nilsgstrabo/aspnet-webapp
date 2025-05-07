@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=file:///home/nst/go/src/github.com/equinor/radix-operator/json-schema/radixapplication.json
+
+x-redis: &redis bitnami/redis:latest
+x-default-requests: &request
+  memory: 200M
+  cpu: 60m
+x-default-limit: &limit
+  cpu: 60m    
+x-resources: &resources
+  requests: *request
+  limits: *limit
+x-volumeMounts: &volumemounts
+  - name: tmp
+    path: /tmp
+    emptyDir:
+      sizeLimit: 200M
+
+apiVersion: radix.equinor.com/v1
+kind: RadixApplication
+metadata:
+  name: oauth-demo2
+spec:
+  environments:
+    - name: dev
+    - name: qa
+    - name: prod
+  components:
+    - name: redis2
+      image: bitnami/redis:{imageTagName}
