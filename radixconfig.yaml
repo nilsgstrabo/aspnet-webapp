@@ -53,6 +53,9 @@ spec:
     - name: dev
       build:
         from: main
+    - name: feature
+      build:
+        from: feature
     - name: qa
       build:
         from: v\d+\.\d+\..*
