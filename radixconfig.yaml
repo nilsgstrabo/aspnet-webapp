@@ -57,13 +57,6 @@ spec:
       username: nilsgustavstrabo
   environments:
     - name: dev
-      subPipeline:
-        identity:
-          azure:
-            clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-        variables:
-          VAR_A: c
-          VAR_B: b
       build:
         from: main
       subPipeline:
@@ -76,6 +69,9 @@ spec:
     - name: feature
       build:
         from: feature
+    - name: feature2
+      build:
+        from: feature2
     - name: qa
       build:
         from: v\d+\.\d+\..*
