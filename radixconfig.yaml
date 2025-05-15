@@ -45,6 +45,13 @@ spec:
       - SECRET1
       - SECRET2a
     useBuildKit: true
+    subPipeline:
+      identity:
+        azure:
+          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
+      variables:
+        VAR_A: a-original
+        VAR_B: b-original
     # useBuildCache: false
   privateImageHubs:
     docker.io:
@@ -53,6 +60,13 @@ spec:
     - name: dev
       build:
         from: main
+      subPipeline:
+        identity:
+          azure:
+            clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+        variables:
+          VAR_A: a-override-dev
+          VAR_C: c-in-dev-only
     - name: feature
       build:
         from: feature
