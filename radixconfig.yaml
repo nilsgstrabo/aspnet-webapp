@@ -201,7 +201,7 @@ spec:
       environmentConfig:
         - environment: prod
     - name: proxy
-      src: .
+      src: ""
       ports:
         - name: http
           port: 8080
