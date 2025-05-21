@@ -65,7 +65,7 @@ spec:
             clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
         variables:
           VAR_A: a-override-dev
-          VAR_C: c-in-dev-only
+          VAR_C: c-in-dev-onlyx
     - name: feature
       build:
         from: feature
