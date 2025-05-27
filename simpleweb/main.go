@@ -159,7 +159,7 @@ func readFile(cmd *cobra.Command, args []string) error {
 		totalRate += iterRate
 		if verbose {
 			fmt.Fprintf(os.Stderr, "iteration %v: took %v\n", i, iterDur)
-			fmt.Fprintf(os.Stderr, "iteration %v: total %v at %v/s\n", i, formatFileSize(float64(totalBytesRead), 1024), formatFileSize(iterRate, 1024))
+			fmt.Fprintf(os.Stderr, "xxiteration %v: total %v at %v/s\n", i, formatFileSize(float64(totalBytesRead), 1024), formatFileSize(iterRate, 1024))
 		}
 
 		fmt.Fprintln(os.Stdout)
