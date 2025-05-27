@@ -20,7 +20,7 @@ spec:
     #   mountPath: /host
     script: |
       #!/usr/bin/env sh
-      echo hello $(hostname)
+      echo hello 50 $(hostname)
       id
       # ls /host -l
       # cat <<EOF > /host/tmp/pod.yaml
