@@ -72,6 +72,9 @@ spec:
     - name: feature2
       build:
         from: feature2
+    - name: atbranch
+      build:
+        from: feature/@test
     - name: qa
       build:
         from: v\d+\.\d+\..*
