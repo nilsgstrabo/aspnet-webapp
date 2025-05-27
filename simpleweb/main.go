@@ -221,7 +221,7 @@ func runServer(cmd *cobra.Command, args []string) {
 			sleep = v
 		}
 		time.Sleep(time.Duration(sleep) * time.Second)
-		ctx.String(200, "commit #50")
+		ctx.String(200, "commit #51")
 		// Sleep between 0 and 1000 ms
 
 		// ctx.Status(http.StatusOK)
