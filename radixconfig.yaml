@@ -68,7 +68,7 @@ spec:
           VAR_C: c-in-dev-onlyx
     - name: feature
       build:
-        from: feature
+        from: main
     - name: feature2
       build:
         from: feature2
