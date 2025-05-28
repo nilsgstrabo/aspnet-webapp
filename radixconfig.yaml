@@ -93,7 +93,7 @@ spec:
         DOTNET_EnableDiagnostics: "0"
         AZURE_CLIENT_ID_FOR_KEYVAULT: afc6fbb0-6c82-45a1-abc8-280c9dce7b7d
         AZURE_CLIENT_ID_FOR_DB: 1500cbee-3f21-4301-b6e8-09888829c5ae
-        NEWVAR: xyzabc
+        NEWVAR: xyzabcd
       ports:
         - name: http
           port: 5005
