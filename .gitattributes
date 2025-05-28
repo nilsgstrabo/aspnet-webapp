@@ -1,0 +1,1 @@
+simpleweb/image.webp filter=lfs diff=lfs merge=lfs -text
