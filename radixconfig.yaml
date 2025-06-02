@@ -79,6 +79,10 @@ spec:
       build:
         fromType: tag
         from: v\d+\.\d+\..*
+    - name: qa2
+      build:
+        fromType: branch
+        from: v\d+\.\d+\..*        
     - name: prod
   components:
     - name: web
