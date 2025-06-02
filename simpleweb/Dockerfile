@@ -37,6 +37,8 @@ FROM alpine:3.21
 COPY --from=builder /api /usr/local/bin/api
 COPY --from=builder /mysecrets.txt /mysecrets.txt
 COPY image.webp image.webp
+
+COPY images/*.* /localimages
 # COPY --from=builder /etc/passwd /etc/passwd
 USER 3000
 
