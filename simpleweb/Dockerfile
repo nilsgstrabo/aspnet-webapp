@@ -19,7 +19,7 @@ RUN --mount=type=secret,id=SECRET1,dst=/abc/my-secrets/secret-1.txt --mount=type
     echo $BUILD_ARG and $BUILD_ARG2 > /mysecrets.txt
 
 # RUN echo "hello world" && echo $TARGETPLATFORM && echo $BUILDPLATFORM
-RUN echo "hello world 61"
+RUN echo "hello world 62"
 RUN go env
 COPY go.mod go.sum ./
 RUN go mod download
@@ -38,7 +38,7 @@ COPY --from=builder /api /usr/local/bin/api
 COPY --from=builder /mysecrets.txt /mysecrets.txt
 COPY image.webp image.webp
 
-COPY images/*.* /localimages
+COPY /images /localimages
 # COPY --from=builder /etc/passwd /etc/passwd
 USER 3000
 
