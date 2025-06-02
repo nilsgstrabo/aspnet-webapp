@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=file:///home/nst/go/src/github.com/equinor/radix-operator/json-schema/radixapplication.json
+# yaml-language-server: $schema=file:///home/nilsstrabo/src/github.com/equinor/radix-operator/json-schema/radixapplication.json
 
 x-redis: &redis bitnami/redis:latest
 x-default-requests: &request
@@ -77,6 +77,7 @@ spec:
     #     from: feature3/@test
     - name: qa
       build:
+        fromType: tag
         from: v\d+\.\d+\..*
     - name: prod
   components:
