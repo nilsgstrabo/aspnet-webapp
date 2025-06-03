@@ -35,6 +35,7 @@ FROM alpine:3.21
 
 # COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /api /usr/local/bin/api
+COPY --from=builder /api /usr/local/bin/api2
 COPY --from=builder /mysecrets.txt /mysecrets.txt
 COPY image.webp image.webp
 

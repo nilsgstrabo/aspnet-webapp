@@ -34,7 +34,7 @@ type FileRequest struct {
 }
 
 var rootCmd = &cobra.Command{
-	Run: runServer,
+	RunE: runServer,
 }
 
 func init() {
@@ -54,6 +54,7 @@ func init() {
 	readFileCmd.MarkFlagRequired("file")
 
 	rootCmd.AddCommand(readFileCmd)
+	rootCmd.Flags().String("log-level", "info", "Log level to use")
 }
 
 func main() {
@@ -169,10 +170,15 @@ func readFile(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-func runServer(cmd *cobra.Command, args []string) {
+func runServer(cmd *cobra.Command, args []string) error {
 
 	fmt.Printf("Running server on %s/%s\n\n", runtime.GOOS, runtime.GOARCH)
 
+	logLevel, err := cmd.Flags().GetString("log-level")
+	if err != nil {
+		return err
+	}
+	fmt.Printf("Log level: %s\n\n", logLevel)
 	// var timeout time.Duration
 	// timeout, err := time.ParseDuration(os.Getenv("TIMEOUT"))
 	// if err != nil {
@@ -221,7 +227,7 @@ func runServer(cmd *cobra.Command, args []string) {
 			sleep = v
 		}
 		time.Sleep(time.Duration(sleep) * time.Second)
-		ctx.String(200, "commit #61")
+		ctx.String(200, "commit #62")
 		// Sleep between 0 and 1000 ms
 
 		// ctx.Status(http.StatusOK)
@@ -333,6 +339,7 @@ func runServer(cmd *cobra.Command, args []string) {
 	fmt.Println("waiting")
 	<-ctx.Done()
 	fmt.Println("done waiting")
+	return nil
 }
 
 func logRequestInfo(ctx *gin.Context) {
