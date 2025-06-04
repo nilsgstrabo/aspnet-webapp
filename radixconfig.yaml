@@ -254,7 +254,7 @@ spec:
         - environment: prod
     - name: simple
       # image: docker.io/nilsgustavstrabo/nilssimple:latest
-      dockerfileName: ./Dockerfile
+      dockerfileName: ./Dockerfile.simple
       src: /simpleweb
       ports:
         - name: http
