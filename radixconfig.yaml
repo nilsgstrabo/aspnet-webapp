@@ -257,7 +257,7 @@ spec:
       dockerfileName: Dockerfile.simple
       src: /simpleweb
       args:
-        - --log-level=warn
+        - --log-level=$(LOG_LEVEL)
       ports:
         - name: http
           port: 9001
