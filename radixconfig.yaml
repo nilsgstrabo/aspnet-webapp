@@ -256,6 +256,8 @@ spec:
       # image: docker.io/nilsgustavstrabo/nilssimple:latest
       dockerfileName: ./Dockerfile.simple
       src: /simpleweb
+      args:
+        - --log-level=warn
       ports:
         - name: http
           port: 9001
@@ -271,6 +273,7 @@ spec:
         TIMEOUT: 10h
         TMPDIR: "/tmp"
         APPENDTICK: 10s
+        LOG_LEVEL: debug
       volumeMounts:
         - name: tmp
           path: /mnt/tmp
