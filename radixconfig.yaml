@@ -72,9 +72,9 @@ spec:
     - name: feature2
       build:
         from: feature2
-    # - name: atbranch
-    #   build:
-    #     from: feature3/@test
+    - name: atbranch
+      build:
+        from: feature3/@test
     - name: qa
       build:
         fromType: tag
