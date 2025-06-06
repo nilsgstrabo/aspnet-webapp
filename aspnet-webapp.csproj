@@ -14,7 +14,7 @@
     <PackageReference Include="Microsoft.Extensions.Azure" Version="1.7.6" />
     <PackageReference Include="Microsoft.Graph" Version="5.60.0" />
     <!-- <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.3" /> -->
-    <PackageReference Include="Microsoft.Identity.Web" Version="3.2.2" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="3.8.2" />
     <!-- <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="1.1.0" /> -->
     <!-- <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" /> -->
   </ItemGroup>
