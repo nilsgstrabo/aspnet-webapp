@@ -66,23 +66,23 @@ spec:
         variables:
           VAR_A: a-override-dev
           VAR_C: c-in-dev-onlyx
-    - name: feature
-      build:
-        from: main
-    - name: feature2
-      build:
-        from: feature2
-    - name: atbranch
-      build:
-        from: feature3/@test
+    # - name: feature
+    #   build:
+    #     from: main
+    # - name: feature2
+    #   build:
+    #     from: feature2
+    # - name: atbranch
+    #   build:
+    #     from: feature3/@test
     - name: qa
       build:
         fromType: tag
         from: v\d+\.\d+\..*
-    - name: qa2
-      build:
-        fromType: branch
-        from: v\d+\.\d+\..*        
+    # - name: qa2
+    #   build:
+    #     fromType: branch
+    #     from: v\d+\.\d+\..*        
     - name: prod
   components:
     - name: web
