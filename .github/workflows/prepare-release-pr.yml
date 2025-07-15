@@ -16,6 +16,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write
     uses: nilsgstrabo/learnrelease/.github/workflows/template-prepare-release-pr.yml@main
     with:
       branch: main
