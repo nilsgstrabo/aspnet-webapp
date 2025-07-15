@@ -1,0 +1,27 @@
+name: Prepare release pull requests
+on:
+    push: 
+        tags:
+            - '**'
+        branches: 
+            - main
+    workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  prepare-release-pr:
+    name: Generate release PR
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: nilsgstrabo/learnrelease/.github/workflows/template-prepare-release-pr.yml@main
+    with:
+      branch: main
+      generate-pre-release-pr: false
+      # changelog-path: CHANGELOG.md
+      # cliff-config-path: cliff.toml
+
+
+    
