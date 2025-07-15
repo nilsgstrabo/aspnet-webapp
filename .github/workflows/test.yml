@@ -19,7 +19,7 @@ jobs:
           with:
             fetch-depth: 0
             ref: main
-            persist-credentials: false
+            # persist-credentials: false
         - name: set version
           run: |
             echo date > version.txt
