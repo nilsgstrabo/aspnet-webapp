@@ -16,8 +16,9 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write
     uses: nilsgstrabo/learnrelease/.github/workflows/template-prepare-release-pr.yml@main
-    secrets: inherit
+    # secrets: inherit
     with:
       branch: main
       generate-pre-release-pr: false
