@@ -29,7 +29,7 @@ jobs:
             base: main
             delete-branch: true
             title: "chore: test pr"
-            branch: release/stable-release
+            # branch: release/stable-release
             labels: "test"
             body: Hello there
             commit-message: "chore: test pr"
