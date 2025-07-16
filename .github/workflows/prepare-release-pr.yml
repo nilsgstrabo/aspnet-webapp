@@ -1,11 +1,11 @@
 name: Prepare release pull requests
 on:
-    push: 
-        tags:
-            - '**'
-        branches: 
-            - main
-    workflow_dispatch:
+  push: 
+    tags:
+      - '**'
+    branches: 
+      - main
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}

@@ -1,0 +1,21 @@
+on:
+  workflow_dispatch:
+    inputs:
+      pr-number:
+        description: The pull request to release
+        type: string
+        required: true
+  
+jobs:
+  release-pull-request:
+    name: Release pull request
+    permissions:
+      pull-requests: write
+      contents: read
+    uses: nilsgstrabo/learnrelease/.github/workflows/template-create-release-from-pr.yml@main
+    with:
+      pull-request-number: ${{ inputs.pr-number }}
+      github-app-id: ${{ vars.GH_APP_ID }}
+      use-github-app-token: true
+    secrets:
+      github-app-private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}  
