@@ -31,7 +31,12 @@ All notable changes to this project will be documented in this file.
 
 - Release workflow - ([60f8d21](https://github.com/nilsgstrabo/aspnet-webapp/commit/60f8d212c862fcfbf54aaceb5c3c31a08eaa5b32)) by @nilsgstrabo
 
+- Give release workflow a name - ([dc812d6](https://github.com/nilsgstrabo/aspnet-webapp/commit/dc812d667b2e543e65c144f961d55ffb4a0af92f)) by @nilsgstrabo
 
+
+## New Contributors ❤️
+
+* @github-actions[bot] made their first contribution in [#23](https://github.com/nilsgstrabo/aspnet-webapp/pull/23)
 ## [1.0.0] - 2025-05-27
 
 ### 💼 Other
