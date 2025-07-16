@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.0](https://github.com/nilsgstrabo/aspnet-webapp/compare/v2.0.1..v2.1.0) - 2025-07-16
+
+### 🚀 Features
+
+- New response - ([ff9bf2d](https://github.com/nilsgstrabo/aspnet-webapp/commit/ff9bf2d19078da539fa056b0c1a0abf1b27a33eb)) by @nilsgstrabo
+
+
+### ⚙️ Miscellaneous Tasks
+
+- Give release workflow a name - ([dc812d6](https://github.com/nilsgstrabo/aspnet-webapp/commit/dc812d667b2e543e65c144f961d55ffb4a0af92f)) by @nilsgstrabo
+
+- Set "issues: write" permission on release workflow - ([9c0ac7f](https://github.com/nilsgstrabo/aspnet-webapp/commit/9c0ac7fb7b4cd9fb35014aa113be6e56c1ab5398)) by @nilsgstrabo
+
+
 ## [2.0.1](https://github.com/nilsgstrabo/aspnet-webapp/compare/v2.0.0..v2.0.1) - 2025-07-16
 
 ### 🐛 Bug Fixes
@@ -32,6 +46,9 @@ All notable changes to this project will be documented in this file.
 - Release workflow - ([60f8d21](https://github.com/nilsgstrabo/aspnet-webapp/commit/60f8d212c862fcfbf54aaceb5c3c31a08eaa5b32)) by @nilsgstrabo
 
 
+## New Contributors ❤️
+
+* @github-actions[bot] made their first contribution in [#23](https://github.com/nilsgstrabo/aspnet-webapp/pull/23)
 ## [1.0.0] - 2025-05-27
 
 ### 💼 Other
