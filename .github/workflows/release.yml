@@ -9,7 +9,7 @@ jobs:
     name: Get list of pending release pull requests
     permissions:
       pull-requests: read
-    uses: equinor/radix-reusable-workflows/.github/workflows/template-unreleased-pr-metadata.yml@main
+    uses: nilsgstrabo/learnrelease/.github/workflows/template-unreleased-pr-metadata.yml@main
   release-pull-request:
     name: Release pull request
     needs: 
@@ -22,7 +22,7 @@ jobs:
       pull-requests: write
       contents: read
       issues: write
-    uses: equinor/radix-reusable-workflows/.github/workflows/template-create-release-from-pr.yml@main
+    uses: nilsgstrabo/learnrelease/.github/workflows/template-create-release-from-pr.yml@main
     with:
       pull-request-number: ${{ matrix.pull-request-number }}
       github-app-id: ${{ vars.GH_APP_ID }}
