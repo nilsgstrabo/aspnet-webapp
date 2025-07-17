@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.1](https://github.com/nilsgstrabo/aspnet-webapp/compare/v2.1.0..v2.1.1) - 2025-07-17
+
+### 🐛 Bug Fixes
+
+- Return 84 - ([2cf0fdd](https://github.com/nilsgstrabo/aspnet-webapp/commit/2cf0fddfd9302cea53999a364ba1e3c813ab1ac3)) by @nilsgstrabo
+
+- Noop fix - ([1794f1a](https://github.com/nilsgstrabo/aspnet-webapp/commit/1794f1ad8f71fe86c9a44f905c45f9d17aa18bdd)) by @nilsgstrabo
+
+
+### ⚙️ Miscellaneous Tasks
+
+- Enable pre-releases - ([73a9c05](https://github.com/nilsgstrabo/aspnet-webapp/commit/73a9c05b14b0bfcafd07050b0b80965217e1bc2d)) by @nilsgstrabo
+
+- Add auto release - ([75febbc](https://github.com/nilsgstrabo/aspnet-webapp/commit/75febbc3f54d343a4bee4a3ab9bf151f9361c8c6)) by @nilsgstrabo
+
+- Reference correct repo for workflows - ([7a63765](https://github.com/nilsgstrabo/aspnet-webapp/commit/7a63765b1543c8126dd0ffdf6e3c5c37c00dde00)) by @nilsgstrabo
+
+
 ## [2.1.0](https://github.com/nilsgstrabo/aspnet-webapp/compare/v2.0.1..v2.1.0) - 2025-07-16
 
 ### 🚀 Features
