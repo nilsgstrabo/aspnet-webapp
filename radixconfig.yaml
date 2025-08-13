@@ -86,6 +86,8 @@ spec:
     - name: prod
   components:
     - name: web
+      args:
+        - --log-level=debug
       dockerfilename: Dockerfile
       # image: docker.io/nilsgustavstrabo/oauth-demo-dev-web:cksjc
       identity:
@@ -142,6 +144,7 @@ spec:
             useAzureIdentity: true
       environmentConfig:
         - environment: dev
+          args: []
           identity: {}
           readOnlyFileSystem: false
           # network:
@@ -160,10 +163,7 @@ spec:
                 uid: "1001"
                 accessMode: ReadOnlyMany
                 useAdls: true
-                useAzureIdentity: true
                 storageAccount: radixblobtest6
-                resourceGroup: test-resources
-                subscriptionId: 16ede44b-1f74-40a5-b428-46cca9a5741b
           variables:
             VIDEO_PATH: "/mnt/videos"
         - environment: prod

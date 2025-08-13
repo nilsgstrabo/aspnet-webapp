@@ -44,3 +44,4 @@ COPY /images /localimages
 USER 3000
 
 ENTRYPOINT ["/usr/local/bin/api"]
+
