@@ -175,6 +175,8 @@ spec:
           setAuthorizationHeader: true
           sessionStoreType: redis
           scope: openid email offline_access # https://graph.microsoft.com/User.Read
+          skipAuthRoutes:
+            - GET=^/Privacy$
           redisStore:
             connectionUrl: redis://redis:6379
     - name: redis
