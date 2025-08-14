@@ -21,6 +21,8 @@ jobs:
     with:
       branch: main
       generate-pre-release-pr: true
+      extra-files:
+        run.sh
       # changelog-path: CHANGELOG.md
       # cliff-config-path: cliff.toml
 
