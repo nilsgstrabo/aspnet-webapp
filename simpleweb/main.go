@@ -198,9 +198,10 @@ func runServer(cmd *cobra.Command, args []string) error {
 		// host, _, _ := net.SplitHostPort(ctx.Request.RemoteAddr)
 		// fmt.Printf("Remote address : %s\n", net.ParseIP(host))
 		// fmt.Println("")
-		// for k, v := range ctx.Request.Header {
-		// 	fmt.Printf("%q: %v\n", k, v)
-		// }
+		for k, v := range ctx.Request.Header {
+			if strings.HasPrefix(k, "X-") {
+			fmt.Printf("%q: %v\n", k, v)
+		}
 
 		// hostName, err := os.Hostname()
 		// if err != nil {
@@ -263,6 +264,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 			ctx.AbortWithError(500, err)
 			return
 		}
+
 		fmt.Printf("found %d files in directory\n", len(de))
 
 		f, err := os.Open("/mnt/videos/nils.txt")
