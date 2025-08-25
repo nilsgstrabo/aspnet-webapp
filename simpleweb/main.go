@@ -200,7 +200,8 @@ func runServer(cmd *cobra.Command, args []string) error {
 		// fmt.Println("")
 		for k, v := range ctx.Request.Header {
 			if strings.HasPrefix(k, "X-") {
-			fmt.Printf("%q: %v\n", k, v)
+				fmt.Printf("%q: %v\n", k, v)
+			}
 		}
 
 		// hostName, err := os.Hostname()
