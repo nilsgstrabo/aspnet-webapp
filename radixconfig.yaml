@@ -255,9 +255,9 @@ spec:
         - environment: dev
         - environment: prod
     - name: simple
-      # image: docker.io/nilsgustavstrabo/nilssimple:latest
-      dockerfileName: Dockerfile.simple
-      src: /simpleweb
+      image: docker.io/nilsgustavstrabo/nilssimple:latest
+      # dockerfileName: Dockerfile.simple
+      # src: /simpleweb
       args:
         - --log-level=$(LOG_LEVEL)
       ports:
