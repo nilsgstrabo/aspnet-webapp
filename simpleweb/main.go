@@ -337,7 +337,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 	// 	fmt.Printf("received signal %v, but we ignore it", s)
 	// }()
 
-	// go slowlyWriteToFile(ctx.Done())
+	go slowlyWriteToFile(ctx.Done())
 
 	fmt.Println("waiting")
 	<-ctx.Done()
