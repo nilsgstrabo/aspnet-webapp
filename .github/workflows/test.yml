@@ -1,4 +1,4 @@
-name: Build and deploy Docker and Helm
+name: Test matrix
 on:
   workflow_dispatch: 
 jobs:
