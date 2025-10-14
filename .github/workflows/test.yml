@@ -1,0 +1,25 @@
+name: Build and deploy Docker and Helm
+on:
+  workflow_dispatch: 
+jobs:
+  deploy-container-images:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      CONTAINER_REGISTRY: ghcr.io
+    strategy:
+      matrix:
+        build:
+          - dockerFile: operator.Dockerfile
+            image: ghcr.io/equinor/radix/operator
+          - dockerFile: operator2.Dockerfile
+            image: ghcr.io/equinor/radix/operator2
+          - dockerFile: operator3.Dockerfile
+            image: ghcr.io/equinor/radix/operator3
+    steps:
+        - uses: actions/checkout@v4
+        - name: build
+          run: |
+            echo "build ${{ matrix.build.dockerFile }} and push to ${{ matrix.build.image }} "
