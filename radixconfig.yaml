@@ -175,6 +175,7 @@ spec:
           setAuthorizationHeader: true
           sessionStoreType: redis
           scope: openid email offline_access # https://graph.microsoft.com/User.Read
+          credentials: azureWorkloadIdentity
           skipAuthRoutes:
             - GET=^/Privacy$
           redisStore:
