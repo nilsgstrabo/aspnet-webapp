@@ -20,6 +20,9 @@ jobs:
             image: ghcr.io/equinor/radix/operator3
     steps:
         - uses: actions/checkout@v4
+        - name: jq
+          run: |
+            jq -V
         - name: build
           run: |
             echo "build ${{ matrix.build.dockerFile }} and push to ${{ matrix.build.image }} "
