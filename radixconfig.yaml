@@ -24,15 +24,15 @@ spec:
     - alias: simple.nils.com
       component: simple
       environment: dev
-      useCertificateAutomation: true
+      useCertificateAutomation: false
     - alias: my.nils.com
       component: web
       environment: prod
-      useCertificateAutomation: true
+      useCertificateAutomation: false
     - alias: webqa.nils.com
       component: web
       environment: qa
-      useCertificateAutomation: true
+      useCertificateAutomation: false
   dnsAppAlias:
     component: web
     environment: dev
