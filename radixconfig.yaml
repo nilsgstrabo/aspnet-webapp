@@ -28,11 +28,11 @@ spec:
     - alias: my.nils.com
       component: web
       environment: prod
-      useCertificateAutomation: false
+      useCertificateAutomation: true
     - alias: webqa.nils.com
       component: web
       environment: qa
-      useCertificateAutomation: false
+      useCertificateAutomation: true
   dnsAppAlias:
     component: web
     environment: dev
