@@ -10,7 +10,7 @@ spec:
     name: istio-gateway
     namespace: istio-system
   listeners:
-    - name: https
+    - name: simple.nils.com
       hostname: simple.nils.com
       port: 443
       protocol: HTTPS
@@ -25,3 +25,18 @@ spec:
         certificateRefs:
           - kind: Secret
             name: simple.nils.com
+    - name: simple2.nils.com
+      hostname: simple2.nils.com
+      port: 443
+      protocol: HTTPS
+      allowedRoutes:
+        kinds:
+          - group: gateway.networking.k8s.io
+            kind: HTTPRoute
+        namespaces:
+          from: Same
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: simple2.nils.com

@@ -9,9 +9,10 @@ spec:
       kind: XListenerSet
       name: simple.nils.com
       namespace: oauth-demo-dev
-      sectionName: https
+      # sectionName: simple2.nils.com
   hostnames:
     - simple.nils.com
+    - simple2.nils.com
   rules:
     - matches:
         - path:
