@@ -354,3 +354,5 @@ MigrationBackup/
 videos/
 
 .mono/
+
+certs/

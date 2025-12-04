@@ -1,0 +1,53 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: simple.nils.com
+  namespace: oauth-demo-dev
+spec:
+  parentRefs:
+    - group: gateway.networking.x-k8s.io
+      kind: XListenerSet
+      name: simple.nils.com
+      namespace: oauth-demo-dev
+      sectionName: https
+  hostnames:
+    - simple.nils.com
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - group: ""
+          kind: Service
+          name: simple
+          port: 9001
+          weight: 1
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: simple
+  namespace: oauth-demo-dev
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: istio-gateway
+      namespace: istio-system
+      sectionName: https
+  hostnames:
+    - nilssimple.dev.radix.equinor.com
+    - simple-oauth-demo-dev.dev.radix.equinor.com
+    - oauth-demo.app.dev.radix.equinor.com
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - group: ""
+          kind: Service
+          name: simple
+          port: 9001
+          weight: 1

@@ -1,0 +1,27 @@
+apiVersion: gateway.networking.x-k8s.io/v1alpha1
+kind: XListenerSet
+metadata:
+  name: simple.nils.com
+  namespace: oauth-demo-dev
+spec:
+  parentRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: istio-gateway
+    namespace: istio-system
+  listeners:
+    - name: https
+      hostname: simple.nils.com
+      port: 443
+      protocol: HTTPS
+      allowedRoutes:
+        kinds:
+          - group: gateway.networking.k8s.io
+            kind: HTTPRoute
+        namespaces:
+          from: Same
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: simple.nils.com

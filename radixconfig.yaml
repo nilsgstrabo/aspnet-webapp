@@ -25,6 +25,10 @@ spec:
       component: simple
       environment: dev
       useCertificateAutomation: false
+    - alias: simple2.nils.com
+      component: simple
+      environment: dev
+      useCertificateAutomation: false      
     - alias: my.nils.com
       component: web
       environment: prod
