@@ -34,7 +34,7 @@ spec:
       environment: qa
       useCertificateAutomation: false
   dnsAppAlias:
-    component: web
+    component: simple
     environment: dev
   dnsAlias:
     - alias: nilssimple
