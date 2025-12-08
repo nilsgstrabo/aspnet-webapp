@@ -1,7 +1,7 @@
 apiVersion: gateway.networking.x-k8s.io/v1alpha1
 kind: XListenerSet
 metadata:
-  name: simple.nils.com
+  name: simple-external-dns
   namespace: oauth-demo-dev
 spec:
   parentRef:
