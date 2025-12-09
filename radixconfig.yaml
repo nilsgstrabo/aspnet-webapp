@@ -30,11 +30,11 @@ spec:
       environment: dev
       useCertificateAutomation: false      
     - alias: my.nils.com
-      component: web
+      component: oauth-proxy
       environment: prod
       useCertificateAutomation: false
     - alias: webqa.nils.com
-      component: web
+      component: oauth-proxy
       environment: qa
       useCertificateAutomation: false
   dnsAppAlias:
