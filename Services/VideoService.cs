@@ -20,13 +20,24 @@ namespace aspnet_webapp.Services {
 
     public class VideoService : IVideoService {
         private readonly IConfiguration _config;
-        public VideoService(IConfiguration config)
+        private readonly ILogger _logger;
+        public VideoService(IConfiguration config, ILogger<VideoService> logger)
         {
             _config=config;
+            _logger=logger;
         }
 
         public async Task UploadVideoAsync(Stream fileStream, string fileName) {
             var file= Path.Combine(_config["VIDEO_PATH"], fileName);
+            
+        byte[] buffer = new byte[16384]; // Choose a suitable buffer size
+
+        int bytesRead;
+        while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
+        {
+            _logger.LogInformation("read {bytesRead} bytes from stream", bytesRead);
+        }
+
             using (var targetStream = new FileStream(file, new FileStreamOptions{Access=FileAccess.ReadWrite, Mode=FileMode.Create, BufferSize=1024*16}))
             {
                 await fileStream.CopyToAsync(targetStream);
