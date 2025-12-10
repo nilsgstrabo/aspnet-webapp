@@ -142,8 +142,19 @@ namespace aspnet_webapp.Controllers
                 return this.NotFound();
             }
             
+            int bufferSize=1024*16;
+            try
+            {
+                var s=Convert.ToInt32(Environment.GetEnvironmentVariable("STREAM_BUFFER_SIZE"));
+                bufferSize = s >0 ? s : bufferSize;
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, "failed to get STREAM_BUFFER_SIZE, using default 16KB");
+            }
+
             _logger.LogInformation("Stream video from file {0}", video.FileName);
-            var fs=new FileStream(video.FileName,new FileStreamOptions{BufferSize=1024*16*4,Access=FileAccess.Read, Mode=FileMode.Open,Share=FileShare.Read});
+            var fs=new FileStream(video.FileName,new FileStreamOptions{BufferSize=bufferSize,Access=FileAccess.Read, Mode=FileMode.Open,Share=FileShare.Read});
             return this.File(fs, "application/octet-stream", true);
             // return this.PhysicalFile(video.FileName, "application/octet-stream", true);
         }

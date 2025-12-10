@@ -27,7 +27,7 @@ namespace aspnet_webapp.Services {
 
         public async Task UploadVideoAsync(Stream fileStream, string fileName) {
             var file= Path.Combine(_config["VIDEO_PATH"], fileName);
-            using (var targetStream = new FileStream(file, FileMode.Create))
+            using (var targetStream = new FileStream(file, new FileStreamOptions{Access=FileAccess.ReadWrite, Mode=FileMode.Create, BufferSize=1024*16}))
             {
                 await fileStream.CopyToAsync(targetStream);
             }
