@@ -33,7 +33,7 @@ namespace aspnet_webapp.Services {
         byte[] buffer = new byte[16384]; // Choose a suitable buffer size
 
         int bytesRead;
-        while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
+        while ((bytesRead = await fileStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
         {
             _logger.LogInformation("read {bytesRead} bytes from stream", bytesRead);
         }
