@@ -147,6 +147,7 @@ namespace aspnet_webapp.Controllers
             {
                 var s=Convert.ToInt32(Environment.GetEnvironmentVariable("STREAM_BUFFER_SIZE"));
                 bufferSize = s >0 ? s : bufferSize;
+                _logger.LogInformation("using buffer size {bufferSize}", bufferSize);
             }
             catch (System.Exception ex)
             {
