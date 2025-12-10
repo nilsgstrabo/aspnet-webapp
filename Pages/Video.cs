@@ -12,10 +12,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using System.ComponentModel.DataAnnotations;
 
 namespace aspnet_webapp.Pages
 {
     [Authorize("Restricted")]
+    [RequestSizeLimit(long.MaxValue)]        // No request limit
+    [RequestFormLimits(MultipartBodyLengthLimit = long.MaxValue)]
+    
     public class VideoModel : PageModel
     {
         private readonly ILogger _logger;
