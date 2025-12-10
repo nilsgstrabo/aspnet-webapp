@@ -166,7 +166,7 @@ spec:
                   blockSize: 16
                 container: videos
                 uid: "1001"
-                accessMode: ReadOnlyMany
+                accessMode: ReadWriteMany
                 useAdls: true
                 storageAccount: radixblobtest6
           variables:
