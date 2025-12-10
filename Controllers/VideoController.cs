@@ -143,7 +143,9 @@ namespace aspnet_webapp.Controllers
             }
             
             _logger.LogInformation("Stream video from file {0}", video.FileName);
-            return this.PhysicalFile(video.FileName, "application/octet-stream", true);
+            var fs=new FileStream(video.FileName,new FileStreamOptions{BufferSize=1024*16*4,Access=FileAccess.Read, Mode=FileMode.Open,Share=FileShare.Read});
+            return this.File(fs, "application/octet-stream", true);
+            // return this.PhysicalFile(video.FileName, "application/octet-stream", true);
         }
 
     }
