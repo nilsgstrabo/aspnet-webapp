@@ -42,7 +42,7 @@ spec:
     environment: dev
   dnsAlias:
     - alias: nilssimple
-      environment: dev
+      environment: test
       component: simple
   build:
     secrets:
@@ -88,6 +88,7 @@ spec:
     #     fromType: branch
     #     from: v\d+\.\d+\..*        
     - name: prod
+    - name: test
   components:
     - name: web
       args:
