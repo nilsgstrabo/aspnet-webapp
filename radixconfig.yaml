@@ -47,8 +47,14 @@ spec:
     component: simple
     environment: dev
   dnsAlias:
-    - alias: nilssimple
-      environment: test
+    - alias: nilssimple1
+      environment: dev
+      component: simple
+    - alias: nilssimple2
+      environment: dev
+      component: simple
+    - alias: nilssimple3
+      environment: dev
       component: simple
   build:
     secrets:
