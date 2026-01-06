@@ -31,5 +31,5 @@ COPY run.sh ./run.sh
 # RUN chown -R 1001 /opt/az
 USER 1001
 
-CMD ["sh", "run.sh"]
-# ENTRYPOINT ["dotnet", "aspnet-webapp.dll"]
+# CMD ["sh", "run.sh"]
+ENTRYPOINT ["dotnet", "aspnet-webapp.dll"]
