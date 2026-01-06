@@ -30,7 +30,7 @@ spec:
     - alias: radix2test.equinor.com
       component: simple
       environment: dev
-      useCertificateAutomation: true
+      useCertificateAutomation: false
     - alias: simple2.nils.com
       component: simple
       environment: dev
