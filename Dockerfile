@@ -13,7 +13,7 @@ COPY . .
 RUN dotnet publish -c release -o /app .
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-noble-chiseled
 # ENV DOTNET_EnableDiagnostics=0
 WORKDIR /app
 
