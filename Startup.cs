@@ -15,6 +15,7 @@ using Microsoft.Identity.Web;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace aspnet_webapp
 {
@@ -37,6 +38,13 @@ namespace aspnet_webapp
                     o.MetadataAddress="https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0/.well-known/openid-configuration";
                     o.TokenValidationParameters=new Microsoft.IdentityModel.Tokens.TokenValidationParameters{
                         NameClaimType="name"
+                    };
+                    o.Events=new JwtBearerEvents
+                    {
+                        OnMessageReceived = ctx =>
+                        {
+                            return Task.CompletedTask;
+                        }
                     };
                 });
 
