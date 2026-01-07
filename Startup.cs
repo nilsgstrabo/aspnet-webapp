@@ -43,6 +43,7 @@ namespace aspnet_webapp
                     {
                         OnMessageReceived = ctx =>
                         {
+                            Console.WriteLine("OnMessageReceived");
                             return Task.CompletedTask;
                         }
                     };
