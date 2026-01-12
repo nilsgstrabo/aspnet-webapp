@@ -28,7 +28,7 @@ spec:
       environment: dev
       useCertificateAutomation: false
     - alias: radix2test.equinor.com
-      component: simple
+      component: proxy
       environment: dev
       useCertificateAutomation: false
     - alias: simple2.nils.com
@@ -52,10 +52,10 @@ spec:
       component: simple
     - alias: nilssimple2
       environment: dev
-      component: simple
+      component: proxy
     - alias: nilssimple3
       environment: dev
-      component: simple
+      component: proxy
   build:
     secrets:
       - SECRET1
