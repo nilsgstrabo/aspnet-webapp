@@ -37,4 +37,19 @@
             <div>@config.Key : @config.Value</div>
         }
     </div>
+    <div>
+        <h4>Headers</h4>
+        <table>
+            <thead>
+                <th><td>Name</td><td>Value</td></th>
+            </thead>
+            <tbody>
+                @foreach (var header in this.Model.Headers)
+                {
+                    <tr><td>@header.Key</td><td>@header.Value</td></tr>
+                }        
+            </tbody>
+        </table>
+        
+    </div>
 </div>

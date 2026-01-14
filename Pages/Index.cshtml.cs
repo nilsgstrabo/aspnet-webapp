@@ -28,6 +28,7 @@ namespace aspnet_webapp.Pages
 
         public IEnumerable<string> Secrets;
         public IEnumerable<KeyValuePair<string,string>> Configs;
+        public IEnumerable<KeyValuePair<string,string>> Headers;
         public int ProductCount;
 
 
@@ -37,6 +38,8 @@ namespace aspnet_webapp.Pages
             {
                 Secrets = _secretClient.GetPropertiesOfSecrets().Select(s=>s.Name).ToList();
                 Configs = _configRoot.AsEnumerable().ToList();
+                Headers = this.Request.Headers.Select(v=>KeyValuePair.Create(v.Key,v.Value.ToString())).ToList();
+                
             }
             catch (System.Exception ex)
             {
