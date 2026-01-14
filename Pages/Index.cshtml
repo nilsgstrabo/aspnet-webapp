@@ -39,14 +39,14 @@
     </div>
     <div>
         <h4>Headers</h4>
-        <table>
+        <table style="width: 100%; max-width: 100%; table-layout: fixed; text-align: left;">
             <thead>
                 <tr><th>Name</th><th>Value</th></tr>
             </thead>
             <tbody>
                 @foreach (var header in this.Model.Headers)
                 {
-                    <tr><td>@header.Key</td><td>@header.Value</td></tr>
+                    <tr><td>@header.Key</td><td style="overflow-wrap: anywhere;">@header.Value</td></tr>
                 }        
             </tbody>
         </table>
