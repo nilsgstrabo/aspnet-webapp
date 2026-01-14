@@ -221,7 +221,7 @@ spec:
         OAUTH2_PROXY_SKIP_CLAIMS_FROM_PROFILE_URL: "true"
         OAUTH2_PROXY_HTTP_ADDRESS: http://:4180
         OAUTH2_PROXY_CLIENT_ID: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-        OAUTH2_PROXY_SCOPE: openid email profile offline_access
+        OAUTH2_PROXY_SCOPE: openid email profile offline_access 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6/access_as_user
         OAUTH2_PROXY_SESSION_STORE_TYPE: redis
         OAUTH2_PROXY_REDIS_CONNECTION_URL: redis://redis:6379
         OAUTH2_PROXY_OIDC_ISSUER_URL: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0
