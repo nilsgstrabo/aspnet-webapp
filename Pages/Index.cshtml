@@ -46,7 +46,7 @@
             <tbody>
                 @foreach (var header in this.Model.Headers)
                 {
-                    <tr><td>@header.Key</td><td style="overflow-wrap: anywhere; user-select: all;">@header.Value</td></tr>
+                    <tr style="vertical-align: top;"><td>@header.Key</td><td style="overflow-wrap: anywhere; user-select: all;">@header.Value</td></tr>
                 }        
             </tbody>
         </table>
