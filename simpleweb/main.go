@@ -198,11 +198,11 @@ func runServer(cmd *cobra.Command, args []string) error {
 		// host, _, _ := net.SplitHostPort(ctx.Request.RemoteAddr)
 		// fmt.Printf("Remote address : %s\n", net.ParseIP(host))
 		// fmt.Println("")
-		for k, v := range ctx.Request.Header {
-			if strings.HasPrefix(k, "X-") {
-				fmt.Printf("%q: %v\n", k, v)
-			}
-		}
+		// for k, v := range ctx.Request.Header {
+		// 	if strings.HasPrefix(k, "X-") {
+		// 		fmt.Printf("%q: %v\n", k, v)
+		// 	}
+		// }
 
 		// hostName, err := os.Hostname()
 		// if err != nil {
@@ -229,7 +229,20 @@ func runServer(cmd *cobra.Command, args []string) error {
 			sleep = v
 		}
 		time.Sleep(time.Duration(sleep) * time.Second)
-		ctx.String(200, "commit #84")
+		var sb strings.Builder
+		sb.WriteString("commit #84\n\n")
+
+		sb.WriteString("Headers:\n")
+		if len(ctx.Request.Header) == 0 {
+			sb.WriteString("(no headers)\n")
+		} else {
+			for k, v := range ctx.Request.Header {
+				sb.WriteString(k)
+				sb.WriteString(": ")
+				sb.WriteString(strings.Join(v, ", "))
+			}
+		}
+		ctx.String(200, sb.String())
 		// Sleep between 0 and 1000 ms
 
 		// ctx.Status(http.StatusOK)

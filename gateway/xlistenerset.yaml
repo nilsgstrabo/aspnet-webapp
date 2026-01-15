@@ -7,7 +7,7 @@ spec:
   parentRef:
     group: gateway.networking.k8s.io
     kind: Gateway
-    name: istio-gateway
+    name: gateway
     namespace: istio-system
   listeners:
     - name: simple.nils.com
