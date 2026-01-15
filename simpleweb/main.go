@@ -240,6 +240,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 				sb.WriteString(k)
 				sb.WriteString(": ")
 				sb.WriteString(strings.Join(v, ", "))
+				sb.WriteString("\n")
 			}
 		}
 		ctx.String(200, sb.String())
