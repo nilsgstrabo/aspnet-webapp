@@ -26,7 +26,11 @@ spec:
     - alias: simple.nils.com
       component: simple
       environment: dev
-      useCertificateAutomation: false
+      useCertificateAutomation: true
+    - alias: nilstestacme.dev.radix.equinor.com
+      component: simple
+      environment: dev
+      useCertificateAutomation: true
     - alias: radix2test.equinor.com
       component: proxy
       environment: dev
