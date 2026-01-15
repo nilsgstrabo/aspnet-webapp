@@ -6,12 +6,14 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"maps"
 	"net/http"
 	"os"
 	"os/signal"
 	"path"
 	"path/filepath"
 	"runtime"
+	"slices"
 	"strconv"
 	"strings"
 	"syscall"
@@ -236,12 +238,17 @@ func runServer(cmd *cobra.Command, args []string) error {
 		if len(ctx.Request.Header) == 0 {
 			sb.WriteString("(no headers)\n")
 		} else {
-			for k, v := range ctx.Request.Header {
-				sb.WriteString(k)
+			headerNames := slices.Collect(maps.Keys(ctx.Request.Header))
+			slices.Sort(headerNames)
+
+			for _, h := range headerNames {
+				v := ctx.Request.Header[h]
+				sb.WriteString(h)
 				sb.WriteString(": ")
 				sb.WriteString(strings.Join(v, ", "))
 				sb.WriteString("\n")
 			}
+
 		}
 		ctx.String(200, sb.String())
 		// Sleep between 0 and 1000 ms
