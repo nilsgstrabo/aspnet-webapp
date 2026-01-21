@@ -20,7 +20,7 @@ spec:
     #   mountPath: /host
     script: |
       #!/usr/bin/env sh
-      echo hello 62 $(hostname)
+      echo hello 63 $(hostname)
       printenv
       id
       # ls /host -l
