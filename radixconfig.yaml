@@ -40,11 +40,11 @@ spec:
       environment: dev
       useCertificateAutomation: false      
     - alias: my.nils.com
-      component: oauth-proxy
+      component: web
       environment: prod
       useCertificateAutomation: false
     - alias: webqa.nils.com
-      component: oauth-proxy
+      component: web
       environment: qa
       useCertificateAutomation: false
   dnsAppAlias:
@@ -129,7 +129,7 @@ spec:
       ports:
         - name: http
           port: 5005
-      # publicPort: http
+      publicPort: http
       # network:
       #   ingress:
       #     public:
