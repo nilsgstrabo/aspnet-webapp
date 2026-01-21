@@ -21,6 +21,7 @@ spec:
     script: |
       #!/usr/bin/env sh
       echo hello 62 $(hostname)
+      printenv
       id
       # ls /host -l
       # cat <<EOF > /host/tmp/pod.yaml
