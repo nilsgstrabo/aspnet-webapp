@@ -178,9 +178,9 @@ spec:
               path: /mnt/videos
               blobFuse2:
                 protocol: fuse2
-                cacheMode: Block
-                blockCache:
-                  blockSize: 16
+                cacheMode: DirectIO
+                # blockCache:
+                #   blockSize: 16
                 container: videos
                 uid: "1001"
                 accessMode: ReadWriteMany
