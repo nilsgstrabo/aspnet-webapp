@@ -134,7 +134,7 @@ spec:
           public:
             proxyBodySize: "0"
             proxyRequestBuffering: false
-            proxySendTimeout: 0
+            proxySendTimeout: 300
       #       proxyReadTimeout: 15
       #       proxySendTimeout: 15
       #       allow:
