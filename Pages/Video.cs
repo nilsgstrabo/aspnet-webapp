@@ -54,20 +54,28 @@ namespace aspnet_webapp.Pages
 
         public string UploadError { get; set; }
 
-        public async Task OnPostUploadAsync(IFormFile uploadedFile) {
-            try
+        public async Task OnPostUploadAsync() {
+             // Access the file directly from the request collection
+            var file = HttpContext.Request.Form.Files["file"];
+
+            if (file != null && file.Length > 0)
             {
-                _logger.LogInformation("starting upload");
-                await Task.CompletedTask;
-                await _videoService.UploadVideoAsync(uploadedFile.OpenReadStream(), uploadedFile.FileName);    
-                _logger.LogInformation("finished upload");
-            }
-            catch (System.Exception ex)
+                try
+                {
+                    _logger.LogInformation("starting upload");
+                    await Task.CompletedTask;
+                    await _videoService.UploadVideoAsync(file.OpenReadStream(), file.FileName);    
+                    _logger.LogInformation("finished upload");
+                }
+                catch (System.Exception ex)
+                {
+                    _logger.LogError(ex,ex.Message);
+                    UploadError=ex.Message;
+                }
+            } else
             {
-                _logger.LogError(ex,ex.Message);
-                UploadError=ex.Message;
-            }
-            
+                ViewData["Message"] = "No file selected or file is empty.";
+            }   
         }
     }
 }
