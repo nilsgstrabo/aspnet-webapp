@@ -130,10 +130,10 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      # network:
-      #   ingress:
-      #     public:
-      #       proxyBodySize: "5m"
+      network:
+        ingress:
+          public:
+            proxyBodySize: "0"
       #       proxyReadTimeout: 15
       #       proxySendTimeout: 15
       #       allow:
