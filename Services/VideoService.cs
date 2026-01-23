@@ -30,17 +30,18 @@ namespace aspnet_webapp.Services {
         public async Task UploadVideoAsync(Stream fileStream, string fileName) {
             var file= Path.Combine(_config["VIDEO_PATH"], fileName);
             
-        byte[] buffer = new byte[16384]; // Choose a suitable buffer size
+            byte[] buffer = new byte[16384]; // Choose a suitable buffer size
 
-        int bytesRead;
-        while ((bytesRead = await fileStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
-        {
-            _logger.LogInformation("read {bytesRead} bytes from stream", bytesRead);
-        }
+            int bytesRead;
+            
 
             using (var targetStream = new FileStream(file, new FileStreamOptions{Access=FileAccess.ReadWrite, Mode=FileMode.Create, BufferSize=1024*16}))
             {
-                await fileStream.CopyToAsync(targetStream);
+                while ((bytesRead = await fileStream.ReadAsync(buffer)) > 0)
+                {
+                    _logger.LogInformation("read {bytesRead} bytes from stream", bytesRead);
+                    await targetStream.WriteAsync(buffer, 0, bytesRead);
+                }
             }
         }
 
