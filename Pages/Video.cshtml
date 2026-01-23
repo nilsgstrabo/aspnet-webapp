@@ -9,9 +9,9 @@
     <input type="file" name="uploadedFile" />
     <input type="submit" value="Upload" />
 </form>
-@if(Model.UploadError?.Length>0)
+@if(Model.UploadMsg?.Length>0)
 {
-    <div>@Model.UploadError</div>
+    <div>@Model.UploadMsg</div>
 }
 <h3>Videos</h3>
 

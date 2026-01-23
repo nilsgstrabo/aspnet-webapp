@@ -52,9 +52,9 @@ namespace aspnet_webapp.Pages
         }
 
 
-        public string UploadError { get; set; }
+        public string UploadMsg { get; set; }
 
-        public async Task OnPostUploadAsync() {
+        public async Task OnPostAsync() {
              // Access the file directly from the request collection
             var file = HttpContext.Request.Form.Files["uploadedFile"];
 
@@ -66,15 +66,17 @@ namespace aspnet_webapp.Pages
                     await Task.CompletedTask;
                     await _videoService.UploadVideoAsync(file.OpenReadStream(), file.FileName);    
                     _logger.LogInformation("finished upload");
+                    UploadMsg="File uploaded successfully";
                 }
                 catch (System.Exception ex)
                 {
                     _logger.LogError(ex,ex.Message);
-                    UploadError=ex.Message;
+                    UploadMsg=ex.Message;
                 }
             } else
             {
-                _logger.LogInformation("No file selected or file is empty.");
+                UploadMsg="No file selected or file is empty";
+                _logger.LogInformation("No file selected or file is empty");
             }   
         }
     }
