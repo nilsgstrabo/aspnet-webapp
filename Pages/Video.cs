@@ -51,12 +51,10 @@ namespace aspnet_webapp.Pages
             return string.Format("{0} MB", value/1024/1024);
         }
 
-        [BindProperty]
-        public IFormFile Upload { get; set; }
 
         public string UploadError { get; set; }
 
-        public async Task OnPostUploadAsync() {
+        public async Task OnPostUploadAsync(IFormFile Upload) {
             try
             {
                 _logger.LogInformation("starting upload");
