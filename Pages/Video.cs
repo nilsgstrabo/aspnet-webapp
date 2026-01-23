@@ -54,12 +54,12 @@ namespace aspnet_webapp.Pages
 
         public string UploadError { get; set; }
 
-        public async Task OnPostUploadAsync(IFormFile Upload) {
+        public async Task OnPostUploadAsync(IFormFile uploadedFile) {
             try
             {
                 _logger.LogInformation("starting upload");
                 await Task.CompletedTask;
-                await _videoService.UploadVideoAsync(Upload.OpenReadStream(), Upload.FileName);    
+                await _videoService.UploadVideoAsync(uploadedFile.OpenReadStream(), uploadedFile.FileName);    
                 _logger.LogInformation("finished upload");
             }
             catch (System.Exception ex)

@@ -6,7 +6,7 @@
 
 <h3>Upload file</h3>
 <form method="post" asp-page-handler="Upload" enctype="multipart/form-data">
-    <input type="file" asp-for="Upload" />
+    <input type="file" name="uploadedFile" />
     <input type="submit" />
 </form>
 @if(Model.UploadError?.Length>0)
