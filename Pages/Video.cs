@@ -56,7 +56,7 @@ namespace aspnet_webapp.Pages
 
         public async Task OnPostUploadAsync() {
              // Access the file directly from the request collection
-            var file = HttpContext.Request.Form.Files["file"];
+            var file = HttpContext.Request.Form.Files["uploadedFile"];
 
             if (file != null && file.Length > 0)
             {
@@ -74,7 +74,7 @@ namespace aspnet_webapp.Pages
                 }
             } else
             {
-                ViewData["Message"] = "No file selected or file is empty.";
+                _logger.LogInformation("No file selected or file is empty.");
             }   
         }
     }
