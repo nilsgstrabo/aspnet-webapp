@@ -75,6 +75,10 @@ spec:
     docker.io:
       username: nilsgustavstrabo
   environments:
+    - name: features
+      build:
+        webhookEnabled: false
+        from: "*"
     - name: dev
       build:
         from: main
