@@ -18,8 +18,8 @@ apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
   name: oauth-demo
-  # annotations:
-    # radix.equinor.com/preview-oauth2-proxy-mode: dev,qa
+  annotations:
+   radix.equinor.com/preview-oauth2-proxy-mode: "dev,qa"
 spec:
   dnsExternalAlias:
     - alias: simple.nils.com
