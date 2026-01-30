@@ -132,7 +132,7 @@ spec:
       ports:
         - name: http
           port: 5005
-      publicPort: http
+      publicPort: httpx
       network:
         ingress:
           public:
