@@ -1,7 +1,7 @@
 
 x-redis: &redis bitnami/redis:latest
 x-default-requests: &request
-  memory: 200M
+  memory: 201M
   cpu: 60m
 x-default-limit: &limit
   cpu: 60m    
