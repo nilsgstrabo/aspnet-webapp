@@ -3,6 +3,9 @@ kind: HTTPRoute
 metadata:
   name: simple
   namespace: oauth-demo-dev
+  annotations:
+    radix.equinor.com/radix-preview-nextgen-router: "true"
+    external-dns.alpha.kubernetes.io/ttl: "60"
 spec:
   parentRefs:
     - group: gateway.networking.k8s.io
@@ -10,21 +13,24 @@ spec:
       name: gateway
       namespace: istio-system
       sectionName: https
-    - group: gateway.networking.x-k8s.io
-      kind: XListenerSet
-      name: simple-external-dns
-      namespace: oauth-demo-dev
+    # - group: gateway.networking.x-k8s.io
+    #   kind: XListenerSet
+    #   name: simple-external-dns
+    #   namespace: oauth-demo-dev
   hostnames:
     - nilssimple1.dev.radix.equinor.com
     - nilssimple2.dev.radix.equinor.com
-    # - simple-oauth-demo-dev.dev.radix.equinor.com
-    # - simple.nils.com
-    # - simple2.nils.com
   rules:
     - matches:
         - path:
             type: PathPrefix
             value: /
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            add:
+              - name: "Strict-Transport-Security"
+                value: "max-age=31536000; includeSubDomains; preload"
       backendRefs:
         - group: ""
           kind: Service
