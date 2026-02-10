@@ -75,10 +75,6 @@ spec:
     docker.io:
       username: nilsgustavstrabo
   environments:
-    - name: features
-      build:
-        webhookEnabled: false
-        from: "*"
     - name: dev
       build:
         from: main
@@ -89,25 +85,11 @@ spec:
         variables:
           VAR_A: a-override-dev
           VAR_C: c-in-dev-onlyx
-    # - name: feature
-    #   build:
-    #     from: main
-    # - name: feature2
-    #   build:
-    #     from: feature2
-    # - name: atbranch
-    #   build:
-    #     from: feature3/@test
     - name: qa
       build:
         fromType: tag
         from: v\d+\.\d+\..*
-    # - name: qa2
-    #   build:
-    #     fromType: branch
-    #     from: v\d+\.\d+\..*        
     - name: prod
-    - name: test
   components:
     - name: web
       args:
