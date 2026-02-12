@@ -75,7 +75,7 @@ spec:
     docker.io:
       username: nilsgustavstrabo
   environments:
-    - name: other
+    - name: other2
     - name: dev
       build:
         from: main
