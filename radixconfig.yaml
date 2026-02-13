@@ -184,7 +184,6 @@ spec:
           setAuthorizationHeader: true
           sessionStoreType: systemManaged
           scope: openid email profile offline_access # https://graph.microsoft.com/User.Read
-          credentials: azureWorkloadIdentity
     - name: redis
       image: *redis
       secrets:
