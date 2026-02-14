@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.2](https://github.com/nilsgstrabo/aspnet-webapp/compare/v2.1.1..v2.1.2) - 2026-01-23
+
+### 🐛 Bug Fixes
+
+- Patch extra file - ([574861c](https://github.com/nilsgstrabo/aspnet-webapp/commit/574861ccc655410e65be833ebef26f2d83bc6e77)) by @nilsgstrabo
+
+- 79 - ([29852cf](https://github.com/nilsgstrabo/aspnet-webapp/commit/29852cf9868efadb39a2748b4e504813fa05bbf8)) by @nilsgstrabo
+
+
 ## [2.1.1](https://github.com/nilsgstrabo/aspnet-webapp/compare/v2.1.0..v2.1.1) - 2025-07-17
 
 ### 🐛 Bug Fixes
