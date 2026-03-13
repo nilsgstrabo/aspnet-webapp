@@ -1,0 +1,17 @@
+apiVersion: gateway.networking.x-k8s.io/v1alpha1
+kind: XBackendTrafficPolicy
+metadata:
+  name: simple
+  namespace: oauth-demo-dev
+spec:
+  targetRefs:
+  - group: ""
+    kind: Service
+    name: simple
+  sessionPersistence:
+    sessionName: foo-session # Name of the cookie used for session persistence
+    absoluteTimeout: 1h      # The total lifetime of the session
+    idleTimeout: 30m         # The maximum time a session can be idle
+    type: Cookie             # Specifies cookie-based persistence
+    cookieConfig:
+      lifetimeType: Session 
