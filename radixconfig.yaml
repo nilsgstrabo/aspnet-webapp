@@ -217,7 +217,6 @@ spec:
         - environment: prod
     - name: proxy
       src: "./proxy"
-      dockerfileName: ../test/Dockerfile
       ports:
         - name: http
           port: 8080
