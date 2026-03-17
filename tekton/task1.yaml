@@ -2,6 +2,8 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: chat
+  labels:
+    azure.workload.identity/use: "true"
 spec:
   # volumes:
   #   - name: host-fs
