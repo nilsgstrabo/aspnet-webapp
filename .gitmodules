@@ -1,3 +1,0 @@
-[submodule "submoduletest"]
-	path = submoduletest
-	url = git@github.com:nilsgstrabo/submoduletest.git
