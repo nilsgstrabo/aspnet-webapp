@@ -184,6 +184,21 @@ spec:
           setAuthorizationHeader: true
           sessionStoreType: systemManaged
           scope: openid email profile offline_access # https://graph.microsoft.com/User.Read
+    - name: simpledotnet
+      src: /simpledotnet
+      ports:
+        - name: http
+          port: 5000
+      publicPort: http
+      variables:
+        ASPNETCORE_URLS: http://*:5005
+      resources:
+        requests:
+          cpu: 50m
+          memory: 100M
+        limits:
+          cpu: 1000m
+          memory: 300M
     - name: redis
       image: *redis
       secrets:

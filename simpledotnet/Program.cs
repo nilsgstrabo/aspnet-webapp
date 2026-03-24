@@ -1,0 +1,41 @@
+using System.Net;
+using Microsoft.AspNetCore.HttpOverrides;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+	options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+
+	// Trust Istio proxies in Radix.
+	options.KnownIPNetworks.Add(new System.Net.IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
+});
+
+var app = builder.Build();
+
+var allowedNetworks = new[]
+{
+	new System.Net.IPNetwork(IPAddress.Parse("203.0.113.10"), 32),
+	new System.Net.IPNetwork(IPAddress.Parse("143.97.110.1"), 24),
+};
+
+app.UseForwardedHeaders();
+
+app.Use(async (context, next) =>
+{
+	var remoteIp = context.Connection.RemoteIpAddress;
+	var isAllowed = remoteIp is not null && allowedNetworks.Any(network => network.Contains(remoteIp));
+
+	if (!isAllowed)
+	{
+		context.Response.StatusCode = StatusCodes.Status403Forbidden;
+		await context.Response.WriteAsync("Forbidden");
+		return;
+	}
+
+	await next();
+});
+
+app.MapGet("/", () => "Hello from ASP.NET Core");
+
+app.Run();
