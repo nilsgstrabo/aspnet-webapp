@@ -338,8 +338,6 @@ spec:
             proxyBodySize: 100m
             proxyReadTimeout: 30
             proxySendTimeout: 30
-            allow:
-              - 143.97.110.1
       # ingressConfiguration:
       #   - websocketfriendly
       environmentConfig:
