@@ -189,7 +189,7 @@ spec:
       src: /simpledotnet
       ports:
         - name: http
-          port: 5000
+          port: 5005
       publicPort: http
       variables:
         ASPNETCORE_URLS: http://*:5005
