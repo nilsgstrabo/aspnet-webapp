@@ -31,7 +31,7 @@ type dummyReader struct {
 	pos  int64
 }
 
-func (r dummyReader) Read(p []byte) (n int, err error) {
+func (r *dummyReader) Read(p []byte) (n int, err error) {
 	for i := 0; i < len(p); i++ {
 		p[i] = byte(i%29 + 65)
 		r.pos++
