@@ -11,7 +11,6 @@ import (
 	"os"
 	"os/signal"
 	"path"
-	"path/filepath"
 	"runtime"
 	"slices"
 	"strconv"
@@ -26,6 +25,23 @@ import (
 	"github.com/spf13/cobra"
 	"golang.org/x/oauth2"
 )
+
+type dummyReader struct {
+	Size int64
+	pos  int64
+}
+
+func (r dummyReader) Read(p []byte) (n int, err error) {
+	for i := 0; i < len(p); i++ {
+		p[i] = byte(i%29 + 65)
+		r.pos++
+		if r.pos > r.Size {
+			return i, io.EOF
+		}
+	}
+
+	return len(p), nil
+}
 
 type CodeRequest struct {
 	Code string `uri:"code" binding:"required"`
@@ -322,8 +338,11 @@ func runServer(cmd *cobra.Command, args []string) error {
 			ctx.JSON(400, gin.H{"msg": err.Error()})
 			return
 		}
-
-		ctx.File(filepath.Join("/mnt/videos/", filepath.Join("/", f.FileName)))
+		rdr := dummyReader{Size: 1024 * 500}
+		ctx.Writer.Header().Set("Content-Type", "application/octet-stream")
+		ctx.Writer.WriteHeader(200)
+		io.Copy(ctx.Writer, &rdr)
+		// ctx.File(filepath.Join("/mnt/videos/", filepath.Join("/", f.FileName)))
 	})
 
 	handler.GET("/:code", func(ctx *gin.Context) {
