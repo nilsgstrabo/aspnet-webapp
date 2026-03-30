@@ -17,12 +17,12 @@ jobs:
       contents: write
       pull-requests: write
       issues: write
-    uses: nilsgstrabo/learnrelease/.github/workflows/template-prepare-release-pr.yml@main
+    uses: equinor/radix-reusable-workflows/.github/workflows/template-prepare-release-pr.yml@v1.1.0
     with:
       branch: main
       generate-pre-release-pr: true
       extra-files:
-        run.sh
+        web/run.sh
       # changelog-path: CHANGELOG.md
       # cliff-config-path: cliff.toml
 
