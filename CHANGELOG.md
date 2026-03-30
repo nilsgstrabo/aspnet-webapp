@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.2](https://github.com/nilsgstrabo/aspnet-webapp/compare/v2.1.1..v2.1.2) - 2026-03-30
+
+### 🐛 Bug Fixes
+
+- *(ci)* Upgrade release actions - ([a42fe37](https://github.com/nilsgstrabo/aspnet-webapp/commit/a42fe379b1ce7e10ab43dcb42e7b3d2956910f6a)) by @nilsgstrabo
+
+- *(ci)* Manual dispatch of release workflow - ([680c4a8](https://github.com/nilsgstrabo/aspnet-webapp/commit/680c4a87a12f3832708a7cc998be665ed3087d54)) by @nilsgstrabo
+
+- *(ci)* Update permissions for unreleased PRs metadata job - ([b666a57](https://github.com/nilsgstrabo/aspnet-webapp/commit/b666a57cfbbd82667edb3b666bb8354aa8262f4f)) by @nilsgstrabo
+
+- Patch extra file - ([574861c](https://github.com/nilsgstrabo/aspnet-webapp/commit/574861ccc655410e65be833ebef26f2d83bc6e77)) by @nilsgstrabo
+
+- 79 - ([29852cf](https://github.com/nilsgstrabo/aspnet-webapp/commit/29852cf9868efadb39a2748b4e504813fa05bbf8)) by @nilsgstrabo
+
+
 ## [2.1.1](https://github.com/nilsgstrabo/aspnet-webapp/compare/v2.1.0..v2.1.1) - 2025-07-17
 
 ### 🐛 Bug Fixes
