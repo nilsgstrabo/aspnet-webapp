@@ -10,6 +10,7 @@ jobs:
     name: Get list of pending release pull requests
     permissions:
       pull-requests: read
+      contents: read
     uses: equinor/radix-reusable-workflows/.github/workflows/template-unreleased-pr-metadata.yml@v1.1.0
   release-pull-request:
     name: Release pull request
