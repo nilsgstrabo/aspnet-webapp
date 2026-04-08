@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1 # or tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  namespace: oauth-demo-app
+  generateName: chat-
+spec:
+  params:
+  - name: radix
+    value:
+      gitSSHUrl: xyz.com
+      gitCommit: sha123
+  - name: not-defined
+    value: "undefined value"
+  taskRef:
+    name: chat

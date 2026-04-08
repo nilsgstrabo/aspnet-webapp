@@ -2,8 +2,34 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: pipeline
+  namespace: oauth-demo-app
 spec:
+  # params:
+  #   - name: radix
+  #     type: object
+  #     properties:
+  #       gitSSHUrl:
+  #         type: string
+  #       gitCommit:
+  #         type: string
+  # params:
+  #   - name: sshurl
+  #     type: string
+  #     description: SSH URL
+  #   - name: commit
+  #     type: string
+  #     description: Commit
   tasks:
     - name: some-build-task
       taskRef:
         name: chat
+      # params:
+      #   - name: radix
+      #     value:
+      #       gitSSHUrl: "$(params.radix.gitSSHUrl)"
+      #       gitCommit: "$(params.radix.gitCommit)"
+      # params:
+      #   - name: radix
+      #     value:
+      #       gitSSHUrl: "$(params.sshurl)"
+      #       gitCommit: "$(params.commit)"

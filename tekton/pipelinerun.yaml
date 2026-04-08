@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1beta1 # or tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  namespace: oauth-demo-app
+  generateName: pipeline-
+spec:
+  pipelineRef:
+    name: pipeline
+  params:
+    - name: radix
+      value:
+        gitSSHUrl: aspnetsshurl
+        gitCommit: "oxfffffaaaaa"
+  # params:
+  #   - name: sshurl
+  #     value: mysshurl
+  #   - name: commit
+  #     value: mycommit
