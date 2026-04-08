@@ -26,11 +26,11 @@ spec:
       privileged: false
       allowPrivilegeEscalation: false
       runAsUser: 1000
-    env:
-      - name: GIT_SSH_URL
-        value: $(params.radix.gitSSHUrl)
-      - name: GIT_COMMIT
-        value: $(params.radix.gitCommit)
+    # env:
+    #   - name: GIT_SSH_URL
+    #     value: $(params.radix.gitSSHUrl)
+    #   - name: GIT_COMMIT
+    #     value: $(params.radix.gitCommit)
     volumeMounts:
       - name: $(radix.git-deploy-key) # <-- This volume is created by Radix and available where you mount it.
         mountPath: /.ssh
