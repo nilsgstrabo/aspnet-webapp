@@ -59,6 +59,15 @@ spec:
       echo "VAR_B: $(params.VAR_B)"
       echo "VAR_C: $(params.VAR_C)"
       echo "VAR_D: $(params.VAR_D)"
+
+      echo "pipeline-type: $(params.radix.pipeline-type)"
+      echo "environment: $(params.radix.pipeline-type)"
+      echo "git-ssh-url: $(params.radix.git-ssh-url)"
+      echo "git-ref: $(params.radix.git-ref)"
+      echo "git-ref-type: $(params.radix.git-ref-type)"
+      echo "git-commit: $(params.radix.git-commit)"
+      echo "git-tags: $(params.radix.git-tags)"
+      
       echo ""
       id
       echo ""
