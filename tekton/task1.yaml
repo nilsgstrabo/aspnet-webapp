@@ -43,8 +43,6 @@ spec:
       echo ""
       printenv
       echo ""
-      # echo "git-commit: $(params.radix.git-commit)"
-      # echo "git-ssh-url: $(params.radix.git-ssh-url)"
       echo ""
       id
       echo ""
