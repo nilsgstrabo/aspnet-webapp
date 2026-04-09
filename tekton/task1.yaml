@@ -19,6 +19,7 @@ spec:
   #       git-commit:
   #         type: string
   params:
+    - name: AZURE_CLIENT_ID
     - name: VAR_A
       default: vara_task
     - name: VAR_B
@@ -34,6 +35,9 @@ spec:
       privileged: false
       allowPrivilegeEscalation: false
       runAsUser: 1000
+    env:
+      - name: AZURE_CLIENT_ID
+        value: $(params.AZURE_CLIENT_ID)
     # env:
     #   - name: GIT_SSH_URL
     #     value: $(params.radix.git-ssh-url)
