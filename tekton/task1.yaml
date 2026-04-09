@@ -51,10 +51,10 @@ spec:
       echo ""
       printenv
       echo ""
-      echo "VAR_A: $(paras.VAR_A)"
-      echo "VAR_B: $(paras.VAR_B)"
-      echo "VAR_C: $(paras.VAR_C)"
-      echo "VAR_D: $(paras.VAR_D)"
+      echo "VAR_A: $(params.VAR_A)"
+      echo "VAR_B: $(params.VAR_B)"
+      echo "VAR_C: $(params.VAR_C)"
+      echo "VAR_D: $(params.VAR_D)"
       echo ""
       id
       echo ""

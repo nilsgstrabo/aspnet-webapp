@@ -30,13 +30,13 @@ spec:
     - name: some-build-task
       taskRef:
         name: chat
-        params:
-          - name: VAR_A
-            value: $(params.VAR_A)
-          - name: VAR_B
-            value: $(params.VAR_B)
-          - name: VAR_C
-            value: $(params.VAR_C)
+      params:
+        - name: VAR_A
+          value: $(params.VAR_A)
+        - name: VAR_B
+          value: $(params.VAR_B)
+        - name: VAR_C
+          value: $(params.VAR_C)
       # params:
       #   - name: radix
       #     value:
