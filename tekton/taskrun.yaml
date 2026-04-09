@@ -7,8 +7,8 @@ spec:
   params:
   - name: radix
     value:
-      gitSSHUrl: xyz.com
-      gitCommit: sha123
+      git-ssh-url: xyz.com
+      git-commit: sha123
   - name: not-defined
     value: "undefined value"
   taskRef:

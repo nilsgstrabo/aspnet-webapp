@@ -8,9 +8,9 @@ spec:
   #   - name: radix
   #     type: object
   #     properties:
-  #       gitSSHUrl:
+  #       git-ssh-url:
   #         type: string
-  #       gitCommit:
+  #       git-commit:
   #         type: string
   # params:
   #   - name: sshurl
@@ -26,8 +26,8 @@ spec:
       # params:
       #   - name: radix
       #     value:
-      #       gitSSHUrl: "$(params.radix.gitSSHUrl)"
-      #       gitCommit: "$(params.radix.gitCommit)"
+      #       git-ssh-url: "$(params.radix.git-ssh-url)"
+      #       git-commit: "$(params.radix.git-commit)"
       # params:
       #   - name: radix
       #     value:

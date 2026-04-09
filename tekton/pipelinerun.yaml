@@ -9,8 +9,8 @@ spec:
   params:
     - name: radix
       value:
-        gitSSHUrl: aspnetsshurl
-        gitCommit: "oxfffffaaaaa"
+        git-ssh-url: aspnetsshurl
+        git-commit: "oxfffffaaaaa"
   # params:
   #   - name: sshurl
   #     value: mysshurl
