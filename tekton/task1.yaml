@@ -18,7 +18,15 @@ spec:
   #         type: string
   #       git-commit:
   #         type: string
-
+  params:
+    - name: VAR_A
+      default: vara_task
+    - name: VAR_B
+      default: varb_task
+    - name: VAR_C
+      default: varc_task
+    - name: VAR_D
+      default: vard_task
   steps:
   - image: alpine
     name: sayhello
@@ -43,6 +51,10 @@ spec:
       echo ""
       printenv
       echo ""
+      echo "VAR_A: $(paras.VAR_A)"
+      echo "VAR_B: $(paras.VAR_B)"
+      echo "VAR_C: $(paras.VAR_C)"
+      echo "VAR_D: $(paras.VAR_D)"
       echo ""
       id
       echo ""

@@ -4,6 +4,13 @@ metadata:
   name: pipeline
   namespace: oauth-demo-app
 spec:
+  params:
+    - name: VAR_A
+      default: vara
+    - name: VAR_B
+      default: varb
+    - name: VAR_C
+      default: varc
   # params:
   #   - name: radix
   #     type: object
@@ -23,6 +30,13 @@ spec:
     - name: some-build-task
       taskRef:
         name: chat
+        params:
+          - name: VAR_A
+            value: $(params.VAR_A)
+          - name: VAR_B
+            value: $(params.VAR_B)
+          - name: VAR_C
+            value: $(params.VAR_C)
       # params:
       #   - name: radix
       #     value:
