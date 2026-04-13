@@ -11,6 +11,8 @@ spec:
       default: varb
     - name: VAR_C
       default: varc
+    - name: ALPINE_IMAGE
+      default: alpine:latest
   # params:
   #   - name: radix
   #     type: object
@@ -37,6 +39,8 @@ spec:
           value: $(params.VAR_B)
         - name: VAR_C
           value: $(params.VAR_C)
+        - name: ALPINE_IMAGE
+          value: $(params.ALPINE_IMAGE)
       # params:
       #   - name: radix
       #     value:

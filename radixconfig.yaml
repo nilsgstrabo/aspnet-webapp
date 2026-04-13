@@ -70,6 +70,7 @@ spec:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
       variables:
         VAR_A: b
+        ALPINE_IMAGE: alpine:3.23
     # useBuildCache: false
   privateImageHubs:
     docker.io:

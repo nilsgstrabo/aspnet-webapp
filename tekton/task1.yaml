@@ -28,6 +28,8 @@ spec:
       default: varc_task
     - name: VAR_D
       default: vard_task
+    - name: ALPINE_IMAGE
+      default: alpine:latest
   steps:
   - image: alpine
     name: sayhello
@@ -60,13 +62,7 @@ spec:
       echo "VAR_C: $(params.VAR_C)"
       echo "VAR_D: $(params.VAR_D)"
 
-      echo "pipeline-type: $(params.radix.pipeline-type)"
-      echo "environment: $(params.radix.pipeline-type)"
-      echo "git-ssh-url: $(params.radix.git-ssh-url)"
-      echo "git-ref: $(params.radix.git-ref)"
-      echo "git-ref-type: $(params.radix.git-ref-type)"
-      echo "git-commit: $(params.radix.git-commit)"
-      echo "git-tags: $(params.radix.git-tags)"
+
       
       echo ""
       id
@@ -88,7 +84,7 @@ spec:
       # EOF
       # chroot /host kubectl apply -f /tmp/pod.yaml --kubeconfig=/var/lib/kubelet/kubeconfig
       :
-  - image: alpine
+  - image: $(params.ALPINE_IMAGE)
     name: saygoodbye
     securityContext:
       privileged: false
@@ -99,3 +95,10 @@ spec:
       echo goodbye $(hostname)
       :
 
+# echo "pipeline-type: $(params.radix.pipeline-type)"
+# echo "environment: $(params.radix.pipeline-type)"
+# echo "git-ssh-url: $(params.radix.git-ssh-url)"
+# echo "git-ref: $(params.radix.git-ref)"
+# echo "git-ref-type: $(params.radix.git-ref-type)"
+# echo "git-commit: $(params.radix.git-commit)"
+# echo "git-tags: $(params.radix.git-tags)"
