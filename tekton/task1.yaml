@@ -30,7 +30,23 @@ spec:
       default: vard_task
     - name: ALPINE_IMAGE
       default: alpine:latest
+  volumes:
+    - name: source-volume
+      emptyDir: {}
   steps:
+  - image: alpine/git
+    volumeMounts:
+      - name: $(radix.git-deploy-key) # <-- This volume is created by Radix and available where you mount it.
+        mountPath: /.ssh
+      - name: source-volume
+        mountPath: /var/source
+    command:
+      - /bin/sh
+      - -c
+      - |
+        git clone $(params.radix.git-ssh-url) /var/source \
+        cd /var/source \
+        git checkout $(params.radix.git-commit)
   - image: alpine
     name: sayhello
     securityContext:
@@ -48,6 +64,8 @@ spec:
     volumeMounts:
       - name: $(radix.git-deploy-key) # <-- This volume is created by Radix and available where you mount it.
         mountPath: /.ssh
+      - name: source-volume
+        mountPath: /var/source
     # volumeMounts:
     # - name: host-fs
     #   mountPath: /host
@@ -74,6 +92,8 @@ spec:
       id
       echo ""
       ls -Ahl
+      echo ""
+      ls /var/source
       # ls /host -l
       # cat <<EOF > /host/tmp/pod.yaml
       # apiVersion: v1
