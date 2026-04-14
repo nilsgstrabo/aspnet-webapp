@@ -1,0 +1,45 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pipeline
+  namespace: default
+spec:
+  params:
+    - name: VAR1
+      default: var1value
+    - name: VAR2
+    - name: radix
+      type: object
+      properties:
+        git-ssh-url:
+          type: string
+        git-commit:
+          type: string
+
+  tasks:
+    - name: remote-task
+      resolver: git
+      params:
+        - name: url
+          value: 
+        - name: VAR1
+          value: $(params.VAR1)
+        - name: VAR2
+          value: $(params.VAR2)
+        - name: radix
+          value:
+            git-ssh-url: "$(params.radix.git-ssh-url)"
+            git-commit: "$(params.radix.git-commit)"
+    - name: some-build-task
+      taskRef:
+        name: chat
+      params:
+        - name: VAR1
+          value: $(params.VAR1)
+        - name: VAR2
+          value: $(params.VAR2)
+        - name: radix
+          value:
+            git-ssh-url: "$(params.radix.git-ssh-url)"
+            git-commit: "$(params.radix.git-commit)"
+

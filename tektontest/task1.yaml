@@ -1,0 +1,75 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: chat
+  namespace: default
+  labels:
+    azure.workload.identity/use: "true"
+spec:
+  params:
+    - name: VAR1
+    - name: VAR2
+    - name: VAR3
+      default: var3value
+    - name: radix
+      type: object
+      properties:
+        git-ssh-url:
+          type: string
+        git-commit:
+          type: string
+  steps:
+  - image: alpine
+    name: sayhello
+    securityContext:
+      privileged: false
+      allowPrivilegeEscalation: false
+      runAsUser: 1000
+    # volumeMounts:
+    # - name: host-fs
+    #   mountPath: /host
+    script: |
+      #!/usr/bin/env sh
+      echo hello 63 $(hostname)
+      echo ""
+      printenv
+      echo ""
+      echo "git-ssh-url: $(params.radix.git-ssh-url)"
+      echo "VAR1: $(params.VAR1)"
+      echo "VAR2: $(params.VAR2)"
+      echo "VAR3: $(params.VAR3)"
+
+
+      
+      echo ""
+      id
+      echo ""
+      ls -Ahl
+      # ls /host -l
+      # cat <<EOF > /host/tmp/pod.yaml
+      # apiVersion: v1
+      # kind: Pod
+      # metadata:
+      #   name: alpine
+      #   namespace: default
+      # spec:
+      #   containers:
+      #   - name: alpine
+      #     image: alpine
+      #     command: ["/bin/sh"]
+      #     args: ["-c", "sleep 30"]
+      # EOF
+      # chroot /host kubectl apply -f /tmp/pod.yaml --kubeconfig=/var/lib/kubelet/kubeconfig
+      :
+  - image: alpine
+    name: saygoodbye
+    securityContext:
+      privileged: false
+      allowPrivilegeEscalation: false
+      runAsUser: 1000
+    script: |
+      #!/usr/bin/env sh
+      echo goodbye $(hostname)
+      :
+
+

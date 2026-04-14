@@ -13,6 +13,7 @@ spec:
       default: varc
     - name: ALPINE_IMAGE
       default: alpine:latest
+    - name: UNDEFINED
   # params:
   #   - name: radix
   #     type: object

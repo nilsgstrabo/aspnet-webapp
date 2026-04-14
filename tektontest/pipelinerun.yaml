@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1beta1 # or tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  namespace: default
+  generateName: pipeline-
+spec:
+  pipelineRef:
+    name: pipeline
+  params:
+    - name: VAR2
+      value: var2run
+    - name: radix
+      value:
+        git-ssh-url: aspnetsshurl
+        git-commit: "oxfffffaaaaa"
+
