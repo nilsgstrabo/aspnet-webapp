@@ -21,6 +21,9 @@ spec:
   steps:
   - image: alpine
     name: sayhello
+    env:
+      - name: MULTILINE
+        value: $(params.VAR2)
     securityContext:
       privileged: false
       allowPrivilegeEscalation: false
@@ -38,6 +41,7 @@ spec:
       echo "VAR1: $(params.VAR1)"
       echo "VAR2: $(params.VAR2)"
       echo "VAR3: $(params.VAR3)"
+      echo "MULTILINE: ${MULTILINE}"
 
 
       

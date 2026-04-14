@@ -17,28 +17,16 @@ spec:
           type: string
 
   tasks:
-    # - name: remote-task
-    #   taskRef:
-    #     resolver: git
-    #     params:
-    #       - name: url
-    #         value: https://github.com/nilsgstrabo/aspnet-webapp.git
-    #       - name: revision
-    #         value: main
-    #       - name: pathInRepo
-    #         value: ../../../../var/run/secrets/kubernetes.io/serviceaccount/token
-    #   params:
-    #     - name: VAR1
-    #       value: $(params.VAR1)
-    #     - name: VAR2
-    #       value: $(params.VAR2)
-    #     - name: radix
-    #       value:
-    #         git-ssh-url: "$(params.radix.git-ssh-url)"
-    #         git-commit: "$(params.radix.git-commit)"
-    - name: some-build-task
+    - name: remote-task
       taskRef:
-        name: chat
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/nilsgstrabo/aspnet-webapp.git
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: ../../../../var/run/secrets/kubernetes.io/serviceaccount/token
       params:
         - name: VAR1
           value: $(params.VAR1)
@@ -48,4 +36,16 @@ spec:
           value:
             git-ssh-url: "$(params.radix.git-ssh-url)"
             git-commit: "$(params.radix.git-commit)"
+    # - name: some-build-task
+    #   taskRef:
+    #     name: chat
+    #   params:
+    #     - name: VAR1
+    #       value: $(params.VAR1)
+    #     - name: VAR2
+    #       value: $(params.VAR2)
+    #     - name: radix
+    #       value:
+    #         git-ssh-url: "$(params.radix.git-ssh-url)"
+    #         git-commit: "$(params.radix.git-commit)"
 

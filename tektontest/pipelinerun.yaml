@@ -8,7 +8,10 @@ spec:
     name: pipeline
   params:
     - name: VAR2
-      value: var2run
+      value: |
+        var2run line1
+        var2run line2
+        var2run line3
     - name: radix
       value:
         git-ssh-url: aspnetsshurl
