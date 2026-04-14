@@ -39,19 +39,17 @@ spec:
     securityContext:
       privileged: false
       allowPrivilegeEscalation: false
-      runAsUser: 1000
+      runAsUser: 65534
     volumeMounts:
       - name: $(radix.git-deploy-key) # <-- This volume is created by Radix and available where you mount it.
         mountPath: /.ssh
       - name: source-volume
         mountPath: /var/source
     command:
-      - /bin/sh
-      - -c
-      - |
-        git clone $(params.radix.git-ssh-url) /var/source && \
-        cd /var/source  && \
-        git checkout $(params.radix.git-commit)
+      - git
+      - clone
+      - $(params.radix.git-ssh-url)
+      - /var/source
   - image: alpine
     name: sayhello
     securityContext:
