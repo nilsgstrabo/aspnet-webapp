@@ -35,6 +35,11 @@ spec:
       emptyDir: {}
   steps:
   - image: alpine/git
+    name: clone
+    securityContext:
+      privileged: false
+      allowPrivilegeEscalation: false
+      runAsUser: 1000
     volumeMounts:
       - name: $(radix.git-deploy-key) # <-- This volume is created by Radix and available where you mount it.
         mountPath: /.ssh
