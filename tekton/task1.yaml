@@ -46,10 +46,13 @@ spec:
       - name: source-volume
         mountPath: /var/source
     command:
-      - git
-      - clone
-      - $(params.radix.git-ssh-url)
-      - /var/source
+      - bin/sh
+      - -c
+      - |
+        git clone $(params.radix.git-ssh-url) /var/source && \
+        cd /var/source  && \
+        git checkout $(params.radix.git-commit) && \
+        git status
   - image: alpine
     name: sayhello
     securityContext:
