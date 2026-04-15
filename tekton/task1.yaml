@@ -54,7 +54,8 @@ spec:
         cd /var/source/repo  && \
         ls -lhA /var/source && \
         ls -lhA && \
-        ls .git -lhA
+        ls .git -lhA && \
+        git checkout $(params.radix.git-commit)
   - image: alpine
     name: sayhello
     securityContext:
