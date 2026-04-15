@@ -46,7 +46,7 @@ spec:
       - name: source-volume
         mountPath: /var/source
     command:
-      - bin/sh
+      - /bin/sh
       - -c
       - |
         git clone $(params.radix.git-ssh-url) /var/source && \
