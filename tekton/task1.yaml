@@ -49,13 +49,14 @@ spec:
       - /bin/sh
       - -c
       - |
-        mkdir /var/source/repo
         git clone $(params.radix.git-ssh-url) /var/source/repo && \
         cd /var/source/repo  && \
         ls -lhA /var/source && \
+        ls -lhA /var && \
         ls -lhA && \
         ls .git -lhA && \
-        git checkout $(params.radix.git-commit)
+        git checkout $(params.radix.git-commit) && \
+        git status
   - image: alpine
     name: sayhello
     securityContext:
