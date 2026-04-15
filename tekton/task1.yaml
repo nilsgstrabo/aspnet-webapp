@@ -49,9 +49,10 @@ spec:
       - /bin/sh
       - -c
       - |
-        git clone $(params.radix.git-ssh-url) /var/source && \
-        cd /var/source  && \
-        ls -lhA
+        mkdir /var/source/repo
+        git clone $(params.radix.git-ssh-url) /var/source/repo && \
+        cd /var/source/repo  && \
+        ls -lhA && \
         ls .git -lhA
   - image: alpine
     name: sayhello
