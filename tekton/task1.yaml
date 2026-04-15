@@ -51,7 +51,7 @@ spec:
       - |
         git clone $(params.radix.git-ssh-url) /var/source && \
         cd /var/source  && \
-        ls -lh
+        ls -lhA
   - image: alpine
     name: sayhello
     securityContext:
