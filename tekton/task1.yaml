@@ -49,6 +49,7 @@ spec:
       - /bin/sh
       - -c
       - |
+        git config --global --add safe.directory /var/source && \
         git clone $(params.radix.git-ssh-url) /var/source && \
         cd /var/source  && \
         git checkout $(params.radix.git-commit) && \
