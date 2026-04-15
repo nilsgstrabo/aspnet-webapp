@@ -87,7 +87,7 @@ spec:
       echo "VAR_D: $(params.VAR_D)"
 
       echo "pipeline-type: $(params.radix.pipeline-type)"
-      echo "environment: $(params.radix.pipeline-type)"
+      echo "environment: $(params.radix.environment)"
       echo "git-ssh-url: $(params.radix.git-ssh-url)"
       echo "git-ref: $(params.radix.git-ref)"
       echo "git-ref-type: $(params.radix.git-ref-type)"
