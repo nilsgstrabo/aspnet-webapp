@@ -53,7 +53,8 @@ spec:
         cd /var/source/repo  && \
         git checkout $(params.radix.git-commit) && \
         git status && \
-        cat /var/source/repo/README.md
+        cat /var/source/repo/README.md && \
+        ls -lha /var/source
   - image: alpine
     name: sayhello
     securityContext:
@@ -98,7 +99,7 @@ spec:
       echo ""
       id
       echo ""
-      ls -Ahl
+      ls -ahl
       echo ""
       ls /var/source
       # ls /host -l
