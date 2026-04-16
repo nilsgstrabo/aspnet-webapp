@@ -16,6 +16,7 @@ spec:
         echo "Environment: $(params.radix.environment)"
         echo "Git ref: $(params.radix.git-ref)"
         echo "Git commit: $(params.radix.git-commit)"
+
     - name: git-clone
       image: alpine/git
       volumeMounts:
@@ -28,6 +29,7 @@ spec:
         git clone "$(params.radix.git-ssh-url)" /var/source/app
         cd /var/source/app
         git checkout "$(params.radix.git-commit)"
+
     - name: list-contents
       image: alpine
       volumeMounts:
@@ -36,6 +38,7 @@ spec:
       script: |
         #!/usr/bin/env sh
         ls -lah /var/source/app
+
   volumes:
     - name: source-volume
       emptyDir: { }
