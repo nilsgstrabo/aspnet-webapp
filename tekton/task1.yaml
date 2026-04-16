@@ -78,7 +78,7 @@ spec:
     #   mountPath: /host
     script: |
       #!/usr/bin/env sh
-      echo hello 63 $(hostname)
+      echo hello 64 $(hostname)
       echo ""
       printenv
       echo ""
