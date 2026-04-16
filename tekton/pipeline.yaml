@@ -31,3 +31,5 @@ spec:
     - name: test-github
       taskRef:
         name: test-github
+      runAfter:
+        - some-build-task
