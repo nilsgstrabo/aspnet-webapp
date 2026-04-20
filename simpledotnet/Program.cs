@@ -9,6 +9,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 
 	// Trust Istio proxies in Radix.
 	options.KnownIPNetworks.Add(new System.Net.IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
+	
 });
 
 var app = builder.Build();
@@ -19,7 +20,7 @@ var allowedNetworks = new[]
 	new System.Net.IPNetwork(IPAddress.Parse("143.97.110.1"), 24),
 };
 
-// app.UseForwardedHeaders();
+app.UseForwardedHeaders();
 
 // app.Use(async (context, next) =>
 // {
@@ -39,11 +40,14 @@ var allowedNetworks = new[]
 // app.MapGet("/", () => "Hello world");
 
 app.MapGet("/", (HttpContext context) => {
+
+	
 	return Results.Ok(new 
 	{
 		ClientIP = context.Connection.RemoteIpAddress?.ToString(),
-		Protocol = context.Request.Protocol,
-		Scheme = context.Request.Scheme,
+		context.Request.Protocol,
+		context.Request.Scheme,
+		context.Request.Host
 
 	});
 });
