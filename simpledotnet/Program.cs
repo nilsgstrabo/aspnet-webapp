@@ -21,21 +21,35 @@ var allowedNetworks = new[]
 
 // app.UseForwardedHeaders();
 
-app.Use(async (context, next) =>
-{
-	var remoteIp = context.Connection.RemoteIpAddress;
-	var isAllowed = remoteIp is not null && allowedNetworks.Any(network => network.Contains(remoteIp));
+// app.Use(async (context, next) =>
+// {
+// 	var remoteIp = context.Connection.RemoteIpAddress;
+// 	var isAllowed = remoteIp is not null && allowedNetworks.Any(network => network.Contains(remoteIp));
 
-	if (!isAllowed)
-	{
-		context.Response.StatusCode = StatusCodes.Status403Forbidden;
-		await context.Response.WriteAsync("Forbidden");
-		return;
-	}
+// 	if (!isAllowed)
+// 	{
+// 		context.Response.StatusCode = StatusCodes.Status403Forbidden;
+// 		await context.Response.WriteAsync("Forbidden");
+// 		return;
+// 	}
 
-	await next();
-});
+// 	await next();
+// });
 
 app.MapGet("/", () => "Hello from ASP.NET Core");
+
+app.MapGet("/headers", (HttpContext context) =>
+{
+	var headers = context.Request.Headers
+		.Select(header => new
+		{
+			Header = header.Key,
+			Values = header.Value.ToArray(),
+		});
+
+	return Results.Ok(headers);
+});
+
+
 
 app.Run();
