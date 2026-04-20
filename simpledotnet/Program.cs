@@ -5,10 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
-	options.ForwardedHeaders = ForwardedHeaders.XForwardedFor;// | ForwardedHeaders.XForwardedProto;
+	options.ForwardedHeaders = ForwardedHeaders.None; //ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 
 	// Trust Istio proxies in Radix.
-	options.KnownIPNetworks.Add(new System.Net.IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
+	// options.KnownIPNetworks.Add(new System.Net.IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
 });
 
 var app = builder.Build();
@@ -36,7 +36,14 @@ app.UseForwardedHeaders();
 // 	await next();
 // });
 
-app.MapGet("/", () => "Hello from ASP.NET Core");
+app.MapGet("/", (HttpContext context) => {
+	return Results.Ok(new 
+	{
+		ClientIP = context.Connection.RemoteIpAddress?.ToString(),
+		Protocol = context.Request.Protocol,
+
+	});
+});
 
 app.MapGet("/headers", (HttpContext context) =>
 {
