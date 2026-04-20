@@ -162,19 +162,6 @@ spec:
           #   ingress:
           #     public: 
           #       allow: []
-          volumeMounts:
-            - name: videos
-              path: /mnt/videos
-              blobFuse2:
-                protocol: fuse2
-                cacheMode: DirectIO
-                # blockCache:
-                #   blockSize: 16
-                container: videos
-                uid: "1001"
-                accessMode: ReadWriteMany
-                useAdls: true
-                storageAccount: radixblobtest6
           variables:
             VIDEO_PATH: "/mnt/videos"
         - environment: prod
@@ -299,34 +286,6 @@ spec:
         TMPDIR: "/tmp"
         APPENDTICK: 10s
         LOG_LEVEL: debug
-      volumeMounts:
-        - name: tmp
-          path: /mnt/tmp
-          emptyDir:
-            sizeLimit: 10G
-        - name: videos
-          path: /mnt/videos
-          blobFuse2:
-            container: videos
-            accessMode: ReadWriteMany
-            useAdls: true
-            cacheMode: Block
-            blockCache:
-              blockSize: 8
-            useAzureIdentity: true
-            storageAccount: radixblobtest6
-            resourceGroup: test-resources
-            subscriptionId: 16ede44b-1f74-40a5-b428-46cca9a5741b
-        - name: images
-          path: /mnt/images
-          blobFuse2:
-            container: images
-            accessMode: ReadWriteMany
-            useAdls: true
-            cacheMode: Block
-            blockCache:
-              blockSize: 8
-            storageAccount: radixblobtest6
       resources:
         requests:
           cpu: 10m
