@@ -36,17 +36,21 @@ app.UseForwardedHeaders();
 // 	await next();
 // });
 
+// app.MapGet("/", () => "Hello world");
+
 app.MapGet("/", (HttpContext context) => {
 	return Results.Ok(new 
 	{
 		ClientIP = context.Connection.RemoteIpAddress?.ToString(),
 		Protocol = context.Request.Protocol,
+		Scheme = context.Request.Scheme,
 
 	});
 });
 
 app.MapGet("/headers", (HttpContext context) =>
 {
+	
 	var headers = context.Request.Headers
 		.Select(header => new
 		{
