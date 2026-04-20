@@ -47,7 +47,7 @@ app.MapGet("/", (HttpContext context) => {
 		ClientIP = context.Connection.RemoteIpAddress?.ToString(),
 		context.Request.Protocol,
 		context.Request.Scheme,
-		context.Request.Host
+		context.Request.Host.Host
 
 	});
 });
