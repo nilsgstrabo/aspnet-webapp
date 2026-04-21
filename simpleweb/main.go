@@ -250,6 +250,14 @@ func runServer(cmd *cobra.Command, args []string) error {
 		var sb strings.Builder
 		sb.WriteString("commit #84\n\n")
 
+		sb.WriteString(fmt.Sprintf("Host: %s\n", ctx.Request.Host))
+		sb.WriteString(fmt.Sprintf("Proto: %s\n", ctx.Request.Proto))
+		sb.WriteString(fmt.Sprintf("RemoteAddr: %s\n", ctx.Request.RemoteAddr))
+		sb.WriteString(fmt.Sprintf("RequestURI: %s\n", ctx.Request.RequestURI))
+		sb.WriteString(fmt.Sprintf("ClientIP: %s\n", ctx.ClientIP()))
+
+		sb.WriteString("\n")
+
 		sb.WriteString("Headers:\n")
 		if len(ctx.Request.Header) == 0 {
 			sb.WriteString("(no headers)\n")
