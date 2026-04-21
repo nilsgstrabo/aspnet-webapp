@@ -20,7 +20,7 @@ var allowedNetworks = new[]
 	new System.Net.IPNetwork(IPAddress.Parse("143.97.110.1"), 24),
 };
 
-app.UseForwardedHeaders();
+// app.UseForwardedHeaders();
 
 // app.Use(async (context, next) =>
 // {
