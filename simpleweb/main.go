@@ -209,6 +209,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 	defer cancel()
 
 	handler := gin.New()
+	handler.SetTrustedProxies([]string{"10.0.0.0/8"})
 	handler.RemoveExtraSlash = true
 	handler.Use(logRequestInfo)
 	handler.GET("/", func(ctx *gin.Context) {
