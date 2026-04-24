@@ -209,6 +209,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 	defer cancel()
 
 	handler := gin.New()
+	handler.SetTrustedProxies([]string{"10.0.0.0/8"})
 	handler.RemoveExtraSlash = true
 	handler.Use(logRequestInfo)
 	handler.GET("/", func(ctx *gin.Context) {
@@ -249,6 +250,14 @@ func runServer(cmd *cobra.Command, args []string) error {
 		time.Sleep(time.Duration(sleep) * time.Second)
 		var sb strings.Builder
 		sb.WriteString("commit #84\n\n")
+
+		sb.WriteString(fmt.Sprintf("Host: %s\n", ctx.Request.Host))
+		sb.WriteString(fmt.Sprintf("Proto: %s\n", ctx.Request.Proto))
+		sb.WriteString(fmt.Sprintf("RemoteAddr: %s\n", ctx.Request.RemoteAddr))
+		sb.WriteString(fmt.Sprintf("RequestURI: %s\n", ctx.Request.RequestURI))
+		sb.WriteString(fmt.Sprintf("ClientIP: %s\n", ctx.ClientIP()))
+
+		sb.WriteString("\n")
 
 		sb.WriteString("Headers:\n")
 		if len(ctx.Request.Header) == 0 {

@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// builder.Services.Configure<ForwardedHeadersOptions>(options =>
-// {
-// 	options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+	options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
 
-// 	// Trust Istio proxies in Radix.
-// 	options.KnownIPNetworks.Add(new System.Net.IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
-// });
+	// Trust Istio proxies in Radix.
+	options.KnownIPNetworks.Add(new System.Net.IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
+	
+});
 
 var app = builder.Build();
 
@@ -36,7 +37,36 @@ var allowedNetworks = new[]
 // 	await next();
 // });
 
-app.MapGet("/", () => "Hello from ASP.NET Core");
+// app.MapGet("/", () => "Hello world");
+
+app.MapGet("/", (HttpContext context) => {
+
+	
+	return Results.Ok(new 
+	{
+		ClientIP = context.Connection.RemoteIpAddress?.ToString(),
+		context.Request.Protocol,
+		context.Request.Scheme,
+		context.Request.Host.Host,
+		Headers=context.Request.Headers.ToDictionary(kv=>kv.Key,kv=>string.Join(",", kv.Value.ToArray()))
+
+	});
+});
+
+app.MapGet("/headers", (HttpContext context) =>
+{
+	
+	var headers = context.Request.Headers
+		.Select(header => new
+		{
+			Header = header.Key,
+			Values = header.Value.ToArray(),
+		});
+
+	return Results.Ok(headers);
+});
+
+
 
 app.MapGet("/headers", (HttpContext context) =>
 {
