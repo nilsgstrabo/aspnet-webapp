@@ -20,7 +20,7 @@ var allowedNetworks = new[]
 	new System.Net.IPNetwork(IPAddress.Parse("143.97.110.1"), 24),
 };
 
-app.UseForwardedHeaders();
+// app.UseForwardedHeaders();
 
 // app.Use(async (context, next) =>
 // {
@@ -56,6 +56,20 @@ app.MapGet("/", (HttpContext context) => {
 app.MapGet("/headers", (HttpContext context) =>
 {
 	
+	var headers = context.Request.Headers
+		.Select(header => new
+		{
+			Header = header.Key,
+			Values = header.Value.ToArray(),
+		});
+
+	return Results.Ok(headers);
+});
+
+
+
+app.MapGet("/headers", (HttpContext context) =>
+{
 	var headers = context.Request.Headers
 		.Select(header => new
 		{
