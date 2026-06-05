@@ -14,8 +14,7 @@ RUN --mount=type=secret,id=NUGET_EQUINOR_SECRET export WELCOME_MSG=$(cat /run/se
     envsubst < tpl.txt > tpl2.txt && \
     cat tpl2.txt
 
-    RUN dotnet restore .
-
+RUN dotnet restore .
 
 # copy everything else and build app
 COPY . .
