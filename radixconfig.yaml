@@ -61,6 +61,7 @@ spec:
     secrets:
       - SECRET1
       - SECRET2a
+      - NUGET_EQUINOR_SECRET
     useBuildKit: true
     subPipeline:
       identity:
@@ -115,17 +116,7 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      network:
-        ingress:
-          public:
-            proxyBodySize: "0"
-            proxyRequestBuffering: false
-            proxySendTimeout: 300
-      #       proxyReadTimeout: 15
-      #       proxySendTimeout: 15
-      #       allow:
-      #         - 104.45.84.0/30
-      #         - 143.97.110.1
+
       runtime:
         architecture: arm64
       horizontalScaling:
@@ -156,6 +147,7 @@ spec:
           args: []
           identity: {}
           readOnlyFileSystem: false
+
           # network:
           #   ingress:
           #     public: 

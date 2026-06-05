@@ -8,6 +8,8 @@ WORKDIR /source
 COPY *.csproj .
 RUN dotnet restore .
 
+RUN --mount=type=secret,id=NUGET_EQUINOR_SECRET,env=FOO sh -c 'echo "Hello $FOO"'
+
 # copy everything else and build app
 COPY . .
 RUN dotnet publish -c release -o /app .
