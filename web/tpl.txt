@@ -1,0 +1,1 @@
+Hello ${WELCOME_MSG}

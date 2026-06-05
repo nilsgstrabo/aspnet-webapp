@@ -6,11 +6,12 @@ WORKDIR /source
 
 # copy csproj and restore as distinct layers
 COPY *.csproj .
+COPY tpl.txt .
 RUN dotnet restore .
 
-RUN --mount=type=secret,id=NUGET_EQUINOR_SECRET export BUILD_ARG=$(cat /run/secrets/NUGET_EQUINOR_SECRET) && \
-    #instead of `echo...|wc` - use real command with $BUILD_ARG argument
-    echo $BUILD_ARG
+RUN --mount=type=secret,id=NUGET_EQUINOR_SECRET export WELCOME_MSG=$(cat /run/secrets/NUGET_EQUINOR_SECRET) && \
+    envsubst < tpl.txt > tpl2.txt && \
+    cat tpl2.txt
 
 # copy everything else and build app
 COPY . .
