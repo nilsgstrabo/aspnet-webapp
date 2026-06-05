@@ -4,14 +4,18 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 WORKDIR /source
 
+RUN apt update && apt install gettext -y
+
 # copy csproj and restore as distinct layers
 COPY *.csproj .
 COPY tpl.txt .
-RUN dotnet restore .
 
 RUN --mount=type=secret,id=NUGET_EQUINOR_SECRET export WELCOME_MSG=$(cat /run/secrets/NUGET_EQUINOR_SECRET) && \
     envsubst < tpl.txt > tpl2.txt && \
     cat tpl2.txt
+
+    RUN dotnet restore .
+
 
 # copy everything else and build app
 COPY . .
