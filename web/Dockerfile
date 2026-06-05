@@ -8,7 +8,9 @@ WORKDIR /source
 COPY *.csproj .
 RUN dotnet restore .
 
-RUN --mount=type=secret,id=NUGET_EQUINOR_SECRET,env=FOO sh -c 'echo "Hello $FOO"'
+RUN --mount=type=secret,id=NUGET_EQUINOR_SECRET export BUILD_ARG=$(cat /run/secrets/NUGET_EQUINOR_SECRET) && \
+    #instead of `echo...|wc` - use real command with $BUILD_ARG argument
+    echo $BUILD_ARG
 
 # copy everything else and build app
 COPY . .
