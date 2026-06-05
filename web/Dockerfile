@@ -10,7 +10,8 @@ RUN apt update && apt install gettext -y
 COPY *.csproj .
 COPY tpl.txt .
 
-RUN --mount=type=secret,id=NUGET_EQUINOR_SECRET export WELCOME_MSG=$(cat /run/secrets/NUGET_EQUINOR_SECRET) && \
+RUN --mount=type=secret,id=NUGET_EQUINOR_SECRET WELCOME_MSG=$(cat /run/secrets/NUGET_EQUINOR_SECRET) && \
+    export WELCOME_MSG && \
     envsubst < tpl.txt > tpl2.txt && \
     cat tpl2.txt
 
