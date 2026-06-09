@@ -123,9 +123,12 @@ spec:
       horizontalScaling:
         maxReplicas: 2
         minReplicas: 0
+        resources:
+          cpu:
+            averageUtilization: 50
         triggers:
           - name: cpu-m
-            cpu:
+            cpu: 
               value: 60
           - name: cron-m2
             cron:
