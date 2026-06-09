@@ -133,12 +133,12 @@ spec:
               start: 0 19 * * *
               end: 0 20 * * *
               timezone: Europe/Oslo
-          - name: cpu-m2
-            cpu:
-              value: 70
           - name: memory-m
             memory:
               value: 80
+          - name: cpu-m2
+            cpu:
+              value: 70
           - name: cron-m
             cron:
               desiredReplicas: 1
