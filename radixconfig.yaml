@@ -57,6 +57,7 @@ spec:
     - alias: nilssimple3
       environment: dev
       component: proxy
+  
   build:
     secrets:
       - SECRET1
@@ -123,13 +124,13 @@ spec:
         maxReplicas: 2
         minReplicas: 0
         triggers:
-          - name: cpu
+          - name: cpu-m
             cpu:
               value: 60
-          - name: memory
+          - name: memory-m
             memory:
               value: 80
-          - name: cron
+          - name: cron-m
             cron:
               desiredReplicas: 1
               start: 0 8 * * *
