@@ -127,6 +127,12 @@ spec:
           - name: cpu-m
             cpu:
               value: 60
+          - name: cron-m2
+            cron:
+              desiredReplicas: 1
+              start: 0 19 * * *
+              end: 0 20 * * *
+              timezone: Europe/Oslo
           - name: cpu-m2
             cpu:
               value: 70
@@ -138,12 +144,6 @@ spec:
               desiredReplicas: 1
               start: 0 8 * * *
               end: 0 18 * * *
-              timezone: Europe/Oslo
-          - name: cron-m2
-            cron:
-              desiredReplicas: 1
-              start: 0 19 * * *
-              end: 0 20 * * *
               timezone: Europe/Oslo
       secretRefs:
         azureKeyVaults:
