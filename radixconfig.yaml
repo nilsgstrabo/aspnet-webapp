@@ -123,9 +123,6 @@ spec:
       horizontalScaling:
         maxReplicas: 2
         minReplicas: 0
-        resources:
-          cpu:
-            averageUtilization: 50
         triggers:
           - name: cpu-m
             cpu: 
@@ -262,21 +259,8 @@ spec:
       #     redisStore:
       #       connectionUrl: redis://redis:6379   
       horizontalScaling:
-        maxReplicas: 1
-        minReplicas: 0
-        triggers:
-          - name: cpux
-            cpu:
-              value: 60
-          - name: memoryx
-            memory:
-              value: 80
-          - name: cron
-            cron:
-              desiredReplicas: 1
-              start: 0 8 * * *
-              end: 0 18 * * *
-              timezone: Europe/Oslo
+        maxReplicas: 2
+        minReplicas: 1
       environmentConfig:
         - environment: dev
         - environment: prod
