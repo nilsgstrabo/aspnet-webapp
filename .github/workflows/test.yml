@@ -22,7 +22,7 @@ jobs:
 
         - name: install
           run: |
-            go install github.com/equinor/radix-cli/cli/rx@
+            go install github.com/equinor/radix-cli/cli/rx@239cc39a13499d3529d085ec78d41f8c426ad4cb
         - name: rx
           run: |
             rx version
