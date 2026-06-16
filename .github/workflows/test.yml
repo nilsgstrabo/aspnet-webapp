@@ -31,3 +31,4 @@ jobs:
           run: |
             rx version
             rx login --use-github-credentials --azure-client-id ${{vars.AZURE_CLIENT_ID}}
+            rx get application --context development
