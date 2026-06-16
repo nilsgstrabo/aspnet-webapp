@@ -7,6 +7,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
     env:
       CONTAINER_REGISTRY: ghcr.io
     # strategy:
@@ -20,9 +21,8 @@ jobs:
     #         image: ghcr.io/equinor/radix/operator3
     steps:
 
-        - name: install
-          run: |
-            go install github.com/equinor/radix-cli/cli/rx@239cc39a13499d3529d085ec78d41f8c426ad4cb
         - name: rx
           run: |
-            rx version
+            go install github.com/equinor/radix-cli/cli/rx@239cc39a13499d3529d085ec78d41f8c426ad4cb && \
+            rx version && \
+            rx login --use-github-credentials --azure-client-id ${{vars.AZURE_CLIENT_ID}}
