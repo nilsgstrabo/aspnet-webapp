@@ -40,8 +40,7 @@ spec:
             dns:
               - matchPattern: "*"
     - toFQDNs:
-        - matchName: login.microsoftonline.com
-        - matchName: radix-sci-az-kv-test.vault.azure.net
+        - matchPattern: "*"
       toPorts:
         - ports:
             - port: "443"

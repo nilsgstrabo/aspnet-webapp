@@ -20,15 +20,20 @@ jobs:
     #       - dockerFile: operator3.Dockerfile
     #         image: ghcr.io/equinor/radix/operator3
     steps:
-        - uses: actions/setup-go@v6
-          with:
-            go-version: '1.26.4' # The Go version to download (if necessary) and use.
-        - name: install
-          run: |
-            go install github.com/equinor/radix-cli/cli/rx@239cc39a13499d3529d085ec78d41f8c426ad4cb
-            echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-        - name: rx
-          run: |
-            rx version
-            rx login --use-github-credentials --azure-client-id ${{vars.AZURE_CLIENT_ID}}
-            rx get application --context development
+    - uses: equinor/radix-github-actions@v2
+      with:
+        azure_client_id: ${{vars.AZURE_CLIENT_ID}}
+    - run: rx get application --context development
+    # steps:
+    #     - uses: actions/setup-go@v6
+    #       with:
+    #         go-version: '1.26.4' # The Go version to download (if necessary) and use.
+    #     - name: install
+    #       run: |
+    #         go install github.com/equinor/radix-cli/cli/rx@239cc39a13499d3529d085ec78d41f8c426ad4cb
+    #         echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+    #     - name: rx
+    #       run: |
+    #         rx version
+    #         rx login --use-github-credentials --azure-client-id ${{vars.AZURE_CLIENT_ID}}
+    #         rx get application --context development
