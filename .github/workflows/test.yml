@@ -26,6 +26,7 @@ jobs:
         version: 1.38.0
     - run: rx version
     - run: rx get application --context development
+    - run: rx validate workload-identity
     # steps:
     #     - uses: actions/setup-go@v6
     #       with:
