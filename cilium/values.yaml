@@ -1,0 +1,45 @@
+# values.yaml
+#
+
+agent: false
+operator:
+  enabled: false
+cni:
+  install: false
+hubble:
+  enabled: true
+  relay:
+    enabled: false
+    tls:
+      server:
+        enabled: true
+  ui:
+    enabled: true
+    standalone:
+      enabled: true
+      # Mount the secret containing the client-side certificate for mTLS communication with Hubble Relay.
+      # This secret is already pre-created by AKS as part of the Hubble Relay installation, we just need to mount it.
+      tls:
+        certsVolume:
+          projected:
+            defaultMode: 0400
+            sources:
+              - secret:
+                  name: hubble-relay-client-certs
+                  items:
+                    - key: tls.crt
+                      path: client.crt
+                    - key: tls.key
+                      path: client.key
+                    - key: ca.crt
+                      path: hubble-relay-ca.crt
+    backend:
+      image:
+        tag: v0.12.3
+        useDigest: false
+        pullPolicy: Always
+    frontend:
+      image:
+        tag: v0.12.3
+        useDigest: false
+        pullPolicy: Always

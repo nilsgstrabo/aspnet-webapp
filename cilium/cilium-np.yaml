@@ -1,0 +1,47 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: tofqdn-dns-visibility
+  namespace: oauth-demo-dev
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+        - host
+    - fromEndpoints:
+        - {}
+    - fromEndpoints:
+        - matchLabels:
+            gateway.networking.k8s.io/gateway-name: gateway
+            io.kubernetes.pod.namespace: istio-system
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: prometheus
+            io.kubernetes.pod.namespace: rmonitoring
+  egress:
+    - toServices:
+        - k8sServiceSelector:
+            selector:
+              matchExpressions:
+                - key: radix-app
+                  operator: Exists
+                  values: []
+    - toEndpoints:
+        - {}
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+          rules:
+            dns:
+              - matchPattern: "*"
+    - toFQDNs:
+        - matchName: login.microsoftonline.com
+        - matchName: radix-sci-az-kv-test.vault.azure.net
+      toPorts:
+        - ports:
+            - port: "443"

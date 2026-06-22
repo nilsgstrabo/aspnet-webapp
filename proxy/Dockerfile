@@ -1,4 +1,4 @@
-FROM nginxinc/nginx-unprivileged:1.29-alpine3.23
+FROM nginxinc/nginx-unprivileged:1.31-alpine3.23
 
 COPY /submoduletest/index.html /usr/share/nginx/html/index.html
 
