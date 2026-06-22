@@ -38,9 +38,9 @@ spec:
               protocol: UDP
           rules:
             dns:
-              - matchPattern: "*"
+              - matchPattern: "*.equinor.com"
     - toFQDNs:
-        - matchPattern: "*"
+        - matchPattern: "*.equinor.com"
       toPorts:
         - ports:
             - port: "443"

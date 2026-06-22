@@ -23,6 +23,8 @@ jobs:
     - uses: equinor/radix-github-actions@v2
       with:
         azure_client_id: ${{vars.AZURE_CLIENT_ID}}
+        version: 1.38.0
+    - run: rx version
     - run: rx get application --context development
     # steps:
     #     - uses: actions/setup-go@v6
