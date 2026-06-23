@@ -1,4 +1,5 @@
 using System.Net;
+using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,23 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 	
 });
 
+builder.Services.AddRateLimiter(options =>
+{
+	options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+	options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+	{
+		var clientIp = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+		return RateLimitPartition.GetFixedWindowLimiter(clientIp, _ => new FixedWindowRateLimiterOptions
+		{
+			PermitLimit = 100,
+			Window = TimeSpan.FromMinutes(1),
+			QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+			QueueLimit = 0,
+		});
+	});
+});
+
 var app = builder.Build();
 
 var allowedNetworks = new[]
@@ -21,6 +39,8 @@ var allowedNetworks = new[]
 };
 
 app.UseForwardedHeaders();
+app.UseRewriter();
+
 
 app.Use(async (context, next) =>
 {
