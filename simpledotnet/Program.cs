@@ -22,20 +22,20 @@ var allowedNetworks = new[]
 
 app.UseForwardedHeaders();
 
-// app.Use(async (context, next) =>
-// {
-// 	var remoteIp = context.Connection.RemoteIpAddress;
-// 	var isAllowed = remoteIp is not null && allowedNetworks.Any(network => network.Contains(remoteIp));
+app.Use(async (context, next) =>
+{
+	var remoteIp = context.Connection.RemoteIpAddress;
+	var isAllowed = remoteIp is not null && allowedNetworks.Any(network => network.Contains(remoteIp));
 
-// 	if (!isAllowed)
-// 	{
-// 		context.Response.StatusCode = StatusCodes.Status403Forbidden;
-// 		await context.Response.WriteAsync("Forbidden");
-// 		return;
-// 	}
+	if (!isAllowed)
+	{
+		context.Response.StatusCode = StatusCodes.Status403Forbidden;
+		await context.Response.WriteAsync("Forbidden");
+		return;
+	}
 
-// 	await next();
-// });
+	await next();
+});
 
 // app.MapGet("/", () => "Hello world");
 
