@@ -39,7 +39,7 @@ var allowedNetworks = new[]
 };
 
 app.UseForwardedHeaders();
-app.UseRewriter();
+app.UseRateLimiter();
 
 
 app.Use(async (context, next) =>
