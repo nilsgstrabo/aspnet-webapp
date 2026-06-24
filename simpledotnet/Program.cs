@@ -1,20 +1,23 @@
 using System.Net;
 using System.Threading.RateLimiting;
+using System.Xml.Serialization;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
-	options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
+	options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 
-	// Trust Istio proxies in Radix.
+	// Trust the Radix gateway controller.
 	options.KnownIPNetworks.Add(new System.Net.IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
-	
+
 });
 
 builder.Services.AddRateLimiter(options =>
 {
+	
 	options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 	options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
 	{
