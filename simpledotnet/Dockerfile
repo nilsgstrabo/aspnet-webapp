@@ -13,7 +13,7 @@ COPY . .
 RUN dotnet publish -c release -o /app .
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:10.0-noble-chiseled
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-azurelinux3.0-distroless
 # ENV DOTNET_EnableDiagnostics=0
 WORKDIR /app
 
