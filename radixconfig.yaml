@@ -79,7 +79,7 @@ spec:
     - name: dev
       build:
         from: main
-        webhookEnabled: false
+        webhookEnabled: true
       subPipeline:
         identity:
           azure:
