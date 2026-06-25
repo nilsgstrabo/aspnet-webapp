@@ -145,25 +145,25 @@ spec:
               start: 0 8 * * *
               end: 0 18 * * *
               timezone: Europe/Oslo
-          # - name: my-sb
-          #   azureServiceBus:
-          #     namespace: mynamespace
-          #     queueName: myqueue
-          #     activationMessageCount: 1
-          #     authentication:
-          #       identity:
-          #         azure:
-          #           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-          # - name: my-eh
-          #   azureEventHub:
-          #     eventHubName: my-event-hub
-          #     eventHubNamespace: my-event-hub-namespace
-          #     accountName: my-storage-account
-          #     container: my-blob-container
-          #     authentication:
-          #       identity:
-          #         azure:
-          #           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+          - name: my-sb
+            azureServiceBus:
+              namespace: mynamespace
+              queueName: myqueue
+              activationMessageCount: 1
+              authentication:
+                identity:
+                  azure:
+                    clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+          - name: my-eh
+            azureEventHub:
+              eventHubName: my-event-hub
+              eventHubNamespace: my-event-hub-namespace
+              accountName: my-storage-account
+              container: my-blob-container
+              authentication:
+                identity:
+                  azure:
+                    clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
 
       secretRefs:
         azureKeyVaults:
