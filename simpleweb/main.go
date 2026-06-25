@@ -312,7 +312,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 			return
 		}
 
-		fmt.Printf("found %d files in directory\n", len(de))
+		fmt.Printf("found %d files in directory.\n", len(de))
 
 		f, err := os.Open("/mnt/videos/nils.txt")
 		if err != nil {
