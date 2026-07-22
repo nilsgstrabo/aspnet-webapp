@@ -22,7 +22,12 @@ metadata:
 spec:
   environments:
     - name: dev
+      build:
+        from: deployonly
     - name: qa
+      build:
+        from: v3.0.1
+        fromType: tag
     - name: prod
   components:
     - name: redis2
