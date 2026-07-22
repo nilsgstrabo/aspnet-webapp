@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: pipeline
-  namespace: oauth-demo-app
+  # namespace: oauth-demo-app
 spec:
   params:
     - name: VAR_A
