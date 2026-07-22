@@ -14,8 +14,11 @@ spec:
         #!/usr/bin/env sh
         echo "Pipeline type: $(params.radix.pipeline-type)"
         echo "Environment: $(params.radix.environment)"
+        echo "Git SSH URL: $(params.radix.git-ssh-url)"
         echo "Git ref: $(params.radix.git-ref)"
+        echo "Git ref type: $(params.radix.git-ref-type)"
         echo "Git commit: $(params.radix.git-commit)"
+        echo "Git tags: $(params.radix.git-tags)"
 
     - name: git-clone
       image: alpine/git
