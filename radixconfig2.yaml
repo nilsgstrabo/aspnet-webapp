@@ -20,6 +20,11 @@ kind: RadixApplication
 metadata:
   name: oauth-demo2
 spec:
+  build:
+    subPipeline:
+      identity:
+        azure:
+          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
   environments:
     - name: dev
       build:
