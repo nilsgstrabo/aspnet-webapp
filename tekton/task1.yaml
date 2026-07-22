@@ -2,7 +2,6 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: chat
-  namespace: oauth-demo-app
   labels:
     azure.workload.identity/use: "true"
 spec:
