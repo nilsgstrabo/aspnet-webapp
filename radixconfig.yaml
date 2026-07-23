@@ -89,8 +89,8 @@ spec:
           VAR_C: c-in-dev-onlyx
     - name: qa
       build:
-        fromType: branch
-        from: v*
+        fromType: tag
+        from: the-report-v*
     - name: prod
   components:
     - name: web
