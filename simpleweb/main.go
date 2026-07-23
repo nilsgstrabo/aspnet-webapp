@@ -420,7 +420,7 @@ func readBody(ctx *gin.Context) {
 			msg = err.Error()
 		}
 		if l == 0 || err != nil {
-			fmt.Println("finished reading request body")
+			fmt.Println("finished reading request body.")
 			break
 		}
 	}
