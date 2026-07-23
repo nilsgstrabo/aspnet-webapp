@@ -124,7 +124,7 @@ func readFile(cmd *cobra.Command, args []string) error {
 			return fmt.Errorf("iteration %v: failed to seek: %w", i, err)
 		}
 		if verbose {
-			fmt.Fprintf(os.Stderr, "iteration %v: offset set to %v\n", i, formatFileSize(float64(offset), 1024))
+			fmt.Fprintf(os.Stderr, " iteration %v: offset set to %v\n", i, formatFileSize(float64(offset), 1024))
 		}
 
 		var totalBytesRead int64
