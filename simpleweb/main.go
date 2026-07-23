@@ -190,7 +190,7 @@ func readFile(cmd *cobra.Command, args []string) error {
 
 func runServer(cmd *cobra.Command, args []string) error {
 
-	fmt.Printf("Running server on %s/%s\n\n", runtime.GOOS, runtime.GOARCH)
+	fmt.Printf("!!Running server on %s/%s\n\n", runtime.GOOS, runtime.GOARCH)
 
 	logLevel, err := cmd.Flags().GetString("log-level")
 	if err != nil {
