@@ -19,7 +19,7 @@ spec:
         echo "Git ref type: $(params.radix.git-ref-type)"
         echo "Git commit: $(params.radix.git-commit)"
         echo "Git tags: $(params.radix.git-tags)"
-        echo "hello world #1"
+        echo "hello world #1 from verify"
 
     - name: git-clone
       image: alpine/git
