@@ -90,10 +90,7 @@ spec:
     - name: qa
       build:
         fromType: tag
-        from: the-report-v*
-    - name: qa2
-      build:
-        from: feat*
+        from: v*
     - name: prod
   components:
     - name: web
