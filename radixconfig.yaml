@@ -91,7 +91,9 @@ spec:
       build:
         fromType: tag
         from: v*
-    - name: prod
+    - name: newenv
+      build:
+        from: main      
   components:
     - name: web
       src: /web
