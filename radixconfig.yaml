@@ -63,7 +63,6 @@ spec:
       - SECRET1
       - SECRET2a
       - NUGET_EQUINOR_SECRET
-    useBuildKit: true
     subPipeline:
       identity:
         azure:
@@ -71,7 +70,6 @@ spec:
       variables:
         VAR_A: b
         ALPINE_IMAGE: alpine:3.23
-    # useBuildCache: false
   privateImageHubs:
     docker.io:
       username: nilsgustavstrabo
@@ -178,11 +176,6 @@ spec:
           args: []
           identity: {}
           readOnlyFileSystem: false
-
-          # network:
-          #   ingress:
-          #     public: 
-          #       allow: []
           volumeMounts:
             - name: videos
               path: /mnt/videos
@@ -342,14 +335,6 @@ spec:
           memory: 100Mi
         limits:
           memory: 500Mi
-      network:
-        ingress:
-          public:
-            proxyBodySize: 100m
-            proxyReadTimeout: 30
-            proxySendTimeout: 30
-      # ingressConfiguration:
-      #   - websocketfriendly
       environmentConfig:
         - environment: dev
           horizontalScaling:
