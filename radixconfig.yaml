@@ -92,7 +92,6 @@ spec:
         fromType: tag
         from: v*
     - name: prod
-    - name: newenv
   components:
     - name: web
       src: /web
