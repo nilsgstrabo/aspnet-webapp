@@ -20,7 +20,7 @@ jobs:
     #       - dockerFile: operator3.Dockerfile
     #         image: ghcr.io/equinor/radix/operator3
     steps:
-    - uses: equinor/radix-github-actions@v2
+    - uses: equinor/radix-github-actions@bumpdependencies-260730
       with:
         azure_client_id: ${{vars.AZURE_CLIENT_ID}}
     - run: rx version
