@@ -17,7 +17,7 @@ jobs:
       contents: write
       pull-requests: write
       issues: write
-    uses: equinor/radix-reusable-workflows/.github/workflows/template-prepare-release-pr.yml@v1.1.0
+    uses: equinor/radix-reusable-workflows/.github/workflows/template-prepare-release-pr.yml@draft-release
     with:
       branch: main
       generate-pre-release-pr: true
