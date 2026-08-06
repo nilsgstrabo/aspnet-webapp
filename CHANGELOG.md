@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.4](https://github.com/nilsgstrabo/aspnet-webapp/compare/the-report-v0.0.5..v3.0.4) - 2026-08-06
+
+### 🐛 Bug Fixes
+
+- Test draft - ([87c6abc](https://github.com/nilsgstrabo/aspnet-webapp/commit/87c6abca4b3e2dd340fe15356ceee6f440075e4f)) by @nilsgstrabo
+
+
 ## [2.1.2](https://github.com/nilsgstrabo/aspnet-webapp/compare/v2.1.1..v2.1.2) - 2026-03-30
 
 ### 🐛 Bug Fixes

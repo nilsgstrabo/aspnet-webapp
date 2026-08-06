@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version=2.1.2 # x-patch-semver
+version=3.0.4 # x-patch-semver
 
 declare -i x=0
 echo "checking if directory /mnt/videos has files"
