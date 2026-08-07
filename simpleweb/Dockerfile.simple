@@ -6,6 +6,7 @@ FROM golang:1.26.5-alpine3.24 AS builder
 
 # ARG TARGETPLATFORM
 # ARG BUILDPLATFORM
+ARG VERSION=unknown
 
 WORKDIR /build
 
@@ -26,7 +27,7 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 go build  -installsuffix cgo -ldflags="-s -w" -o /api .
+RUN CGO_ENABLED=0 go build  -installsuffix cgo -ldflags="-s -w -X main.version=${VERSION}" -o /api .
 
 # RUN useradd -M --uid 1000 radix-log-api
 

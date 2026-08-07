@@ -12,6 +12,7 @@ import (
 	"os/signal"
 	"path"
 	"runtime"
+	"runtime/debug"
 	"slices"
 	"strconv"
 	"strings"
@@ -51,6 +52,8 @@ type FileRequest struct {
 	FileName string `uri:"filename" binding:"required"`
 }
 
+var version = "unknown"
+
 var rootCmd = &cobra.Command{
 	RunE: runServer,
 }
@@ -76,7 +79,31 @@ func init() {
 }
 
 func main() {
+	fmt.Printf("Version: %s\n", buildVersion())
 	rootCmd.Execute()
+}
+
+func buildVersion() string {
+	if version != "" && version != "unknown" {
+		return version
+	}
+
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return version
+	}
+
+	if info.Main.Version != "" && info.Main.Version != "(devel)" {
+		return info.Main.Version
+	}
+
+	for _, setting := range info.Settings {
+		if setting.Key == "vcs.revision" && setting.Value != "" {
+			return setting.Value
+		}
+	}
+
+	return version
 }
 
 func readFile(cmd *cobra.Command, args []string) error {
