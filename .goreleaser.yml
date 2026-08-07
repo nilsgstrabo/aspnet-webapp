@@ -20,7 +20,7 @@ builds:
       -  "-s -w -X 'main.version={{ .Version }}'"
 
 dockers_v2:
-  - dockerfile: Dockerfile
+  - dockerfile: Dockerfile.simple
     images:
       - ghcr.io/nilsgstrabo/simpleweb
     tags:
