@@ -5,8 +5,8 @@ version: 2
 builds:
   - id: simpleweb
     binary: simpleweb
-    main: ./simpleweb
-
+    main: .
+    dir: ./simpleweb
     env:
       - CGO_ENABLED=0
     goos:
@@ -17,7 +17,7 @@ builds:
       - amd64
       - arm64
     ldflags:
-      -  "-s -w -X 'github.com/nilsgstrabo/aspnet-webapp/simpleweb/main.version={{ .Version }}'"
+      -  "-s -w -X 'main.version={{ .Version }}'"
 
 dockers_v2:
   - dockerfile: Dockerfile
