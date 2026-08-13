@@ -44,6 +44,10 @@ spec:
       component: web
       environment: qa
       useCertificateAutomation: false
+    - alias: webqa2.nils.com
+      component: web
+      environment: qa
+      useCertificateAutomation: false      
   dnsAppAlias:
     component: simple
     environment: dev
