@@ -31,7 +31,7 @@ spec:
         from: deployonly
     - name: qa
       build:
-        from: v3.0.1
+        from: v*
         fromType: tag
     - name: prod
   components:
