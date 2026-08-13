@@ -27,12 +27,12 @@ spec:
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
   environments:
     - name: dev
-      build:
-        from: deployonly
+      # build:
+      #   from: deployonly
     - name: qa
-      build:
-        from: v*
-        fromType: tag
+      # build:
+      #   from: v*
+      #   fromType: tag
     - name: prod
   components:
     - name: web
