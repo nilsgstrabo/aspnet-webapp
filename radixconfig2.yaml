@@ -20,6 +20,11 @@ kind: RadixApplication
 metadata:
   name: oauth-demo2
 spec:
+  dnsExternalAlias:
+    - alias: oauth-demo2.simple.com
+      component: web
+      environment: dev
+      useCertificateAutomation: false
   build:
     subPipeline:
       identity:
