@@ -1,5 +1,5 @@
 
-x-redis: &redis bitnami/redis:latest
+x-redis: &redis docker.io/library/redis:8.8.1-alpine3.23
 x-default-requests: &request
   memory: 201M
   cpu: 60m
@@ -202,7 +202,9 @@ spec:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
           setXAuthRequestHeaders: true
           setAuthorizationHeader: true
-          sessionStoreType: systemManaged
+          sessionStoreType: redis
+          redisStore:
+            connectionUrl: redis://redis:6379   
           credentials: azureWorkloadIdentity
           scope: openid email profile offline_access # https://graph.microsoft.com/User.Read
     - name: simpledotnet
@@ -229,28 +231,44 @@ spec:
           port: 6379
       resources:
         requests:
-          memory: 51M
-          cpu: 51m
-      runtime:
-        architecture: arm64
-      horizontalScaling:
-        maxReplicas: 1
-        minReplicas: 0
-        triggers:
-          - name: cpux
-            cpu:
-              value: 60
-          - name: memoryx
-            memory:
-              value: 80
-          - name: cron
-            cron:
-              desiredReplicas: 1
-              start: 0 8 * * *
-              end: 0 18 * * *
-              timezone: Europe/Oslo
-      environmentConfig:
-        - environment: prod
+          memory: 1G
+          cpu: 50m
+        limits:
+          memory: 1G
+          cpu: 1000m
+      args:
+        - redis-server
+        - --save ""
+        - --appendonly no
+        - --maxmemory 850mb
+        - --maxmemory-policy allkeys-lru
+        - --lazyfree-lazy-eviction yes
+        - --timeout 300
+        - --tcp-keepalive 60
+        - --requirepass $(REDIS_PASSWORD)
+      runAsUser: 999
+
+      # volumeMounts:
+      #   - name: data
+      #     path: /data
+      #     emptyDir:
+      #       sizeLimit: 1Gi
+      # horizontalScaling:
+      #   maxReplicas: 1
+      #   minReplicas: 0
+      #   triggers:
+      #     - name: cpu
+      #       cpu:
+      #         value: 60
+      #     - name: memory
+      #       memory:
+      #         value: 80
+      #     - name: cron
+      #       cron:
+      #         desiredReplicas: 1
+      #         start: 0 8 * * *
+      #         end: 0 18 * * *
+      #         timezone: Europe/Oslo
     - name: proxy
       src: "."
       dockerfileName: proxy/Dockerfile
