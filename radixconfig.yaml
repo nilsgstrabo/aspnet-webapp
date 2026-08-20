@@ -1,5 +1,5 @@
 
-x-redis: &redis docker.io/library/redis:8.8.1-alpine3.23
+# x-redis: &redis docker.io/library/redis:8.8.1-alpine3.23
 x-default-requests: &request
   memory: 201M
   cpu: 60m
@@ -223,7 +223,17 @@ spec:
           cpu: 1000m
           memory: 300M
     - name: redis
-      image: *redis
+      image: docker.io/library/redis:8.8.1-alpine3.23
+      args:
+        - redis-server
+        - --save ""
+        - --appendonly no
+        - --maxmemory 850mb
+        - --maxmemory-policy allkeys-lru
+        - --lazyfree-lazy-eviction yes
+        - --timeout 300
+        - --tcp-keepalive 60
+        - --requirepass $(REDIS_PASSWORD)
       secrets:
         - REDIS_PASSWORD
       ports:
@@ -236,16 +246,6 @@ spec:
         limits:
           memory: 1G
           cpu: 1000m
-      args:
-        - redis-server
-        - --save ""
-        - --appendonly no
-        - --maxmemory 850mb
-        - --maxmemory-policy allkeys-lru
-        - --lazyfree-lazy-eviction yes
-        - --timeout 300
-        - --tcp-keepalive 60
-        - --requirepass $(REDIS_PASSWORD)
       runAsUser: 999
       readOnlyFileSystem: true
       # volumeMounts:
