@@ -1,44 +1,10 @@
 # yaml-language-server: $schema=file:///home/nst/go/src/github.com/equinor/radix-operator/json-schema/radixapplication.json
-
-x-redis: &redis bitnami/redis:latest
-x-default-requests: &request
-  memory: 200M
-  cpu: 60m
-x-default-limit: &limit
-  cpu: 60m    
-x-resources: &resources
-  requests: *request
-  limits: *limit
-x-volumeMounts: &volumemounts
-  - name: tmp
-    path: /tmp
-    emptyDir:
-      sizeLimit: 200M
-
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
   name: oauth-demo2
 spec:
-  dnsExternalAlias:
-    - alias: oauth-demo2.simple.com
-      component: web
-      environment: dev
-      useCertificateAutomation: false
-  build:
-    subPipeline:
-      identity:
-        azure:
-          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
-  environments:
-    - name: dev
-      build:
-        from: deployonly
-    - name: qa
-      build:
-        from: v*
-        fromType: tag
-    - name: prod
+  environments: []
   components:
     - name: web
       image: nginxinc/nginx-unprivileged:1.31.3-alpine3.24
@@ -46,11 +12,4 @@ spec:
         - name: http
           port: 8080
       publicPort: http
-    - name: redis2
-      image: bitnami/redis:{imageTagName}
-      imageTagName: "latest"
-      secrets:
-        - REDIS_PASSWORD
-      environmentConfig:
-        - environment: qa
-          imageTagName: "8.0"
+
