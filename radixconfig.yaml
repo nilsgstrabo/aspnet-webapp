@@ -247,7 +247,7 @@ spec:
         - --tcp-keepalive 60
         - --requirepass $(REDIS_PASSWORD)
       runAsUser: 999
-
+      readOnlyFileSystem: true
       # volumeMounts:
       #   - name: data
       #     path: /data
