@@ -231,7 +231,7 @@ spec:
         - --maxmemory 850mb
         - --maxmemory-policy allkeys-lru
         - --lazyfree-lazy-eviction yes
-        - --timeout 300
+        - --timeout 0
         - --tcp-keepalive 60
         - --requirepass $(REDIS_PASSWORD)
       secrets:
