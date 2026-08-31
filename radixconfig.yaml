@@ -175,6 +175,10 @@ spec:
                 envVar: SECRET1
             name: radix-sci-az-kv-test
             useAzureIdentity: true
+          - items:
+              - name: secret2
+                envVar: SECRET2
+            name: radix-app-secrets2
       environmentConfig:
         - environment: dev
           args: []
