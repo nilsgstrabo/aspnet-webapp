@@ -180,19 +180,6 @@ spec:
           args: []
           identity: {}
           readOnlyFileSystem: false
-          volumeMounts:
-            - name: videos
-              path: /mnt/videos
-              blobFuse2:
-                protocol: fuse2
-                cacheMode: DirectIO
-                # blockCache:
-                #   blockSize: 16
-                container: videos
-                uid: "1001"
-                accessMode: ReadWriteMany
-                useAdls: true
-                storageAccount: radixblobtest6
           variables:
             VIDEO_PATH: "/mnt/videos"
         - environment: prod
@@ -248,27 +235,6 @@ spec:
           cpu: 1000m
       runAsUser: 999
       readOnlyFileSystem: true
-      # volumeMounts:
-      #   - name: data
-      #     path: /data
-      #     emptyDir:
-      #       sizeLimit: 1Gi
-      # horizontalScaling:
-      #   maxReplicas: 1
-      #   minReplicas: 0
-      #   triggers:
-      #     - name: cpu
-      #       cpu:
-      #         value: 60
-      #     - name: memory
-      #       memory:
-      #         value: 80
-      #     - name: cron
-      #       cron:
-      #         desiredReplicas: 1
-      #         start: 0 8 * * *
-      #         end: 0 18 * * *
-      #         timezone: Europe/Oslo
     - name: proxy
       src: "."
       dockerfileName: proxy/Dockerfile
@@ -328,29 +294,6 @@ spec:
           path: /mnt/tmp
           emptyDir:
             sizeLimit: 10G
-        - name: videos
-          path: /mnt/videos
-          blobFuse2:
-            container: videos
-            accessMode: ReadWriteMany
-            useAdls: true
-            cacheMode: Block
-            blockCache:
-              blockSize: 8
-            useAzureIdentity: true
-            storageAccount: radixblobtest6
-            resourceGroup: test-resources
-            subscriptionId: 16ede44b-1f74-40a5-b428-46cca9a5741b
-        - name: images
-          path: /mnt/images
-          blobFuse2:
-            container: images
-            accessMode: ReadWriteMany
-            useAdls: true
-            cacheMode: Block
-            blockCache:
-              blockSize: 8
-            storageAccount: radixblobtest6
       resources:
         requests:
           cpu: 10m
