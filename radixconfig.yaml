@@ -325,7 +325,7 @@ spec:
                 cpu:
                   value: 50
           runtime:
-            architecture: arm64
+            architecture: amd64
     
 
           
