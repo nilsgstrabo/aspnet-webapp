@@ -268,7 +268,7 @@ spec:
         - environment: dev
         - environment: prod
     - name: simple
-      image: docker.io/nilsgustavstrabo/simpleweb:latest:latest
+      image: docker.io/nilsgustavstrabo/simpleweb:latest
       # dockerfileName: Dockerfile.simple
       # src: /simpleweb
       args:
