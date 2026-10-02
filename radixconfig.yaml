@@ -67,6 +67,8 @@ spec:
         VAR_A: b
         ALPINE_IMAGE: alpine:3.23
   privateImageHubs:
+    radixdev.azurecr.io:
+      username: kyverno-test
     docker.io:
       username: nilsgustavstrabo
   environments:
