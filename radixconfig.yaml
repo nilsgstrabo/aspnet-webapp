@@ -130,8 +130,20 @@ spec:
           - items:
               - name: secret1
                 envVar: SECRET1
+                type: secret
+              - name: mycert
+                envVar: MYCERT
+                type: cert
+              - name: mykey
+                envVar: MYKEY
+                type: key
             name: radix-sci-az-kv-test
             useAzureIdentity: true
+          - name: my-new-azure-keyvault
+            items:
+              - name: secret2
+                envVar: SECRET2
+                type: secret
       environmentConfig:
         - environment: dev
           args: []
