@@ -137,9 +137,9 @@ spec:
               - name: mykey
                 envVar: MYKEY
                 type: key
-            name: radix-sci-az-kv-test
+            name: nils-test-1
             useAzureIdentity: true
-          - name: my-new-azure-keyvault
+          - name: nils-test-2
             items:
               - name: secret2
                 envVar: SECRET2
