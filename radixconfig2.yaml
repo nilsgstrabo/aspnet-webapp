@@ -29,7 +29,7 @@ spec:
     subPipeline:
       identity:
         azure:
-          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
+          clientId: 1fc8e4d3-a3a2-46df-92dd-86bb729a8701
   environments:
     - name: dev
       build:

@@ -60,9 +60,6 @@ spec:
       - SECRET2a
       - NUGET_EQUINOR_SECRET
     subPipeline:
-      identity:
-        azure:
-          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
       variables:
         VAR_A: b
         ALPINE_IMAGE: alpine:3.23
@@ -105,7 +102,7 @@ spec:
       # image: docker.io/nilsgustavstrabo/oauth-demo-dev-web:cksjc
       identity:
         azure:
-          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
+          clientId: 1fc8e4d3-a3a2-46df-92dd-86bb729a8701
       variables:
         STREAM_BUFFER_SIZE: "1048576"
         ASPNETCORE_URLS: http://*:5005
@@ -246,7 +243,7 @@ spec:
       readOnlyFileSystem: true
       identity:
         azure:
-          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49 #id-radix-fed-test
+          clientId: 1fc8e4d3-a3a2-46df-92dd-86bb729a8701
       variables:
         TIMEOUT: 10h
         TMPDIR: "/tmp"
