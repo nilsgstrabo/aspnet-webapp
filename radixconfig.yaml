@@ -106,7 +106,7 @@ spec:
       variables:
         STREAM_BUFFER_SIZE: "1048576"
         ASPNETCORE_URLS: http://*:5005
-        KEY_VAULT_URL: https://radix-sci-az-kv-test.vault.azure.net/
+        KEY_VAULT_URL: https://nils-test-1.vault.azure.net/
         SQL_SERVER_NAME: "radix-test-server-delete-me.database.windows.net"
         SQL_DATABASE_NAME: "radix-test-database-delete-me"
         MEGA_FILE_SIZE: "1001"
