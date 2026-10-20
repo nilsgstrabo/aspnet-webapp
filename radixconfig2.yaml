@@ -1,56 +1,46 @@
-# yaml-language-server: $schema=file:///home/nst/go/src/github.com/equinor/radix-operator/json-schema/radixapplication.json
-
-x-redis: &redis bitnami/redis:latest
-x-default-requests: &request
-  memory: 200M
-  cpu: 60m
-x-default-limit: &limit
-  cpu: 60m    
-x-resources: &resources
-  requests: *request
-  limits: *limit
-x-volumeMounts: &volumemounts
-  - name: tmp
-    path: /tmp
-    emptyDir:
-      sizeLimit: 200M
-
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
   name: oauth-demo2
 spec:
-  dnsExternalAlias:
-    - alias: oauth-demo2.simple.com
-      component: web
-      environment: dev
-      useCertificateAutomation: false
-  build:
-    subPipeline:
-      identity:
-        azure:
-          clientId: 1fc8e4d3-a3a2-46df-92dd-86bb729a8701
   environments:
     - name: dev
-      build:
-        from: deployonly
-    - name: qa
-      build:
-        from: v*
-        fromType: tag
     - name: prod
   components:
     - name: web
-      image: nginxinc/nginx-unprivileged:1.31.3-alpine3.24
+      image: nginxinc/nginx-unprivileged:{imageTagName}
       ports:
         - name: http
           port: 8080
       publicPort: http
-    - name: redis2
-      image: bitnami/redis:{imageTagName}
-      imageTagName: "latest"
+    - name: redis
+      image: docker.io/library/redis:{imageTagName}
+      args:
+        - redis-server
+        - --save ""
+        - --appendonly no
+        - --maxmemory 850mb
+        - --maxmemory-policy allkeys-lru
+        - --lazyfree-lazy-eviction yes
+        - --timeout 0
+        - --tcp-keepalive 60
+        - --requirepass $(REDIS_PASSWORD)
       secrets:
         - REDIS_PASSWORD
+      ports:
+        - name: redis
+          port: 6379
+      resources:
+        requests:
+          memory: 1G
+          cpu: 50m
+        limits:
+          memory: 1G
+          cpu: 1000m
+      runAsUser: 999
+      readOnlyFileSystem: true
       environmentConfig:
-        - environment: qa
-          imageTagName: "8.0"
+        - environment: dev
+          imageTagName: "latest"
+        - environment: prod
+          imageTagName: "8.8.1-alpine3.23"
