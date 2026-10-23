@@ -28,6 +28,8 @@ spec:
       component: simple
       environment: dev
       useCertificateAutomation: true
+      certificateAutomation:
+        issuer: letsencrypt
     - alias: radix2test.equinor.com
       component: proxy
       environment: dev
