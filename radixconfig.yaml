@@ -131,7 +131,7 @@ spec:
                 envVar: SECRET1
                 type: secret
               - name: secret2
-                envVar: SECRET2
+                envVar: SECRETX
                 type: secret
               - name: mycert
                 envVar: MYCERT
