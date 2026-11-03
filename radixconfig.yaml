@@ -126,18 +126,18 @@ spec:
         architecture: arm64
       secretRefs:
         azureKeyVaults:
-          # - items:
-          #     - name: secret1
-          #       envVar: SECRET1
-          #       type: secret
-          #     - name: mycert
-          #       envVar: MYCERT
-          #       type: cert
-          #     - name: mykey
-          #       envVar: MYKEY
-          #       type: key
-          #   name: nils-test-1
-          #   useAzureIdentity: true
+          - items:
+              - name: secret1
+                envVar: SECRET1
+                type: secret
+              - name: mycert
+                envVar: MYCERT
+                type: cert
+              - name: mykey
+                envVar: MYKEY
+                type: key
+            name: nils-test-1
+            useAzureIdentity: true
           - name: nils-test-3
             items:
               - name: secret2
