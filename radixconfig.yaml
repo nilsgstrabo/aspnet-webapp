@@ -130,6 +130,9 @@ spec:
               - name: secret1
                 envVar: SECRET1
                 type: secret
+              - name: secret2
+                envVar: SECRET2
+                type: secret
               - name: mycert
                 envVar: MYCERT
                 type: cert
