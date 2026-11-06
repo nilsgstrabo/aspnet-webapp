@@ -130,9 +130,6 @@ spec:
               - name: secret1
                 envVar: SECRET1
                 type: secret
-              - name: secret2
-                envVar: SECRETX
-                type: secret
               - name: mycert
                 envVar: MYCERT
                 type: cert
@@ -141,11 +138,6 @@ spec:
                 type: key
             name: nils-test-1
             useAzureIdentity: true
-          - name: nils-test-3
-            items:
-              - name: secret2
-                envVar: SECRET2
-                type: secret
       environmentConfig:
         - environment: dev
           args: []
