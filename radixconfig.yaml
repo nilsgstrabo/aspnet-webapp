@@ -95,10 +95,6 @@ spec:
     #     webhookEnabled: false
     #     from: "*"
     #     fromType: branch
-  jobs:
-    - name: test
-      image: radixdev.azurecr.io/awt-app-dev-backend:test1
-      schedulerPort: 8080
   components:
     - name: web
       src: /web
