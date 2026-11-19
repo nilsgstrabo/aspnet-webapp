@@ -70,31 +70,7 @@ spec:
       username: kyverno-test
     docker.io:
       username: nilsgustavstrabo
-  environments:
-    - name: dev
-      build:
-        from: main
-      subPipeline:
-        identity:
-          azure:
-            clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-        variables:
-          VAR_A: a-override-dev
-          VAR_C: c-in-dev-onlyx
-    # - name: qa
-    #   build:
-    #     fromType: tag
-    #     from: v*
-    # - name: qa2
-    #   build:
-    #     fromType: tag
-    #     from: v*        
-    - name: prod
-    # - name: test
-    #   build:
-    #     webhookEnabled: false
-    #     from: "*"
-    #     fromType: branch
+
   components:
     - name: web
       src: /web
