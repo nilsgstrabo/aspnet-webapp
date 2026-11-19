@@ -27,8 +27,6 @@ import (
 	"golang.org/x/oauth2"
 )
 
-dfdfdsf
-
 type dummyReader struct {
 	Size int64
 	pos  int64
