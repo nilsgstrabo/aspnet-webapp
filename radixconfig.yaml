@@ -125,7 +125,7 @@ spec:
       publicPort: http
       volumeMounts:
         - name: videos
-          path: /videos
+          path: /mnt/videos
           blobFuse2:
             container: files
             storageAccount: rihagtemp1
