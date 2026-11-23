@@ -123,6 +123,13 @@ spec:
         - name: http
           port: 5005
       publicPort: http
+      secretRefs:
+        azureKeyVaults:
+          - items:
+              - name: secret5
+                envVar: SECRET5
+            name: nils-test-1
+            useAzureIdentity: true
       volumeMounts:
         - name: videos
           path: /mnt/videos
