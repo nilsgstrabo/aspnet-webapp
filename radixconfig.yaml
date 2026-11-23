@@ -1,4 +1,6 @@
 
+# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/release/json-schema/radixapplication.json
+
 # x-redis: &redis docker.io/library/redis:8.8.1-alpine3.23
 x-default-requests: &request
   memory: 201M
@@ -121,33 +123,35 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      volumemounts:
+      volumeMounts:
         - name: videos
-          path: /path/in/container/to/mount/to
+          path: /videos
           blobFuse2:
-            protocol: fuse2
-            container: videos
+            container: files
+            storageAccount: rihagtemp1
+            useAzureIdentity: true
+
       runtime:
         architecture: arm64
-      secretRefs:
-        azureKeyVaults:
-          - items:
-              - name: secret1
-                envVar: SECRET1
-                type: secret
-              - name: mycert
-                envVar: MYCERT
-                type: cert
-              - name: mykey
-                envVar: MYKEY
-                type: key
-            name: nils-test-1
-            useAzureIdentity: true
-          - items:
-              - name: secret2
-                envVar: SECRET2
-                type: secret
-            name: nils-test-2
+      # secretRefs:
+      #   azureKeyVaults:
+      #     - items:
+      #         - name: secret1
+      #           envVar: SECRET1
+      #           type: secret
+      #         - name: mycert
+      #           envVar: MYCERT
+      #           type: cert
+      #         - name: mykey
+      #           envVar: MYKEY
+      #           type: key
+      #       name: nils-test-1
+      #       useAzureIdentity: true
+      #     - items:
+      #         - name: secret2
+      #           envVar: SECRET2
+      #           type: secret
+      #       name: nils-test-2
       environmentConfig:
         - environment: dev
           args: []
