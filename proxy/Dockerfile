@@ -1,4 +1,4 @@
-FROM nginxinc/nginx-unprivileged:1.31-alpine3.23
+FROM docker.io/nginx/nginx-unprivileged:1.31-alpine3.24
 
 COPY /submoduletest/index.html /usr/share/nginx/html/index.html
 
