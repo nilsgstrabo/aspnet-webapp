@@ -102,7 +102,7 @@ spec:
       src: /web
       args:
         - --log-level=debug
-      dockerfilename: /Dockerfile
+      dockerfilename: /Dockerfilex
       # image: docker.io/nilsgustavstrabo/oauth-demo-dev-web:cksjc
       identity:
         azure:
