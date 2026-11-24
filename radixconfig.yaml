@@ -102,7 +102,7 @@ spec:
       src: /web
       args:
         - --log-level=debug
-      dockerfilename: Dockerfile
+      dockerfilename: ../dockerfiles/Dockerfile.web
       # image: docker.io/nilsgustavstrabo/oauth-demo-dev-web:cksjc
       identity:
         azure:
@@ -186,6 +186,7 @@ spec:
           scope: openid email profile offline_access # https://graph.microsoft.com/User.Read
     - name: simpledotnet
       src: /simpledotnet
+      dockerfileName: /foo/../dockerfiles/Dockerfile.simpledotnet
       ports:
         - name: http
           port: 5005
@@ -227,7 +228,7 @@ spec:
       readOnlyFileSystem: true
     - name: proxy
       src: proxy
-      dockerfileName: /dockerfiles/Dockerfile
+      dockerfileName: /dockerfiles/Dockerfile.proxy
       ports:
         - name: http
           port: 8080
@@ -255,7 +256,7 @@ spec:
         - environment: dev
         - environment: prod
     - name: simple
-      dockerfileName: Dockerfile.simple
+      dockerfileName: /dockerfiles/Dockerfile.simple
       src: /simpleweb
       args:
         - --log-level=$(LOG_LEVEL)
