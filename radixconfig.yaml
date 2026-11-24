@@ -226,7 +226,7 @@ spec:
       runAsUser: 999
       readOnlyFileSystem: true
     - name: proxy
-      src: proxy
+      src: "."
       dockerfileName: /proxy/Dockerfile
       ports:
         - name: http
