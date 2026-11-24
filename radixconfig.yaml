@@ -272,6 +272,8 @@ spec:
         TMPDIR: "/tmp"
         APPENDTICK: 10s
         LOG_LEVEL: debug
+      secrets:
+        - APPLICATIONINSIGHTS_CONNECTION_STRING
       volumeMounts:
         - name: tmp
           path: /mnt/tmp

@@ -235,11 +235,14 @@ func runServer(cmd *cobra.Command, args []string) error {
 	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer cancel()
 
+	telemetry, flushTelemetry := initTelemetry(logLevel == "debug")
+	defer flushTelemetry()
+
 	handler := gin.New()
 	handler.SetTrustedProxies([]string{"10.0.0.0/8"})
 	handler.RemoveExtraSlash = true
 	handler.Use(logRequestInfo)
-	handler.GET("/", func(ctx *gin.Context) {
+	handler.GET("/", telemetry, func(ctx *gin.Context) {
 		// fmt.Println("")
 		// host, _, _ := net.SplitHostPort(ctx.Request.RemoteAddr)
 		// fmt.Printf("Remote address : %s\n", net.ParseIP(host))
@@ -368,7 +371,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 		// ctx.String(200, string(b))
 	})
 
-	handler.GET("/files/:filename", func(ctx *gin.Context) {
+	handler.GET("/files/:filename", telemetry, func(ctx *gin.Context) {
 		var f FileRequest
 		if err := ctx.ShouldBindUri(&f); err != nil {
 			ctx.JSON(400, gin.H{"msg": err.Error()})
@@ -381,7 +384,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 		// ctx.File(filepath.Join("/mnt/videos/", filepath.Join("/", f.FileName)))
 	})
 
-	handler.GET("/:code", func(ctx *gin.Context) {
+	handler.GET("/:code", telemetry, func(ctx *gin.Context) {
 		var c CodeRequest
 		if err := ctx.ShouldBindUri(&c); err != nil {
 			ctx.JSON(400, gin.H{"msg": err.Error()})
@@ -396,7 +399,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 	})
 
 	handler.GET("/log", initLogHandler())
-	handler.POST("/data", readBody)
+	handler.POST("/data", telemetry, readBody)
 
 	go func() {
 		if err := http.ListenAndServe(":9001", handler); err != nil {
