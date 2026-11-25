@@ -241,10 +241,10 @@ spec:
       volumeMounts: *volumemounts
       resources:
         requests:
-          cpu: 51m
+          cpu: 50m
           memory: 100Mi
         limits:
-          cpu: 51m
+          cpu: 50m
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
