@@ -20,6 +20,8 @@ apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
   name: oauth-demo
+  annotations:
+    easyauth.radix.equinor.com: "" # This protects all public components
 spec:
   dnsExternalAlias:
     - alias: simple.nils.com
