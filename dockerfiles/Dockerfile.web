@@ -12,8 +12,8 @@ COPY tpl.txt .
 
 RUN --mount=type=secret,id=NUGET_EQUINOR_SECRET WELCOME_MSG=$(cat /run/secrets/NUGET_EQUINOR_SECRET) && \
     export WELCOME_MSG && \
-    envsubst < tpl.txt > tpl2.txt && \
-    cat tpl2.txt
+    envsubst < tpl.txt > tpl3.txt && \
+    cat tpl3.txt
 
 RUN dotnet restore .
 
