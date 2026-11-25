@@ -242,7 +242,7 @@ spec:
           cpu: 51m
           memory: 100Mi
         limits:
-          cpu: 50m
+          cpu: 51m
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
