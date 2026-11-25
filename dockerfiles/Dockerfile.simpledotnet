@@ -10,18 +10,18 @@ RUN dotnet restore .
 
 # copy everything else and build app
 COPY . .
-RUN dotnet publish -c release -o /app .
+RUN dotnet publish -c release -o /app2 .
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:10.0-azurelinux3.0-distroless
 # ENV DOTNET_EnableDiagnostics=0
-WORKDIR /app
+WORKDIR /app2
 
 # RUN	apt-get update && apt-get -y install curl
 # RUN	curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 # RUN az --version
 
-COPY --from=build /app ./
+COPY --from=build /app2 ./
 
 # Add a new user "radix-non-root-user" with user id 1001
 # RUN adduser -D --uid 1001 radix-non-root-user

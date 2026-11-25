@@ -418,7 +418,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 
 	// go slowlyWriteToFile(ctx.Done())
 
-	fmt.Println("waiting")
+	fmt.Println("waiting...")
 	<-ctx.Done()
 	fmt.Println("done waiting")
 	return nil
