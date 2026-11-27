@@ -9,7 +9,7 @@ spec:
 
   steps:
     - name: print-context
-      image: alpine
+      image: alpinelatest
       script: |
         #!/usr/bin/env sh
         echo "Pipeline type: $(params.radix.pipeline-type)"
